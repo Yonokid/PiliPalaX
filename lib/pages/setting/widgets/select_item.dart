@@ -99,7 +99,7 @@ class _SetSelectItemState extends State<SetSelectItem> {
       dense: false,
       title: Text(widget.title!),
       subtitle: Text(
-        '当前${widget.title!} $currentVal',
+        'Current: ${widget.title!} $currentVal',
         style: subTitleStyle,
       ),
       trailing: PopupMenuButton(

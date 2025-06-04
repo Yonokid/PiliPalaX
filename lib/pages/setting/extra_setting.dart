@@ -59,7 +59,7 @@ class _ExtraSettingState extends State<ExtraSetting> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('设置代理'),
+          title: const Text('Proxy Settings'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -69,7 +69,7 @@ class _ExtraSettingState extends State<ExtraSetting> {
                   isDense: true,
                   labelText: defaultSystemProxyHost != ''
                       ? defaultSystemProxyHost
-                      : '请输入Host，使用 . 分割',
+                      : 'Please enter the Host IP, separated by .',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(6.0),
                   ),
@@ -86,7 +86,7 @@ class _ExtraSettingState extends State<ExtraSetting> {
                   isDense: true,
                   labelText: defaultSystemProxyPort != ''
                       ? defaultSystemProxyPort
-                      : '请输入Port',
+                      : 'Please Enter Port',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(6.0),
                   ),
@@ -104,7 +104,7 @@ class _ExtraSettingState extends State<ExtraSetting> {
                 Get.back();
               },
               child: Text(
-                '取消',
+                'Cancel',
                 style: TextStyle(color: Theme.of(context).colorScheme.outline),
               ),
             ),
@@ -115,7 +115,7 @@ class _ExtraSettingState extends State<ExtraSetting> {
                 Get.back();
                 // Request.dio;
               },
-              child: const Text('确认'),
+              child: const Text('Confirm'),
             )
           ],
         );
@@ -135,7 +135,7 @@ class _ExtraSettingState extends State<ExtraSetting> {
         centerTitle: false,
         titleSpacing: 0,
         title: Text(
-          '其它设置',
+          'Other',
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
@@ -146,8 +146,8 @@ class _ExtraSettingState extends State<ExtraSetting> {
               enableFeedback: true,
               onTap: () => settingController.onOpenFeedBack(),
               leading: const Icon(Icons.vibration_outlined),
-              title: Text('震动反馈', style: titleStyle),
-              subtitle: Text('请确定手机设置中已开启震动反馈', style: subTitleStyle),
+              title: Text('Vibration', style: titleStyle),
+              subtitle: Text('Please make sure vibration feedback is turned on in your phone settings', style: subTitleStyle),
               trailing: Transform.scale(
                 alignment: Alignment.centerRight,
                 scale: 0.8,
@@ -166,15 +166,15 @@ class _ExtraSettingState extends State<ExtraSetting> {
             ),
           ),
           const SetSwitchItem(
-            title: '大家都在搜',
-            subTitle: '是否展示「大家都在搜」',
+            title: 'Show Search Recommendations',
+            subTitle: 'Enable/Disable Search Recommendations',
             leading: Icon(Icons.data_thresholding_outlined),
             setKey: SettingBoxKey.enableHotKey,
             defaultVal: true,
           ),
           SetSwitchItem(
-            title: '搜索默认词',
-            subTitle: '是否展示搜索框默认词',
+            title: 'Show Default Search',
+            subTitle: 'Enable/Disable Default Search in search bar',
             leading: const Icon(Icons.whatshot_outlined),
             setKey: SettingBoxKey.enableSearchWord,
             defaultVal: true,
@@ -183,53 +183,53 @@ class _ExtraSettingState extends State<ExtraSetting> {
             },
           ),
           const SetSwitchItem(
-            title: '快速收藏',
-            subTitle: '点按收藏至默认，长按选择文件夹',
+            title: 'Bookmarks',
+            subTitle: 'Tap to save to default, long press to select folder',
             leading: Icon(Icons.bookmark_add_outlined),
             setKey: SettingBoxKey.enableQuickFav,
             defaultVal: false,
           ),
           const SetSwitchItem(
-            title: '评论区搜索关键词',
-            subTitle: '展示评论区搜索关键词',
+            title: 'Search keywords in Comments',
+            subTitle: 'Display search keywords in the comments',
             leading: Icon(Icons.search_outlined),
             setKey: SettingBoxKey.enableWordRe,
             defaultVal: false,
           ),
           const SetSwitchItem(
-            title: '启用ai总结',
-            subTitle: '视频详情页开启ai总结',
+            title: 'Enable AI Summary',
+            subTitle: 'Enable AI summary on video details page',
             leading: Icon(Icons.engineering_outlined),
             setKey: SettingBoxKey.enableAi,
             defaultVal: true,
           ),
           const SetSwitchItem(
-            title: '消息页禁用“收到的赞”功能',
-            subTitle: '禁止打开入口，降低网络社交依赖',
+            title: 'Disable the "Likes Received" feature on the Messages page',
+            subTitle: 'Prohibit opening of entrances to reduce dependence on online social networking',
             leading: Icon(Icons.beach_access_outlined),
             setKey: SettingBoxKey.disableLikeMsg,
             defaultVal: false,
           ),
           const SetSwitchItem(
-            title: '默认展示评论区',
-            subTitle: '在视频详情页默认切换至评论区页（仅tab型布局）',
+            title: 'Display Comments',
+            subTitle: 'Switch to the comment area page by default on the video details page (tab layout only)',
             leading: Icon(Icons.mode_comment_outlined),
             setKey: SettingBoxKey.defaultShowComment,
             defaultVal: false,
           ),
           SetSwitchItem(
-            title: '默认展开简介',
-            subTitle: '在视频详情页默认展开简介',
+            title: 'Default Introduction Expansion',
+            subTitle: 'Expand the introduction by default on the video details page',
             leading: Icon(MdiIcons.arrowExpandDown),
             setKey: SettingBoxKey.defaultExpandIntroduction,
             defaultVal: false,
           ),
           ListTile(
             dense: false,
-            title: Text('评论展示', style: titleStyle),
+            title: Text('Comments Display', style: titleStyle),
             leading: const Icon(Icons.whatshot_outlined),
             subtitle: Text(
-              '当前优先展示「${ReplySortType.values[defaultReplySort].titles}」',
+              'Current Display: 「${ReplySortType.values[defaultReplySort].titles}」',
               style: subTitleStyle,
             ),
             onTap: () async {
@@ -237,7 +237,7 @@ class _ExtraSettingState extends State<ExtraSetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<int>(
-                      title: '评论展示',
+                      title: 'Comments Display',
                       value: defaultReplySort,
                       values: ReplySortType.values.map((e) {
                         return {'title': e.titles, 'value': e.index};
@@ -253,10 +253,10 @@ class _ExtraSettingState extends State<ExtraSetting> {
           ),
           ListTile(
             dense: false,
-            title: Text('动态展示', style: titleStyle),
+            title: Text('Dynamic Display', style: titleStyle),
             leading: const Icon(Icons.dynamic_feed_outlined),
             subtitle: Text(
-              '当前优先展示「${DynamicsType.values[defaultDynamicType].labels}」',
+              'Current Display: 「${DynamicsType.values[defaultDynamicType].labels}」',
               style: subTitleStyle,
             ),
             onTap: () async {
@@ -264,7 +264,7 @@ class _ExtraSettingState extends State<ExtraSetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<int>(
-                      title: '动态展示',
+                      title: 'Dynamic Display',
                       value: defaultDynamicType,
                       values: DynamicsType.values.sublist(0, 4).map((e) {
                         return {'title': e.labels, 'value': e.index};
@@ -282,8 +282,8 @@ class _ExtraSettingState extends State<ExtraSetting> {
             enableFeedback: true,
             onTap: () => twoFADialog(),
             leading: const Icon(Icons.airplane_ticket_outlined),
-            title: Text('设置代理', style: titleStyle),
-            subtitle: Text('设置代理 host:port', style: subTitleStyle),
+            title: Text('Proxy Settings', style: titleStyle),
+            subtitle: Text('Proxy as host:port', style: subTitleStyle),
             trailing: Transform.scale(
               alignment: Alignment.centerRight,
               scale: 0.8,
@@ -308,15 +308,15 @@ class _ExtraSettingState extends State<ExtraSetting> {
             ),
           ),
           const SetSwitchItem(
-            title: '自动清除缓存',
-            subTitle: '每次启动时清除缓存',
+            title: 'Auto Clear Cache',
+            subTitle: 'Clear cache on startup',
             leading: Icon(Icons.auto_delete_outlined),
             setKey: SettingBoxKey.autoClearCache,
             defaultVal: false,
           ),
           SetSwitchItem(
-            title: '检查更新',
-            subTitle: '每次启动时检查是否需要更新',
+            title: 'Check for Updates',
+            subTitle: 'Check for updates on startup',
             leading: const Icon(Icons.system_update_alt_outlined),
             setKey: SettingBoxKey.autoUpdate,
             defaultVal: false,

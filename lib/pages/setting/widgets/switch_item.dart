@@ -46,7 +46,7 @@ class _SetSwitchItemState extends State<SetSwitchItem> {
       widget.callFn!.call(val);
     }
     if (widget.needReboot == true) {
-      SmartDialog.showToast('重启生效');
+      SmartDialog.showToast('Restart to take effect');
     }
     setState(() {});
   }

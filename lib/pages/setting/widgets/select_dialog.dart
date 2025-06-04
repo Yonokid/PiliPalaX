@@ -55,13 +55,13 @@ class _SelectDialogState<T> extends State<SelectDialog<T>> {
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(
-            '取消',
+            'Cancel',
             style: TextStyle(color: Theme.of(context).colorScheme.outline),
           ),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context, _tempValue),
-          child: const Text('确定'),
+          child: const Text('Confirm'),
         )
       ],
     );

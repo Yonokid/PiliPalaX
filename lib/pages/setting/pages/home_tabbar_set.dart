@@ -44,7 +44,7 @@ class _TabbarSetPageState extends State<TabbarSetPage> {
         .map<String>((i) => (i['type'] as TabType).id)
         .toList();
     settingStorage.put(SettingBoxKey.tabbarSort, sortedTabbar);
-    SmartDialog.showToast('保存成功，下次启动时生效');
+    SmartDialog.showToast('Saved Successfully, will take effect on restart');
   }
 
   void onReorder(int oldIndex, int newIndex) {
@@ -81,9 +81,9 @@ class _TabbarSetPageState extends State<TabbarSetPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tabbar编辑'),
+        title: const Text('Tabbar Edit'),
         actions: [
-          TextButton(onPressed: () => saveEdit(), child: const Text('保存')),
+          TextButton(onPressed: () => saveEdit(), child: const Text('Save')),
           const SizedBox(width: 12)
         ],
       ),
@@ -93,7 +93,7 @@ class _TabbarSetPageState extends State<TabbarSetPage> {
         footer: SizedBox(
           height: MediaQuery.of(context).padding.bottom + 30,
           child: const Align(
-              alignment: Alignment.centerRight, child: Text('*长按拖动排序        ')),
+              alignment: Alignment.centerRight, child: Text('*Long press and drag to sort        ')),
         ),
         children: listTiles,
       ),

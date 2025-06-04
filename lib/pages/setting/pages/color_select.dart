@@ -45,7 +45,7 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const Text('设置应用主题'),
+        title: const Text('Select Color Theme'),
       ),
       body: ListView(
         children: [
@@ -81,7 +81,7 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<ThemeType>(
-                      title: '主题模式',
+                      title: 'Theme Mode',
                       value: settingController.themeType.value,
                       values: ThemeType.values.map((e) {
                         return {'title': e.description, 'value': e};
@@ -100,14 +100,14 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
               alignment: Alignment.center,
               child: const Icon(Icons.flashlight_on_outlined),
             ),
-            title: Text('主题模式', style: titleStyle),
+            title: Text('Theme Mode', style: titleStyle),
             subtitle: Obx(() =>
-                Text('当前模式：${settingController.themeType.value.description}')),
+                Text('Current Mode: ${settingController.themeType.value.description}')),
           ),
           Builder(
             builder: (context) => ListTile(
               title: Row(children: [
-                Text('色彩风格', style: titleStyle),
+                Text('Color Style', style: titleStyle),
                 const Spacer(),
                 PopupMenuButton(
                   initialValue: _dynamicSchemeVariant,
@@ -170,7 +170,7 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
           Obx(
             () => RadioListTile(
               value: 0,
-              title: Text('动态取色', style: titleStyle),
+              title: Text('Dynamic Color Picking', style: titleStyle),
               groupValue: ctr.type.value,
               onChanged: (dynamic val) async {
                 ctr.type.value = 0;
@@ -182,7 +182,7 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
           Obx(
             () => RadioListTile(
               value: 1,
-              title: Text('指定颜色', style: titleStyle),
+              title: Text('Specify Color', style: titleStyle),
               groupValue: ctr.type.value,
               onChanged: (dynamic val) async {
                 ctr.type.value = 1;
@@ -259,7 +259,7 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
           const SizedBox(height: 20),
           // 展示 ColorScheme 的颜色
           ListTile(
-            title: Center(child: Text('${colorScheme.toStringShort()} 可用颜色表')),
+            title: Center(child: Text('${colorScheme.toStringShort()} Available Color Table')),
             subtitle: Padding(
               padding: const EdgeInsets.only(top: 12),
               child: GridView.extent(

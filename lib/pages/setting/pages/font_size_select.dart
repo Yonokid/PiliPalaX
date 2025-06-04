@@ -47,7 +47,7 @@ class _FontSizeSelectPageState extends State<FontSizeSelectPage> {
           Expanded(
             child: Center(
               child: Text(
-                '当前字体大小:${currentSize == 1.0 ? '默认' : currentSize}',
+                'Current Font Size: ${currentSize == 1.0 ? 'Default' : currentSize}',
                 style: TextStyle(fontSize: 14 * currentSize),
               ),
             ),
@@ -71,7 +71,7 @@ class _FontSizeSelectPageState extends State<FontSizeSelectPage> {
             ),
             child: Row(
               children: [
-                const Text('小'),
+                const Text('Small'),
                 Expanded(
                   child: Slider(
                     min: minSize,
@@ -87,7 +87,7 @@ class _FontSizeSelectPageState extends State<FontSizeSelectPage> {
                 ),
                 const SizedBox(width: 5),
                 const Text(
-                  '大',
+                  'Large',
                   style: TextStyle(fontSize: 20),
                 ),
               ],

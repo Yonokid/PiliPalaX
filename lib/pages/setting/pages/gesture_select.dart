@@ -52,10 +52,10 @@ class _GestureSelectPageState extends State<GestureSelectPage> {
     if (action == PlayerGestureAction.toggleFullScreen) {
       if (gesture == PlayerMiddleGesture.nonFullScreenUp ||
           gesture == PlayerMiddleGesture.nonFullScreenDown) {
-        return '进入全屏';
+        return 'Enter Fullscreen';
       } else if (gesture == PlayerMiddleGesture.fullScreenUp ||
           gesture == PlayerMiddleGesture.fullScreenDown) {
-        return '退出全屏';
+        return 'Exit Fullscreen';
       }
     }
     return action.description;
@@ -73,7 +73,7 @@ class _GestureSelectPageState extends State<GestureSelectPage> {
       appBar: AppBar(
         centerTitle: false,
         title: Text(
-          '播放器中部手势设置',
+          'Vertical Gesture Settings',
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),

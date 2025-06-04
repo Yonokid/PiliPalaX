@@ -65,7 +65,7 @@ class _SetDisplayModeState extends State<SetDisplayMode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('屏幕帧率设置')),
+      appBar: AppBar(title: const Text('Refresh Rate Settings')),
       body: SafeArea(
         top: false,
         child: Column(
@@ -75,7 +75,7 @@ class _SetDisplayModeState extends State<SetDisplayMode> {
             Padding(
               padding: const EdgeInsets.only(left: 25, top: 10, bottom: 5),
               child: Text(
-                '没有生效？重启app试试\n（只能向操作系统提出建议，也不一定会生效）',
+                "Didn't work? Try restarting the app.\n (This is just a suggestion and may not work)",
                 style: TextStyle(color: Theme.of(context).colorScheme.outline),
               ),
             ),
@@ -87,8 +87,8 @@ class _SetDisplayModeState extends State<SetDisplayMode> {
                   return RadioListTile<DisplayMode>(
                     value: mode,
                     title: mode == DisplayMode.auto
-                        ? const Text('自动')
-                        : Text('$mode${mode == active ? "  [系统]" : ""}'),
+                        ? const Text('Auto')
+                        : Text('$mode${mode == active ? "  [System]" : ""}'),
                     groupValue: preferred,
                     onChanged: (DisplayMode? newMode) async {
                       await FlutterDisplayMode.setPreferredMode(newMode!);

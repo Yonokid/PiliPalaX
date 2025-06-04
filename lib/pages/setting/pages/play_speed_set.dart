@@ -25,7 +25,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
   List<Map<dynamic, dynamic>> sheetMenu = [
     {
       'id': 1,
-      'title': '设置为默认倍速',
+      'title': 'Set to default speed',
       'leading': const Icon(
         Icons.speed,
         size: 21,
@@ -34,7 +34,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
     },
     {
       'id': 2,
-      'title': '设置为默认长按倍速',
+      'title': 'Set as default long press speed',
       'leading': const Icon(
         Icons.speed_sharp,
         size: 21,
@@ -43,7 +43,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
     },
     {
       'id': -1,
-      'title': '删除该项',
+      'title': 'Delete this item',
       'leading': const Icon(
         Icons.delete_outline,
         size: 21,
@@ -87,7 +87,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('添加倍速'),
+          title: const Text('Add Speed'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -96,7 +96,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
               TextField(
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: '自定义倍速',
+                  labelText: 'Custom Speed',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(6.0),
                   ),
@@ -110,7 +110,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
           actions: [
             TextButton(
               onPressed: () => Get.back(),
-              child: const Text('取消'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () async {
@@ -121,7 +121,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
                 setState(() {});
                 Get.back();
               },
-              child: const Text('确认添加'),
+              child: const Text('Confirm Add'),
             )
           ],
         );
@@ -169,7 +169,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
   void menuAction(type, index, id) async {
     double chooseSpeed = 1.0;
     if (type == 'system' && id == -1) {
-      SmartDialog.showToast('系统预设倍速不支持删除');
+      SmartDialog.showToast('Cannot Delete Default System Speed');
       return;
     }
     // 获取当前选中的倍速值
@@ -203,7 +203,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
     }
     PlPlayerController.updateSettingsIfExist();
     setState(() {});
-    SmartDialog.showToast('操作成功');
+    SmartDialog.showToast('Operation Success');
   }
 
   @override
@@ -215,7 +215,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
         titleSpacing: 0,
         centerTitle: false,
         title: Text(
-          '倍速设置',
+          'Speed Setting',
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
@@ -225,13 +225,13 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
           children: [
             ListTile(
               dense: false,
-              title: Text('当前默认倍速',
+              title: Text('Current Default Speed',
                   style: Theme.of(context).textTheme.titleMedium),
               subtitle: Text(playSpeedDefault.toString()),
             ),
             SetSwitchItem(
-              title: '动态长按倍速',
-              subTitle: '根据默认倍速长按时自动双倍',
+              title: 'Dynamic Long Press Speed',
+              subTitle: 'Automatically double the speed when long pressing according to the default speed',
               setKey: SettingBoxKey.enableAutoLongPressSpeed,
               defaultVal: enableAutoLongPressSpeed,
               callFn: (val) {
@@ -247,14 +247,14 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
             !enableAutoLongPressSpeed
                 ? ListTile(
                     dense: false,
-                    title: Text('默认长按倍速',
+                    title: Text('Default Long Press Speed',
                         style: Theme.of(context).textTheme.titleMedium),
                     subtitle: Text(longPressSpeedDefault.toString()),
                   )
                 : const SizedBox(),
             SetSwitchItem(
-              title: '长按倍速递增',
-              subTitle: '每长按半秒，倍速*1.15，最大8倍速',
+              title: 'Long Press to Increase Speed',
+              subTitle: 'Every half second of long press, the speed is x1.15, the maximum speed is 8 times',
               setKey: SettingBoxKey.enableLongPressSpeedIncrease,
               defaultVal: false,
               callFn: (_) {
@@ -265,7 +265,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
               padding:
                   const EdgeInsets.only(left: 14, right: 14, top: 6, bottom: 0),
               child: Text(
-                '点击下方按钮设置默认倍速、默认长按倍速',
+                'Click the button below to set the default speed and default long press speed',
                 style: TextStyle(color: Theme.of(context).colorScheme.outline),
               ),
             ),
@@ -277,7 +277,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
                 top: 20,
               ),
               child: Text(
-                '系统预设倍速',
+                'System Default Speed',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
@@ -309,13 +309,13 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
                 child: Row(
                   children: [
                     Text(
-                      '自定义倍速',
+                      'Custom Speed',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const SizedBox(width: 12),
                     TextButton(
                       onPressed: () => onAddSpeed(),
-                      child: const Text('添加'),
+                      child: const Text('Add'),
                     )
                   ],
                 )),
@@ -343,7 +343,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
                       height: 80,
                       child: Center(
                         child: Text(
-                          '未添加',
+                          'Not Added',
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.outline),
                         ),
@@ -352,7 +352,7 @@ class _PlaySpeedPageState extends State<PlaySpeedPage> {
             ),
             ListTile(
               subtitle: Text(
-                '注：由于播放器性能限制，4k、8k视频以大于2倍速播放，可能会出现卡顿、音画不同步等问题，请酌情选择。',
+                'Note: Due to player performance limitations, 4k and 8k videos played at a speed greater than 2x may cause freezes, audio and video desync, etc. Please choose accordingly.',
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.outline,
                 ),
