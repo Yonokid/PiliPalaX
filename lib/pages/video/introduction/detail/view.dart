@@ -419,7 +419,7 @@ class _VideoInfoState extends State<VideoInfo> with TickerProviderStateMixin {
                             if (videoIntroController.isShowOnlineTotal)
                               Obx(
                                 () => Text(
-                                  '${videoIntroController.total.value}人在看',
+                                  '${videoIntroController.total.value} Concurrent Viewers',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: t.colorScheme.outline,
@@ -499,8 +499,8 @@ class _VideoInfoState extends State<VideoInfo> with TickerProviderStateMixin {
         ),
         child: Text(
           ((videoIntroController.followStatus['attribute'] ?? 0) != 0)
-              ? '已关注'
-              : '关注',
+              ? 'Followed'
+              : 'Follow',
           style: TextStyle(fontSize: t.textTheme.labelMedium!.fontSize),
         ),
       ),

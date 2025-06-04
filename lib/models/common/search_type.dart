@@ -42,5 +42,5 @@ enum ArchiveFilterType {
 
 extension ArchiveFilterTypeExtension on ArchiveFilterType {
   String get description =>
-      ['默认排序', '播放多', '新发布', '弹幕多', '收藏多', '评论多', '最多喜欢'][index];
+      ['Default', 'Most Viewed', 'New', 'Most Danmaku', 'Most Saved', 'Most COmments', 'Most Liked'][index];
 }

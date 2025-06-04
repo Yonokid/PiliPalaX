@@ -187,7 +187,7 @@ class _VideoReplyPanelState extends State<VideoReplyPanel>
                                   scale: animation, child: child);
                             },
                             child: Text(
-                              '共${_videoReplyController.count.value}条回复',
+                              '${_videoReplyController.count.value} Total Comments',
                               key: ValueKey<int>(
                                   _videoReplyController.count.value),
                             ),

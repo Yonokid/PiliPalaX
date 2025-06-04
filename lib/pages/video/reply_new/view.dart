@@ -172,7 +172,7 @@ class _VideoReplyNewDialogState extends State<VideoReplyNewDialog>
                     autofocus: false,
                     focusNode: replyContentFocusNode,
                     decoration: const InputDecoration(
-                        hintText: "输入回复内容",
+                        hintText: "Enter your reply",
                         border: InputBorder.none,
                         hintStyle: TextStyle(
                           fontSize: 14,

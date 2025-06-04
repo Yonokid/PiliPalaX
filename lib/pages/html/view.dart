@@ -434,7 +434,7 @@ class _HtmlRenderPageState extends State<HtmlRenderPage>
       padding: const EdgeInsets.only(left: 12, right: 6),
       child: Row(
         children: [
-          const Text('回复'),
+          const Text('Reply'),
           const Spacer(),
           SizedBox(
             height: 35,

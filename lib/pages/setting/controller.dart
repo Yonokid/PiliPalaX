@@ -60,7 +60,7 @@ class SettingController extends GetxController {
           actions: [
             TextButton(
               onPressed: () => Get.back(),
-              child: const Text('点错了'),
+              child: const Text('Disliked'),
             ),
             TextButton(
               onPressed: () async {

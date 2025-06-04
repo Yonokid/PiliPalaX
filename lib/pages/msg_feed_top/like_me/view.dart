@@ -64,7 +64,7 @@ class _LikeMePageState extends State<LikeMePage> {
                     children: [
                       if (_likeMeController
                           .msgFeedLikeMeLatestList.isNotEmpty) ...<Widget>[
-                        Text("    最新",
+                        Text("    Newest",
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium!

@@ -222,7 +222,7 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
             TextButton(
               onPressed: () => Get.back(),
               child: Text(
-                '点错了',
+                'Disliked',
                 style: TextStyle(color: Theme.of(context).colorScheme.outline),
               ),
             ),

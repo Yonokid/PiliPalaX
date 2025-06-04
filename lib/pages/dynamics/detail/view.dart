@@ -358,7 +358,7 @@ class _DynamicDetailPageState extends State<DynamicDetailPage>
                     return ScaleTransition(scale: animation, child: child);
                   },
                   child: Text(
-                    '${_dynamicDetailController.acount.value}条回复',
+                    '${_dynamicDetailController.acount.value} Comments',
                     key: ValueKey<int>(_dynamicDetailController.acount.value),
                   ),
                 ),

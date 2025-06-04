@@ -166,10 +166,10 @@ class VideoCustomActions {
                                   bvid: videoItem.bvid as String, type: true);
                               SmartDialog.dismiss();
                               SmartDialog.showToast(
-                                  res['status'] ? "点踩成功" : res['msg']);
+                                  res['status'] ? "Dislike Success" : res['msg']);
                               Get.back();
                             },
-                            child: const Text("点踩"),
+                            child: const Text("Dislike"),
                           ),
                           ElevatedButton(
                             onPressed: () async {
@@ -207,7 +207,7 @@ class VideoCustomActions {
                 TextButton(
                   onPressed: () => Get.back(),
                   child: Text(
-                    '点错了',
+                    'Disliked',
                     style:
                         TextStyle(color: Theme.of(context).colorScheme.outline),
                   ),
