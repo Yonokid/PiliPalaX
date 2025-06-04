@@ -47,7 +47,7 @@ class _AboutPageState extends State<AboutPage> {
         TextStyle(fontSize: 13, color: Theme.of(context).colorScheme.outline);
     return Scaffold(
       appBar: AppBar(
-        title: Text('关于', style: Theme.of(context).textTheme.titleMedium),
+        title: Text('About', style: Theme.of(context).textTheme.titleMedium),
       ),
       body: ListView(
         children: [
