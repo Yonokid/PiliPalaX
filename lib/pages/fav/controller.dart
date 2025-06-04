@@ -19,7 +19,7 @@ class FavController extends GetxController {
   Future<dynamic> queryFavFolder({type = 'init'}) async {
     userInfo = userInfoCache.get('userInfoCache');
     if (userInfo == null) {
-      return {'status': false, 'msg': '账号未登录'};
+      return {'status': false, 'msg': 'Not Logged In'};
     }
     if (!hasMore.value) {
       return;

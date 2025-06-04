@@ -19,22 +19,22 @@ class MediaController extends GetxController {
     // },
     {
       'icon': Icons.history,
-      'title': '观看记录',
+      'title': 'History',
       'onTap': () => Get.toNamed('/history'),
     },
     {
       'icon': Icons.subscriptions_outlined,
-      'title': '我的订阅',
+      'title': 'Subscriptions',
       'onTap': () => Get.toNamed('/subscription'),
     },
     {
       'icon': Icons.watch_later_outlined,
-      'title': '稍后再看',
+      'title': 'Watch Later',
       'onTap': () => Get.toNamed('/later'),
     },
     {
       'icon': Icons.create_outlined,
-      'title': '创作中心',
+      'title': 'Creator Studio',
       'onTap': () => Get.toNamed('/webview', parameters: {
             'url': 'https://member.bilibili.com/platform/home',
             'type': 'url',
@@ -55,7 +55,7 @@ class MediaController extends GetxController {
 
   Future<dynamic> queryFavFolder() async {
     if (!userLogin.value) {
-      return {'status': false, 'data': [], 'msg': '未登录'};
+      return {'status': false, 'data': [], 'msg': 'Not Logged In'};
     }
     var res = await await UserHttp.userfavFolder(
       pn: 1,

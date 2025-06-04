@@ -43,12 +43,12 @@ class BangumiCardV extends StatelessWidget {
         child: InkWell(
           onTap: () async {
             final int seasonId = bangumiItem.seasonId;
-            SmartDialog.showLoading(msg: '获取中...');
+            SmartDialog.showLoading(msg: 'Loading...');
             final res = await SearchHttp.bangumiInfo(seasonId: seasonId);
             SmartDialog.dismiss().then((value) {
               if (res['status']) {
                 if (res['data'].episodes.isEmpty) {
-                  SmartDialog.showToast('资源加载失败');
+                  SmartDialog.showToast('Resource Loading Failed');
                   return;
                 }
                 EpisodeItem episode = res['data'].episodes.first;

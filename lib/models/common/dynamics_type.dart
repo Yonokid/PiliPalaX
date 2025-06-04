@@ -12,7 +12,7 @@ enum DynamicsType {
 
 extension BusinessTypeExtension on DynamicsType {
   String get values => ['all', 'video', 'pgc', 'article', 'up'][index];
-  String get labels => ['All', '投稿', '番剧', '专栏', 'Up'][index];
+  String get labels => ['All', 'Community', 'Anime', 'Article', 'Up'][index];
 }
 
 List tabsConfig = [
@@ -25,7 +25,7 @@ List tabsConfig = [
   },
   {
     'value': DynamicsType.video,
-    'label': '投稿',
+    'label': 'Community',
     'enabled': true,
     'ctr':
         Get.put<DynamicsTabController>(DynamicsTabController(), tag: 'video'),
@@ -33,14 +33,14 @@ List tabsConfig = [
   },
   {
     'value': DynamicsType.pgc,
-    'label': '番剧',
+    'label': 'Anime',
     'enabled': true,
     'ctr': Get.put<DynamicsTabController>(DynamicsTabController(), tag: 'pgc'),
     'page': const DynamicsTabPage(dynamicsType: 'pgc'),
   },
   {
     'value': DynamicsType.article,
-    'label': '专栏',
+    'label': 'Article',
     'enabled': true,
     'ctr':
         Get.put<DynamicsTabController>(DynamicsTabController(), tag: 'article'),

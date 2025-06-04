@@ -97,10 +97,10 @@ class _BangumiPanelState extends State<BangumiPanel> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('合集 '),
+              const Text('Collection '),
               Expanded(
                 child: Text(
-                  ' 正在播放：${widget.pages[currentIndex].longTitle}',
+                  ' Now Playing：${widget.pages[currentIndex].longTitle}',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 12,
@@ -206,7 +206,7 @@ class _BangumiPanelState extends State<BangumiPanel> {
                                   Image.asset(
                                     'assets/images/big-vip.png',
                                     height: 16,
-                                    semanticLabel: "大会员",
+                                    semanticLabel: "Member Only",
                                   ),
                                 ],
                                 if (widget.pages[i].badge != '会员') ...[

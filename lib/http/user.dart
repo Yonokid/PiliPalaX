@@ -67,7 +67,7 @@ class UserHttp {
       return {
         'status': false,
         'data': [],
-        'msg': res.data['message'] ?? '账号未登录'
+        'msg': res.data['message'] ?? 'Not Logged In'
       };
     }
   }

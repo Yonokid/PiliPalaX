@@ -42,7 +42,7 @@ class _PrivacySettingState extends State<PrivacySetting> {
         centerTitle: false,
         titleSpacing: 0,
         title: Text(
-          '隐私设置',
+          'Privacy',
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
@@ -51,14 +51,14 @@ class _PrivacySettingState extends State<PrivacySetting> {
           ListTile(
             onTap: () {
               if (!userLogin) {
-                SmartDialog.showToast('登录后查看');
+                SmartDialog.showToast('Login to view');
                 return;
               }
               Get.toNamed('/blackListPage');
             },
             dense: false,
-            title: Text('黑名单管理', style: titleStyle),
-            subtitle: Text('已拉黑用户', style: subTitleStyle),
+            title: Text('Blacklist Management', style: titleStyle),
+            subtitle: Text('Block Users', style: subTitleStyle),
             leading: const Icon(Icons.block),
           ),
           // ListTile(
@@ -88,12 +88,12 @@ class _PrivacySettingState extends State<PrivacySetting> {
               },
               leading: const Icon(Icons.privacy_tip_outlined),
               dense: false,
-              title: Text(MineController.anonymity ? '退出无痕模式' : '进入无痕模式',
+              title: Text(MineController.anonymity ? 'Exit Incognito Mode' : 'Enter Incognito Mode',
                   style: titleStyle),
               subtitle: Text(
                 MineController.anonymity
-                    ? '已进入无痕模式，搜索、观看视频/直播不携带Cookie与CSRF，其余操作不受影响'
-                    : '未开启无痕模式，将使用账户信息提供完整服务',
+                    ? 'Entered Incognito Mode. Searching and watching videos/live broadcasts do not carry cookies and CSRF. Other operations are not affected.'
+                    : 'Incognito Mode is not enabled, account information will be used to provide full service',
                 style: subTitleStyle,
               )),
           ListTile(
@@ -102,7 +102,7 @@ class _PrivacySettingState extends State<PrivacySetting> {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: const Text('查看详情'),
+                    title: const Text('Details'),
                     content:
                         Text(AnonymityInterceptor.anonymityList.join('\n')),
                     actions: [
@@ -110,7 +110,7 @@ class _PrivacySettingState extends State<PrivacySetting> {
                         onPressed: () async {
                           Get.back();
                         },
-                        child: const Text('确认'),
+                        child: const Text('Confirm'),
                       )
                     ],
                   );
@@ -119,8 +119,8 @@ class _PrivacySettingState extends State<PrivacySetting> {
             },
             leading: const Icon(Icons.flag_outlined),
             dense: false,
-            title: Text('了解无痕模式', style: titleStyle),
-            subtitle: Text('查看无痕模式作用的API列表', style: subTitleStyle),
+            title: Text('Learn about Incognito Mode', style: titleStyle),
+            subtitle: Text('View the API list of Incognito mode', style: subTitleStyle),
           ),
         ],
       ),

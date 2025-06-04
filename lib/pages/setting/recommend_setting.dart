@@ -61,7 +61,7 @@ class _RecommendSettingState extends State<RecommendSetting> {
         centerTitle: false,
         titleSpacing: 0,
         title: Text(
-          '推荐流设置',
+          'Recommended Timeline Settings',
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
@@ -69,10 +69,10 @@ class _RecommendSettingState extends State<RecommendSetting> {
         children: [
           ListTile(
             dense: false,
-            title: Text('首页推荐类型', style: titleStyle),
+            title: Text('Homepage Recommended Type', style: titleStyle),
             leading: const Icon(Icons.model_training_outlined),
             subtitle: Text(
-              '当前使用「$defaultRcmdType端」推荐¹',
+              'Using 「$defaultRcmdType端」推荐¹',
               style: subTitleStyle,
             ),
             onTap: () async {

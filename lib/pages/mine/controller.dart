@@ -233,7 +233,7 @@ class MineController extends GetxController {
 
   pushFollow() {
     if (!userLogin.value) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('Not Logged In');
       return;
     }
     Get.toNamed('/follow?mid=${userInfo.value.mid}', preventDuplicates: false);
@@ -241,7 +241,7 @@ class MineController extends GetxController {
 
   pushFans() {
     if (!userLogin.value) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('Not Logged In');
       return;
     }
     Get.toNamed('/fan?mid=${userInfo.value.mid}', preventDuplicates: false);
@@ -249,7 +249,7 @@ class MineController extends GetxController {
 
   pushDynamic() {
     if (!userLogin.value) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('Not Logged In');
       return;
     }
     Get.toNamed('/member?mid=${userInfo.value.mid}',

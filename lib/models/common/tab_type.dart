@@ -9,7 +9,7 @@ import 'package:PiliPalaX/pages/rcmd/index.dart';
 enum TabType { live, rcmd, hot, rank, bangumi }
 
 extension TabTypeDesc on TabType {
-  String get description => ['Live', 'Recommended', 'Hot', 'Rank', 'Bangumi'][index];
+  String get description => ['Live', 'Recommended', 'Hot', 'Category', 'Anime'][index];
   String get id => ['live', 'rcmd', 'hot', 'rank', 'bangumi'][index];
 }
 
@@ -49,7 +49,7 @@ List tabsConfig = [
       Icons.category_outlined,
       size: 15,
     ),
-    'label': 'Rank',
+    'label': 'Category',
     'type': TabType.rank,
     'ctr': Get.find<RankController>,
     'page': const RankPage(),
@@ -59,7 +59,7 @@ List tabsConfig = [
       Icons.play_circle_outlined,
       size: 15,
     ),
-    'label': 'Bangumi',
+    'label': 'Anime',
     'type': TabType.bangumi,
     'ctr': Get.find<BangumiController>,
     'page': const BangumiPage(),

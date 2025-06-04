@@ -256,7 +256,7 @@ class VideoIntroController extends GetxController {
   Future actionOneThree() async {
     feedBack();
     if (userInfo == null) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('Not Logged In');
       return;
     }
     if (hasLike.value && hasCoin.value && hasFav.value) {
@@ -278,7 +278,7 @@ class VideoIntroController extends GetxController {
   // （取消）点赞
   Future actionLikeVideo() async {
     if (userInfo == null) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('Not Logged In');
       return;
     }
     var result = await VideoHttp.likeVideo(bvid: bvid, type: !hasLike.value);
@@ -302,7 +302,7 @@ class VideoIntroController extends GetxController {
 
   Future actionDislikeVideo() async {
     if (userInfo == null) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('Not Logged In');
       return;
     }
     var result =
@@ -326,7 +326,7 @@ class VideoIntroController extends GetxController {
   // 投币
   Future actionCoinVideo() async {
     if (userInfo == null) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('Not Logged In');
       return;
     }
     void coinVideo(int coin) async {
@@ -502,7 +502,7 @@ class VideoIntroController extends GetxController {
   // 关注/取关up
   Future actionRelationMod(BuildContext context) async {
     if (userInfo == null) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('Not Logged In');
       return;
     }
     feedBack();

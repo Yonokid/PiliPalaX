@@ -243,7 +243,7 @@ class DynamicsController extends GetxController
 
   Future queryFollowUp({type = 'init'}) async {
     if (!userLogin.value) {
-      return {'status': false, 'msg': '账号未登录'};
+      return {'status': false, 'msg': 'Not Logged In'};
     }
     if (type == 'init') {
       upData.value.upList = [];

@@ -25,7 +25,7 @@ enum SearchType {
 extension SearchTypeExtension on SearchType {
   String get type =>
       ['video', 'media_bangumi', 'live_room', 'bili_user', 'article'][index];
-  String get label => ['Video', 'Bangumi', 'Live', 'User', 'Article'][index];
+  String get label => ['Video', 'Anime', 'Live', 'User', 'Article'][index];
 }
 
 // 搜索类型为视频、专栏及相簿时

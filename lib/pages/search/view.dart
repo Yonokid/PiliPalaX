@@ -53,7 +53,7 @@ class _SearchPageState extends State<SearchPage> with RouteAware {
         titleSpacing: 0,
         actions: [
           IconButton(
-            tooltip: '搜索',
+            tooltip: 'Search',
             onPressed: () => _searchController.submit(),
             icon: const Icon(CupertinoIcons.search, size: 22),
           ),
@@ -71,7 +71,7 @@ class _SearchPageState extends State<SearchPage> with RouteAware {
               hintText: _searchController.hintText,
               border: InputBorder.none,
               suffixIcon: IconButton(
-                tooltip: '清空',
+                tooltip: 'Clear',
                 icon: Icon(
                   Icons.clear,
                   size: 22,
@@ -145,7 +145,7 @@ class _SearchPageState extends State<SearchPage> with RouteAware {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '大家都在搜',
+                  'Search Recommendations',
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
@@ -160,7 +160,7 @@ class _SearchPageState extends State<SearchPage> with RouteAware {
                     ),
                     onPressed: () => ctr.queryHotSearchList(),
                     icon: const Icon(Icons.refresh_outlined, size: 18),
-                    label: const Text('刷新'),
+                    label: const Text('Refresh'),
                   ),
                 ),
               ],
@@ -240,7 +240,7 @@ class _SearchPageState extends State<SearchPage> with RouteAware {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '搜索历史',
+                      'Search History',
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
@@ -248,7 +248,7 @@ class _SearchPageState extends State<SearchPage> with RouteAware {
                     ),
                     TextButton(
                       onPressed: () => _searchController.onClearHis(),
-                      child: const Text('清空'),
+                      child: const Text('Clear'),
                     )
                   ],
                 ),

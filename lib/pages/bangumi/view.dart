@@ -98,11 +98,11 @@ class _BangumiPageState extends State<BangumiPage>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '最近追番',
+                            'New Season',
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           IconButton(
-                            tooltip: '刷新',
+                            tooltip: 'Refresh',
                             onPressed: () {
                               setState(() {
                                 _futureBuilderFutureFollow =
@@ -158,7 +158,7 @@ class _BangumiPageState extends State<BangumiPage>
                                       )
                                     : const SizedBox(
                                         child: Center(
-                                          child: Text('还没有追番'),
+                                          child: Text('Not Available'),
                                         ),
                                       ),
                               );
@@ -183,7 +183,7 @@ class _BangumiPageState extends State<BangumiPage>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '推荐',
+                    'Recommended',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ],

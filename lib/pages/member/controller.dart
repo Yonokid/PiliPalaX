@@ -111,7 +111,7 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
   // 关注/取关up
   Future actionRelationMod(BuildContext context) async {
     if (userInfo == null) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('Not Logged In');
       return;
     }
     // if (memberInfo.value == null) {
@@ -209,7 +209,7 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
   // 拉黑用户
   Future blockUser(BuildContext context) async {
     if (userInfo == null) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('Not Logged In');
       return;
     }
     await showDialog(

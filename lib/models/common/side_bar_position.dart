@@ -14,7 +14,7 @@ extension SideBarPositionDesc on SideBarPosition {
         'left_horizontal',
         'right_horizontal'
       ][index];
-  String get labels => ['不使用侧栏', '左侧常驻', '右侧常驻', '左侧（仅横屏）', '右侧（仅横屏）'][index];
+  String get labels => ['None', 'Left (Fixed)', 'Right (Fixed)', 'Left (Horizontal)', 'Right (Horizontal)'][index];
 }
 
 extension SideBarPositionCode on SideBarPosition {

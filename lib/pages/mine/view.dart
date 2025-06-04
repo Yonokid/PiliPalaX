@@ -115,7 +115,7 @@ class _MinePageState extends State<MinePage> {
                   tapTargetSize:
                       MaterialTapTargetSize.shrinkWrap, // the '2023' part
                 ),
-                tooltip: "${MineController.anonymity ? '退出' : '进入'}无痕模式",
+                tooltip: "${MineController.anonymity ? 'Quit' : 'Enter'} Incognito Mode",
                 onPressed: () {
                   MineController.onChangeAnonymity(context);
                   setState(() {});
@@ -137,7 +137,7 @@ class _MinePageState extends State<MinePage> {
                 ),
                 //system -> dark -> light -> system
                 tooltip:
-                    '切换至${mineController.themeType.value == ThemeType.system ? '深色' : (mineController.themeType.value == ThemeType.dark ? '浅色' : '跟随系统')}主题',
+                    'Switch to ${mineController.themeType.value == ThemeType.system ? 'Dark' : (mineController.themeType.value == ThemeType.dark ? 'Light' : 'System')} Theme',
                 onPressed: () {
                   mineController.onChangeTheme();
                   setState(() {});
@@ -214,12 +214,12 @@ class _MinePageState extends State<MinePage> {
                       child: _mineController.userInfo.value.face != null
                           ? NetworkImgLayer(
                               src: _mineController.userInfo.value.face,
-                              semanticsLabel: '头像',
+                              semanticsLabel: 'Avatar',
                               width: 55,
                               height: 55)
                           : Image.asset(
                               'assets/images/noface.jpeg',
-                              semanticLabel: "默认头像",
+                              semanticLabel: "Default Avatar",
                             ),
                     ),
                   ),
@@ -236,7 +236,7 @@ class _MinePageState extends State<MinePage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        _mineController.userInfo.value.uname ?? '点击头像登录',
+                        _mineController.userInfo.value.uname ?? 'Not Logged In',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(width: 4),
@@ -244,14 +244,14 @@ class _MinePageState extends State<MinePage> {
                         'assets/images/lv/lv${_mineController.userInfo.value.levelInfo?.currentLevel ?? '0'}.png',
                         height: 10,
                         semanticLabel:
-                            '等级：${_mineController.userInfo.value.levelInfo?.currentLevel ?? '0'}',
+                            'Level：${_mineController.userInfo.value.levelInfo?.currentLevel ?? '0'}',
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Text.rich(TextSpan(children: [
                     TextSpan(
-                        text: '硬币',
+                        text: 'Coin',
                         style: TextStyle(
                             fontSize: Theme.of(context)
                                     .textTheme
@@ -278,7 +278,7 @@ class _MinePageState extends State<MinePage> {
                         baseline: TextBaseline.alphabetic,
                         child: SizedBox(width: 5)),
                     TextSpan(
-                        text: "经验",
+                        text: "XP",
                         style: TextStyle(
                             fontSize: Theme.of(context)
                                     .textTheme
@@ -292,7 +292,7 @@ class _MinePageState extends State<MinePage> {
                         child: SizedBox(width: 1.5)),
                     TextSpan(
                         text: "${levelInfo?.currentExp ?? '-'}",
-                        semanticsLabel: "当前${levelInfo?.currentExp ?? '-'}",
+                        semanticsLabel: "Current ${levelInfo?.currentExp ?? '-'}",
                         style: TextStyle(
                             fontSize: Theme.of(context)
                                 .textTheme
@@ -302,7 +302,7 @@ class _MinePageState extends State<MinePage> {
                             color: Theme.of(context).colorScheme.primary)),
                     TextSpan(
                         text: "/${levelInfo?.nextExp ?? '-'}",
-                        semanticsLabel: "升级需${levelInfo?.nextExp ?? '-'}",
+                        semanticsLabel: "Next ${levelInfo?.nextExp ?? '-'}",
                         style: TextStyle(
                             fontSize: Theme.of(context)
                                 .textTheme
@@ -370,7 +370,7 @@ class _MinePageState extends State<MinePage> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          '动态',
+                          'Trending',
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                       ],
@@ -399,7 +399,7 @@ class _MinePageState extends State<MinePage> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          '关注',
+                          'Following',
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                       ],
@@ -429,7 +429,7 @@ class _MinePageState extends State<MinePage> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          '粉丝',
+                          'Fans',
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                       ],

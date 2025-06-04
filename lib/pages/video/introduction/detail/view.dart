@@ -145,7 +145,7 @@ class _VideoInfoState extends State<VideoInfo> with TickerProviderStateMixin {
   // 收藏
   showFavBottomSheet({type = 'tap'}) {
     if (videoIntroController.userInfo == null) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('Not Logged In');
       return;
     }
     final bool enableDragQuickFav =

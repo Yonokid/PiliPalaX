@@ -152,7 +152,7 @@ class _BangumiInfoState extends State<BangumiInfo> {
   // 收藏
   showFavBottomSheet() {
     if (bangumiIntroController.userInfo.mid == null) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('Not Logged In');
       return;
     }
     showModalBottomSheet(

@@ -175,7 +175,7 @@ class BangumiIntroController extends GetxController {
   // 投币
   Future actionCoinVideo() async {
     if (userInfo == null) {
-      SmartDialog.showToast('账号未登录');
+      SmartDialog.showToast('Not Logged In');
       return;
     }
     showDialog(

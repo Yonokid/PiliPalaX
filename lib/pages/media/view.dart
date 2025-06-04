@@ -87,7 +87,7 @@ class _MediaPageState extends State<MediaPage>
               title: Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  '媒体库',
+                  'Library',
                   style: TextStyle(
                     fontSize: Theme.of(context).textTheme.titleLarge!.fontSize,
                     fontWeight: FontWeight.bold,
@@ -95,7 +95,7 @@ class _MediaPageState extends State<MediaPage>
                 ),
               ),
               trailing: IconButton(
-                tooltip: '设置',
+                tooltip: 'Settings',
                 onPressed: () {
                   Get.toNamed('/setting');
                 },
@@ -183,7 +183,7 @@ class _MediaPageState extends State<MediaPage>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    '我的收藏 (${mediaController.favFolderData.value.count ?? 0})  ',
+                    'My Collection (${mediaController.favFolderData.value.count ?? 0})  ',
                     style: TextStyle(
                         fontSize:
                             Theme.of(context).textTheme.titleMedium!.fontSize,
@@ -195,7 +195,7 @@ class _MediaPageState extends State<MediaPage>
             ),
           ),
           trailing: IconButton(
-            tooltip: '刷新',
+            tooltip: 'Refresh',
             onPressed: () {
               setState(() {
                 _futureBuilderFuture = mediaController.queryFavFolder();
@@ -249,7 +249,7 @@ class _MediaPageState extends State<MediaPage>
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 40),
                           child: IconButton(
-                            tooltip: '查看更多',
+                            tooltip: 'See More',
                             style: ButtonStyle(
                               padding: WidgetStateProperty.all(EdgeInsets.zero),
                               backgroundColor:
