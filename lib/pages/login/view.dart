@@ -398,7 +398,7 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.email),
                         border: InputBorder.none,
-                        labelText: '验证码',
+                        labelText: 'Code',
                       ),
                       keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
@@ -468,7 +468,7 @@ class _LoginPageState extends State<LoginPage> {
                   Tab(
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: [Icon(Icons.email), Text(' Email')],
+                      children: [Icon(Icons.email), Text(' SMS')],
                     ),
                   ),
                   Tab(
@@ -486,7 +486,7 @@ class _LoginPageState extends State<LoginPage> {
               ? TabBar(
                   tabs: const [
                     Tab(icon: Icon(Icons.lock), text: 'Password'),
-                    Tab(icon: Icon(Icons.email), text: 'Email'),
+                    Tab(icon: Icon(Icons.email), text: 'SMS'),
                     Tab(icon: Icon(Icons.qr_code), text: 'QR Code'),
                   ],
                   controller: _loginPageCtr.tabController,

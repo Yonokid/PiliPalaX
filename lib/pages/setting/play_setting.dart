@@ -60,15 +60,15 @@ class _PlaySettingState extends State<PlaySetting> {
         centerTitle: false,
         titleSpacing: 0,
         title: Text(
-          '播放器设置',
+          'Player',
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
       body: ListView(
         children: [
           SetSwitchItem(
-            title: '弹幕开关',
-            subTitle: '是否展示弹幕',
+            title: 'Danmaku Display',
+            subTitle: 'Display Danmaku (Flying Comments)',
             leading: const Icon(Icons.comment_outlined),
             setKey: SettingBoxKey.enableShowDanmaku,
             defaultVal: true,
@@ -80,12 +80,12 @@ class _PlaySettingState extends State<PlaySetting> {
             dense: false,
             onTap: () => Get.toNamed('/playSpeedSet'),
             leading: const Icon(Icons.speed_outlined),
-            title: Text('倍速设置', style: titleStyle),
-            subtitle: Text('设置视频播放速度', style: subTitleStyle),
+            title: Text('Speed Settings', style: titleStyle),
+            subtitle: Text('Set Video Playback Speed', style: subTitleStyle),
           ),
           SetSwitchItem(
-            title: '自动播放',
-            subTitle: '进入详情页自动播放',
+            title: 'Autoplay',
+            subTitle: 'Enable/Disable Autoplay',
             leading: Icon(MdiIcons.playPause),
             setKey: SettingBoxKey.autoPlayEnable,
             defaultVal: true,
@@ -94,42 +94,42 @@ class _PlaySettingState extends State<PlaySetting> {
             },
           ),
           const SetSwitchItem(
-            title: '左右侧双击快退/快进',
-            subTitle: '左侧双击快退/右侧双击快进，关闭则双击均为暂停/播放',
+            title: 'Double-click left or right to fast-forward/rewind',
+            subTitle: 'If disabled, double-clicking will pause/play.',
             leading: Icon(Icons.touch_app_outlined),
             setKey: SettingBoxKey.enableQuickDouble,
             defaultVal: true,
           ),
           SetSwitchItem(
-            title: '左右侧滑动调节亮度/音量',
-            subTitle: '关闭则触发中部上下滑动手势',
+            title: 'Slide left or right to adjust brightness/volume',
+            subTitle: 'If closed, vertical swipe gesture is used',
             leading: Icon(MdiIcons.tuneVerticalVariant),
             setKey: SettingBoxKey.enableAdjustBrightnessVolume,
             defaultVal: true,
           ),
           ListTile(
             dense: false,
-            title: Text('中部上下滑动手势', style: titleStyle),
+            title: Text('Vertical Swipe Gesture', style: titleStyle),
             leading: Icon(MdiIcons.gestureSwipeVertical),
             subtitle: Text(
-              '设置视频画面中间部分滑动手势对应的操作',
+              'Set the corresponding operation for the gesture in the middle of the screen',
               style: subTitleStyle,
             ),
             onTap: () => Get.toNamed('/gestureSetting'),
           ),
           SetSwitchItem(
-            title: '全屏时显示额外功能',
-            subTitle: '添加【锁定】与【截图】按钮',
+            title: 'Show Extra Fullscreen Features',
+            subTitle: 'Add [Lock] and [Screenshot] buttons',
             leading: Icon(MdiIcons.oneUp),
             setKey: SettingBoxKey.enableExtraButtonOnFullScreen,
             defaultVal: true,
           ),
           ListTile(
             dense: false,
-            title: Text('自动启用字幕', style: titleStyle),
+            title: Text('Auto-Enable Subtitles', style: titleStyle),
             leading: const Icon(Icons.closed_caption_outlined),
             subtitle: Text(
-                '当前选择偏好：'
+                'Selected: '
                 '${SubtitlePreferenceCode.fromCode(defaultSubtitlePreference)!.description}',
                 style: subTitleStyle),
             onTap: () async {
@@ -137,7 +137,7 @@ class _PlaySettingState extends State<PlaySetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<String>(
-                      title: '字幕选择偏好',
+                      title: 'Subtitle Preference',
                       value: setting.get(SettingBoxKey.subtitlePreference,
                           defaultValue: SubtitlePreference.values.first.code),
                       values: SubtitlePreference.values.map((e) {
@@ -154,42 +154,42 @@ class _PlaySettingState extends State<PlaySetting> {
             },
           ),
           const SetSwitchItem(
-            title: '竖屏扩大展示',
-            subTitle: '半屏竖屏视频宽高比由16:9扩大至1:1（不支持收起）；横屏适配时，扩大至9:16',
+            title: 'Autofill Vertical Screen',
+            subTitle: 'The aspect ratio of half-screen vertical video is expanded from 16:9 to 1:1 (does not support collapsing); when adapted to horizontal screen, it is expanded to 9:16',
             leading: Icon(Icons.expand_outlined),
             setKey: SettingBoxKey.enableVerticalExpand,
             defaultVal: false,
           ),
           const SetSwitchItem(
-            title: '自动全屏',
-            subTitle: '视频开始播放时进入全屏',
+            title: 'Auto Enter Fullscreen',
+            subTitle: 'Enter fullscreen on video start',
             leading: Icon(Icons.fullscreen_outlined),
             setKey: SettingBoxKey.enableAutoEnter,
             defaultVal: false,
           ),
           const SetSwitchItem(
-            title: '自动退出全屏',
-            subTitle: '视频结束播放时退出全屏',
+            title: 'Auto Exit Fullscreen',
+            subTitle: 'Exit fullscreen on video end',
             leading: Icon(Icons.fullscreen_exit_outlined),
             setKey: SettingBoxKey.enableAutoExit,
             defaultVal: true,
           ),
           const SetSwitchItem(
-              title: '延长播放控件显示时间',
-              subTitle: '开启后延长至30秒，便于屏幕阅读器滑动切换控件焦点',
+              title: 'Show Video Controls Longer',
+              subTitle: 'After it is turned on, it is extended to 30 seconds to facilitate the screen reader to slide and switch the control focus',
               leading: Icon(Icons.timer_outlined),
               setKey: SettingBoxKey.enableLongShowControl,
               defaultVal: false),
           const SetSwitchItem(
-            title: '全向旋转',
-            subTitle: '小屏可受重力转为临时全屏，若系统锁定旋转仍触发请关闭，关闭会影响横屏适配',
+            title: 'Allow Screen Rotation',
+            subTitle: 'Allows the video to rotate with phone',
             leading: Icon(Icons.screen_rotation_alt_outlined),
             setKey: SettingBoxKey.allowRotateScreen,
             defaultVal: true,
           ),
           SetSwitchItem(
-            title: '后台播放',
-            subTitle: '进入后台时继续播放',
+            title: 'Background Play',
+            subTitle: 'Continue playing in background',
             leading: Icon(MdiIcons.locationExit),
             setKey: SettingBoxKey.continuePlayInBackground,
             defaultVal: false,
@@ -198,15 +198,15 @@ class _PlaySettingState extends State<PlaySetting> {
             },
           ),
           const SetSwitchItem(
-              title: '应用内小窗',
-              subTitle: '离开播放页时，以小窗形式继续播放',
+              title: 'In-App Widget',
+              subTitle: 'When leaving the playback page, continue playing in a small window',
               leading: Icon(Icons.tab_unselected_outlined),
               setKey: SettingBoxKey.autoMiniPlayer,
               defaultVal: false),
           if (Platform.isAndroid || Platform.isIOS)
             SetSwitchItem(
-                title: '后台画中画',
-                subTitle: '进入后台时以小窗形式（PiP）播放',
+                title: 'Picture-in-Picture Mode',
+                subTitle: 'Play in small window (PiP) when entering the background',
                 leading: const Icon(Icons.picture_in_picture_alt),
                 setKey: SettingBoxKey.autoPiP,
                 defaultVal: false,
@@ -214,13 +214,13 @@ class _PlaySettingState extends State<PlaySetting> {
                   if (val &&
                       !setting.get(SettingBoxKey.enableBackgroundPlay,
                           defaultValue: true)) {
-                    SmartDialog.showToast('建议开启后台音频服务');
+                    SmartDialog.showToast('Enabling background audio is recommended');
                   }
                 }),
           if (Platform.isAndroid)
             const SetSwitchItem(
-              title: '后台画中画不加载弹幕',
-              subTitle: '当弹幕开关开启时，小窗屏蔽弹幕以获得较好的体验',
+              title: 'Disable Danmaku on Background PiP',
+              subTitle: 'Danmaku will not display in PiP Mode',
               leading: Icon(Icons.comments_disabled_outlined),
               setKey: SettingBoxKey.pipNoDanmaku,
               defaultVal: true,
@@ -240,18 +240,18 @@ class _PlaySettingState extends State<PlaySetting> {
           //   defaultVal: true,
           // ),
           const SetSwitchItem(
-            title: '观看人数',
-            subTitle: '展示同时在看人数',
+            title: 'Show Viewers',
+            subTitle: 'Display number of concurrent viewers',
             leading: Icon(Icons.people_outlined),
             setKey: SettingBoxKey.enableOnlineTotal,
             defaultVal: false,
           ),
           ListTile(
             dense: false,
-            title: Text('默认全屏方向', style: titleStyle),
+            title: Text('Default Fullscreen Orientation', style: titleStyle),
             leading: const Icon(Icons.open_with_outlined),
             subtitle: Text(
-              '当前全屏方向：${FullScreenModeCode.fromCode(defaultFullScreenMode)!.description}',
+              'Current Orientation: ${FullScreenModeCode.fromCode(defaultFullScreenMode)!.description}',
               style: subTitleStyle,
             ),
             onTap: () async {
@@ -259,7 +259,7 @@ class _PlaySettingState extends State<PlaySetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<int>(
-                      title: '默认全屏方向',
+                      title: 'Default Fullscreen Orientation',
                       value: defaultFullScreenMode,
                       values: FullScreenMode.values.map((e) {
                         return {'title': e.description, 'value': e.code};
@@ -275,10 +275,10 @@ class _PlaySettingState extends State<PlaySetting> {
           ),
           ListTile(
             dense: false,
-            title: Text('底部进度条展示', style: titleStyle),
+            title: Text('Progress Bar Display', style: titleStyle),
             leading: const Icon(Icons.border_bottom_outlined),
             subtitle: Text(
-              '当前展示方式：${BtmProgresBehaviorCode.fromCode(defaultBtmProgressBehavior)!.description}',
+              'Display Mode: ${BtmProgresBehaviorCode.fromCode(defaultBtmProgressBehavior)!.description}',
               style: subTitleStyle,
             ),
             onTap: () async {
@@ -286,7 +286,7 @@ class _PlaySettingState extends State<PlaySetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<int>(
-                      title: '底部进度条展示',
+                      title: 'Progress Bar Display',
                       value: defaultBtmProgressBehavior,
                       values: BtmProgressBehavior.values.map((e) {
                         return {'title': e.description, 'value': e.code};
@@ -301,16 +301,16 @@ class _PlaySettingState extends State<PlaySetting> {
             },
           ),
           const SetSwitchItem(
-            title: '调节系统亮度（需权限）',
-            subTitle: '若打开自动亮度，可能调节后无变化；关闭则调节应用内亮度（仅在本app生效，且生效期间可能会忽略系统亮度变化）',
+            title: 'Adjust System Brightness (Permission Required)',
+            subTitle: 'If automatic brightness is turned on, there may be no change after adjustment; if it is turned off, adjust the brightness within the app (only effective in this app, and system brightness changes may be ignored during the effective period)',
             leading: Icon(Icons.brightness_6_outlined),
             setKey: SettingBoxKey.setSystemBrightness,
             defaultVal: false,
             needReboot: true,
           ),
           const SetSwitchItem(
-            title: '后台音频服务',
-            subTitle: '避免画中画没有播放暂停功能',
+            title: 'Background Audio',
+            subTitle: 'Avoid Picture-in-Picture without playback and pause functions',
             leading: Icon(Icons.volume_up_outlined),
             setKey: SettingBoxKey.enableBackgroundPlay,
             defaultVal: true,

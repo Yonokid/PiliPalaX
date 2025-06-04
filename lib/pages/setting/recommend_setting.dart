@@ -72,7 +72,7 @@ class _RecommendSettingState extends State<RecommendSetting> {
             title: Text('Homepage Recommended Type', style: titleStyle),
             leading: const Icon(Icons.model_training_outlined),
             subtitle: Text(
-              'Using 「$defaultRcmdType端」推荐¹',
+              'Using 「$defaultRcmdType Based」 Recommendations¹',
               style: subTitleStyle,
             ),
             onTap: () async {
@@ -80,7 +80,7 @@ class _RecommendSettingState extends State<RecommendSetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<String>(
-                    title: '推荐类型',
+                    title: 'Recommendation Type',
                     value: defaultRcmdType,
                     values: RcmdType.values.map((e) {
                       return {'title': e.labels, 'value': e.values};
@@ -91,26 +91,26 @@ class _RecommendSettingState extends State<RecommendSetting> {
               if (result != null) {
                 if (result == 'app') {
                   if (accessKeyInfo == null) {
-                    SmartDialog.showToast('尚未登录，无法收到个性化推荐');
+                    SmartDialog.showToast('Not Logged in, cannot use personalized recommendations ');
                   }
                 }
                 defaultRcmdType = result;
                 setting.put(SettingBoxKey.defaultRcmdType, result);
-                SmartDialog.showToast('下次启动时生效');
+                SmartDialog.showToast('Will take effect on restart');
                 setState(() {});
               }
             },
           ),
           const SetSwitchItem(
-            title: '推荐动态',
-            subTitle: '是否在推荐内容中展示动态(仅app端)',
+            title: 'Recommended News',
+            subTitle: 'Whether to display dynamic content in recommended content (app only)',
             leading: Icon(Icons.motion_photos_on_outlined),
             setKey: SettingBoxKey.enableRcmdDynamic,
             defaultVal: true,
           ),
           const SetSwitchItem(
-            title: '首页推荐刷新',
-            subTitle: '下拉刷新时保留上次内容',
+            title: 'Homepage Recommendation Refresh',
+            subTitle: 'Keep the last content when you pull down to refresh',
             leading: Icon(Icons.refresh),
             setKey: SettingBoxKey.enableSaveLastData,
             defaultVal: false,
@@ -120,9 +120,9 @@ class _RecommendSettingState extends State<RecommendSetting> {
           ListTile(
             dense: false,
             leading: const Icon(Icons.thumb_up_outlined),
-            title: Text('点赞率过滤', style: titleStyle),
+            title: Text('Like Rate Filter', style: titleStyle),
             subtitle: Text(
-              '过滤掉点赞数/播放量「小于$minLikeRatioForRecommend%」的推荐视频(仅web端)',
+              'Filter out recommended videos with likes/playbacks less than $minLikeRatioForRecommend% (web only)',
               style: subTitleStyle,
             ),
             onTap: () async {
@@ -130,7 +130,7 @@ class _RecommendSettingState extends State<RecommendSetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<int>(
-                      title: '选择点赞率（0即不过滤）',
+                      title: 'Select Rate (0 = No Filter)',
                       value: minLikeRatioForRecommend,
                       values: [0, 1, 2, 3, 4].map((e) {
                         return {'title': '$e %', 'value': e};
@@ -148,9 +148,9 @@ class _RecommendSettingState extends State<RecommendSetting> {
           ListTile(
             dense: false,
             leading: const Icon(Icons.title_outlined),
-            title: Text('标题关键词过滤', style: titleStyle),
+            title: Text('Title Keyword Filtering', style: titleStyle),
             subtitle: Text(
-              banWordForRecommend.isEmpty ? "点击添加" : banWordForRecommend,
+              banWordForRecommend.isEmpty ? "Click to add" : banWordForRecommend,
               style: subTitleStyle,
             ),
             onTap: () async {
@@ -160,9 +160,9 @@ class _RecommendSettingState extends State<RecommendSetting> {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: const Text('标题关键词过滤'),
+                    title: const Text('Title Keyword Filtering'),
                     content: Column(mainAxisSize: MainAxisSize.min, children: [
-                      const Text('使用空格隔开，如：尝试 测试'),
+                      const Text('Use spaces to separate, such as: 尝试 测试'),
                       TextField(
                         controller: textController,
                         //decoration: InputDecoration(hintText: hintText),
@@ -170,20 +170,20 @@ class _RecommendSettingState extends State<RecommendSetting> {
                     ]),
                     actions: <Widget>[
                       TextButton(
-                        child: const Text('清空'),
+                        child: const Text('Clear'),
                         onPressed: () {
                           textController.text = '';
                         },
                       ),
                       TextButton(
-                        child: const Text('取消'),
+                        child: const Text('Cancel'),
                         onPressed: () {
                           Navigator.of(context).pop();
-                          SmartDialog.showToast('关键词未被修改');
+                          SmartDialog.showToast('Keywords have not been modified');
                         },
                       ),
                       TextButton(
-                        child: const Text('保存'),
+                        child: const Text('Save'),
                         onPressed: () async {
                           Navigator.of(context).pop();
                           String filter = textController.text.trim();
@@ -193,9 +193,9 @@ class _RecommendSettingState extends State<RecommendSetting> {
                           setState(() {});
                           RecommendFilter.update();
                           if (filter.isNotEmpty) {
-                            SmartDialog.showToast('已保存：$banWordForRecommend');
+                            SmartDialog.showToast('Saved：$banWordForRecommend');
                           } else {
-                            SmartDialog.showToast('已清除全部关键词');
+                            SmartDialog.showToast('All keywords have been cleared');
                           }
                         },
                       ),
@@ -207,10 +207,10 @@ class _RecommendSettingState extends State<RecommendSetting> {
           ),
           ListTile(
             dense: false,
-            title: Text('视频时长过滤', style: titleStyle),
+            title: Text('Video Duration Filter', style: titleStyle),
             leading: const Icon(Icons.timelapse_outlined),
             subtitle: Text(
-              '过滤掉时长「小于$minDurationForRcmd秒」的推荐视频',
+              'Filter out recommended videos with duration less than $minDurationForRcmd seconds',
               style: subTitleStyle,
             ),
             onTap: () async {
@@ -218,7 +218,7 @@ class _RecommendSettingState extends State<RecommendSetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<int>(
-                      title: '选择时长（0即不过滤）',
+                      title: 'Select Duration (0 = No Filter)',
                       value: minDurationForRcmd,
                       values: [0, 30, 60, 90, 120].map((e) {
                         return {'title': '$e 秒', 'value': e};
@@ -234,8 +234,8 @@ class _RecommendSettingState extends State<RecommendSetting> {
             },
           ),
           SetSwitchItem(
-            title: '已关注Up豁免推荐过滤',
-            subTitle: '推荐中已关注用户发布的内容不会被过滤',
+            title: 'Following Filter Exemption',
+            subTitle: 'Content posted by users you already follow in recommendations will not be filtered',
             leading: const Icon(Icons.favorite_border_outlined),
             setKey: SettingBoxKey.exemptFilterForFollowed,
             defaultVal: true,
@@ -272,8 +272,8 @@ class _RecommendSettingState extends State<RecommendSetting> {
           //   },
           // ),
           SetSwitchItem(
-            title: '过滤器也应用于相关视频',
-            subTitle: '视频详情页的相关视频也进行过滤²',
+            title: 'Apply Filter to Related Videos',
+            subTitle: 'Related videos on the video details page are also filtered²',
             leading: const Icon(Icons.explore_outlined),
             setKey: SettingBoxKey.applyFilterToRelatedVideos,
             defaultVal: true,
@@ -282,8 +282,8 @@ class _RecommendSettingState extends State<RecommendSetting> {
             },
           ),
           SetSwitchItem(
-            title: '禁止推荐相关视频',
-            subTitle: '相关视频区域显示为空白，阻断短平快沉浸体验（横屏适配时，可配合【优先展示评论区】使用）',
+            title: 'Disable Recommended Videos',
+            subTitle: 'The related video area is displayed as blank, blocking the short, flat and fast immersive experience (when adapted to the horizontal screen, it can be used in conjunction with [Prioritize the display of the comment area])',
             leading: const Icon(Icons.explore_off_outlined),
             setKey: SettingBoxKey.disableRelatedVideos,
             defaultVal: false,
@@ -294,12 +294,12 @@ class _RecommendSettingState extends State<RecommendSetting> {
           ListTile(
             dense: true,
             subtitle: Text(
-              '¹ 若默认web端推荐不太符合预期，可尝试切换至app端。\n'
-              '¹ 选择“游客模式(notLogin)”，将以空的key请求app推荐接口，但播放页仍会携带用户信息，保证账号能正常记录进度、点赞投币等。\n\n'
-              '² 由于接口未提供关注信息，无法豁免相关视频中的已关注Up。\n\n'
-              '* 其它（如热门视频、手动搜索、链接跳转等）均不受过滤器影响。\n'
-              '* 设定较严苛的条件可导致推荐项数锐减或多次请求，请酌情选择。\n'
-              '* 后续可能会增加更多过滤条件，敬请期待。',
+                '¹ If the default web-side recommendation does not meet your expectations, you can try switching to the app side. \n'
+                '¹ Select "Guest Mode (notLogin)", and the app recommendation interface will be requested with an empty key, but the playback page will still carry user information to ensure that the account can record progress, like and coin normally. \n\n'
+                '² Since the interface does not provide follow information, it is not possible to exempt the Up in the related videos. \n\n'
+                '* Others (such as popular videos, manual search, link jump, etc.) are not affected by the filter. \n'
+                '* Setting more stringent conditions may lead to a sharp drop in the number of recommended items or multiple requests, please choose as appropriate. \n'
+                '* More filtering conditions may be added in the future, so stay tuned. ',
               style: Theme.of(context).textTheme.labelSmall!.copyWith(
                   color:
                       Theme.of(context).colorScheme.outline.withOpacity(0.7)),

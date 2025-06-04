@@ -59,22 +59,22 @@ class _VideoSettingState extends State<VideoSetting> {
         centerTitle: false,
         titleSpacing: 0,
         title: Text(
-          '音视频设置',
+          'Audio & Video',
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
       body: ListView(
         children: [
           const SetSwitchItem(
-            title: '开启硬解',
-            subTitle: '以较低功耗播放视频，若异常卡死请关闭',
+            title: 'Enable Hard Decoding',
+            subTitle: 'Play videos with lower power consumption. If it freezes abnormally, please disable',
             leading: Icon(Icons.flash_on_outlined),
             setKey: SettingBoxKey.enableHA,
             defaultVal: true,
           ),
           const SetSwitchItem(
-            title: '免登录1080P',
-            subTitle: '免登录查看1080P视频',
+            title: 'No login 1080p',
+            subTitle: 'Use 1080p quality without login',
             leading: Icon(Icons.hd_outlined),
             setKey: SettingBoxKey.p1080,
             defaultVal: true,
@@ -82,8 +82,8 @@ class _VideoSettingState extends State<VideoSetting> {
           ListTile(
             // enabled: false,
             // onTap: null,
-            title: Text("b站定向流量支持", style: titleStyle),
-            subtitle: Text("若有b站定向流量且未使用代理等，则会自动使用。可查阅运营商的流量记录确认，此功能无法关闭。",
+            title: Text("Use BiliBili Proxy", style: titleStyle),
+            subtitle: Text("If there is traffic directed to BiliBili and no proxy is used, it will be used automatically. You can check the traffic records of the operator to confirm that this function cannot be turned off.",
                 style: subTitleStyle),
             leading: const Icon(Icons.perm_data_setting_outlined),
             trailing: Transform.scale(
@@ -101,17 +101,17 @@ class _VideoSettingState extends State<VideoSetting> {
                 value: true,
                 onChanged: (bool value) {
                   if (!value) {
-                    SmartDialog.showToast('由于app使用的均为官方接口，此功能无法关闭');
+                    SmartDialog.showToast('Since the app uses official interfaces, this function cannot be turned off.');
                   }
                 },
               ),
             ),
           ),
           ListTile(
-            title: Text('CDN 设置', style: titleStyle),
+            title: Text('CDN Settings', style: titleStyle),
             leading: Icon(MdiIcons.cloudPlusOutline),
             subtitle: Text(
-              '当前使用：${CDNServiceCode.fromCode(defaultCDNService)!.description}，部分 CDN 可能失效，如无法播放请尝试切换',
+              'Using：${CDNServiceCode.fromCode(defaultCDNService)!.description}，Some CDNs may not work',
               style: subTitleStyle,
             ),
             onTap: () async {
@@ -119,7 +119,7 @@ class _VideoSettingState extends State<VideoSetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<String>(
-                      title: 'CDN 设置',
+                      title: 'CDN Settings',
                       value: defaultCDNService,
                       values: CDNService.values.map((e) {
                         return {'title': e.description, 'value': e.code};
@@ -134,18 +134,18 @@ class _VideoSettingState extends State<VideoSetting> {
             },
           ),
           SetSwitchItem(
-            title: '音频不跟随 CDN 设置',
-            subTitle: '直接采用备用 URL，可解决部分视频无声',
+            title: 'Get audio without CDN',
+            subTitle: 'Directly use alternate URL to fix some videos being silent',
             leading: Icon(MdiIcons.musicNotePlus),
             setKey: SettingBoxKey.disableAudioCDN,
             defaultVal: true,
           ),
           ListTile(
             dense: false,
-            title: Text('默认画质', style: titleStyle),
+            title: Text('Default Video Quality', style: titleStyle),
             leading: const Icon(Icons.video_settings_outlined),
             subtitle: Text(
-              '当前画质：${VideoQualityCode.fromCode(defaultVideoQa)!.description!}',
+              'Current Quality: ${VideoQualityCode.fromCode(defaultVideoQa)!.description!}',
               style: subTitleStyle,
             ),
             onTap: () async {
@@ -153,7 +153,7 @@ class _VideoSettingState extends State<VideoSetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<int>(
-                      title: '默认画质',
+                      title: 'Default Video Quality',
                       value: defaultVideoQa,
                       values: VideoQuality.values.reversed.map((e) {
                         return {'title': e.description, 'value': e.code};
@@ -169,10 +169,10 @@ class _VideoSettingState extends State<VideoSetting> {
           ),
           ListTile(
             dense: false,
-            title: Text('默认音质', style: titleStyle),
+            title: Text('Default Audio Quality', style: titleStyle),
             leading: const Icon(Icons.music_video_outlined),
             subtitle: Text(
-              '当前音质：${AudioQualityCode.fromCode(defaultAudioQa)!.description!}',
+              'Current Quality: ${AudioQualityCode.fromCode(defaultAudioQa)!.description!}',
               style: subTitleStyle,
             ),
             onTap: () async {
@@ -180,7 +180,7 @@ class _VideoSettingState extends State<VideoSetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<int>(
-                      title: '默认音质',
+                      title: 'Default Audio Quality',
                       value: defaultAudioQa,
                       values: AudioQuality.values.reversed.map((e) {
                         return {'title': e.description, 'value': e.code};
@@ -196,10 +196,10 @@ class _VideoSettingState extends State<VideoSetting> {
           ),
           ListTile(
             dense: false,
-            title: Text('首选解码格式', style: titleStyle),
+            title: Text('Preferred Decoding Format', style: titleStyle),
             leading: const Icon(Icons.movie_creation_outlined),
             subtitle: Text(
-              '首选解码格式：${VideoDecodeFormatsCode.fromCode(defaultDecode)!.description!}，请根据设备支持情况与需求调整',
+              'Selected Format: ${VideoDecodeFormatsCode.fromCode(defaultDecode)!.description!}，Please adjust according to device',
               style: subTitleStyle,
             ),
             onTap: () async {
@@ -207,7 +207,7 @@ class _VideoSettingState extends State<VideoSetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<String>(
-                      title: '默认解码格式',
+                      title: 'Select Decoding Format',
                       value: defaultDecode,
                       values: VideoDecodeFormats.values.map((e) {
                         return {'title': e.description, 'value': e.code};
@@ -223,9 +223,9 @@ class _VideoSettingState extends State<VideoSetting> {
           ),
           ListTile(
             dense: false,
-            title: Text('次选解码格式', style: titleStyle),
+            title: Text('Fallback Decoding Format', style: titleStyle),
             subtitle: Text(
-              '非杜比视频次选：${VideoDecodeFormatsCode.fromCode(secondDecode)!.description!}，仍无则选择首个提供的解码格式',
+              'Selected Format: ${VideoDecodeFormatsCode.fromCode(secondDecode)!.description!}，If no format is selected, default is used',
               style: subTitleStyle,
             ),
             leading: const Icon(Icons.swap_horizontal_circle_outlined),
@@ -234,7 +234,7 @@ class _VideoSettingState extends State<VideoSetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<String>(
-                      title: '次选解码格式',
+                      title: 'Fallback Decoding Format',
                       value: secondDecode,
                       values: VideoDecodeFormats.values.map((e) {
                         return {'title': e.description, 'value': e.code};
@@ -250,27 +250,27 @@ class _VideoSettingState extends State<VideoSetting> {
           ),
           if (Platform.isAndroid)
             const SetSwitchItem(
-              title: '优先使用 OpenSL ES 输出音频',
+              title: 'Use OpenSL ES for Audio Output',
               leading: Icon(Icons.speaker_outlined),
               subTitle:
-                  '关闭则优先使用AudioTrack输出音频（此项即mpv的--ao），若遇系统音效丢失、无声、音画不同步等问题请尝试切换。',
+                  'If it is turned off, AudioTrack will be used to output audio (this item is --ao of mpv). If you encounter problems such as system sound loss, silence, audio and video out of sync, etc., please try to switch.',
               setKey: SettingBoxKey.useOpenSLES,
               defaultVal: false,
             ),
           const SetSwitchItem(
-            title: '扩大缓冲区',
+            title: 'Increase Buffer',
             leading: Icon(Icons.storage_outlined),
-            subTitle: '默认缓冲区为视频4MB/直播16MB，开启后为32MB/64MB，加载时间变长',
+            subTitle: 'The default buffer is 4MB for video/16MB for live broadcast. Switching this will change it to 32MB/64MB, and may increase loading times',
             setKey: SettingBoxKey.expandBuffer,
             defaultVal: false,
           ),
           //video-sync
           ListTile(
             dense: false,
-            title: Text('视频同步', style: titleStyle),
+            title: Text('Video Sync', style: titleStyle),
             leading: const Icon(Icons.view_timeline_outlined),
             subtitle: Text(
-              '当前：$videoSync（此项即mpv的--video-sync）',
+              'Current：$videoSync（mpv --video-sync）',
               style: subTitleStyle,
             ),
             onTap: () async {
@@ -278,7 +278,7 @@ class _VideoSettingState extends State<VideoSetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<String>(
-                      title: '视频同步',
+                      title: 'Video Sync',
                       value: videoSync,
                       values: [
                         'audio',
@@ -304,10 +304,10 @@ class _VideoSettingState extends State<VideoSetting> {
           ),
           ListTile(
             dense: false,
-            title: Text('硬解模式', style: titleStyle),
+            title: Text('Hard Decoding Mode', style: titleStyle),
             leading: const Icon(Icons.memory_outlined),
             subtitle: Text(
-              '当前：$hardwareDecoding（此项即mpv的--hwdec）',
+              'Current: $hardwareDecoding（mpv --hwdec）',
               style: subTitleStyle,
             ),
             onTap: () async {
@@ -315,7 +315,7 @@ class _VideoSettingState extends State<VideoSetting> {
                 context: context,
                 builder: (context) {
                   return SelectDialog<String>(
-                      title: '硬解模式',
+                      title: 'Hard Decoding Mode',
                       value: hardwareDecoding,
                       values: ['auto', 'auto-copy', 'auto-safe', 'no', 'yes']
                           .map((e) {
