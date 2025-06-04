@@ -11,7 +11,7 @@ List defaultNavigationBars = [
       Icons.home,
       size: 23,
     ),
-    'label': "首页",
+    'label': "Home",
     'count': 0,
   },
   {
@@ -24,7 +24,7 @@ List defaultNavigationBars = [
       Icons.motion_photos_on,
       size: 21,
     ),
-    'label': "动态",
+    'label': "Trending",
     'count': 0,
   },
   {
@@ -37,7 +37,7 @@ List defaultNavigationBars = [
       Icons.video_collection,
       size: 21,
     ),
-    'label': "媒体库",
+    'label': "Library",
     'count': 0,
   }
 ];

@@ -86,7 +86,7 @@ class _ListSheetContentState extends State<ListSheetContent> {
     late String title;
     if (episode.runtimeType.toString() == "EpisodeItem") {
       if (episode.longTitle != null && episode.longTitle != "") {
-        title = "第${(episode.title ?? '${index + 1}')}话  ${episode.longTitle!}";
+        title = "Episode ${(episode.title ?? '${index + 1}')} Chapter  ${episode.longTitle!}";
       } else {
         title = episode.title!;
       }

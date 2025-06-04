@@ -24,7 +24,7 @@ class VideoCustomActions {
   VideoCustomActions(this.videoItem, this.context) {
     actions = [
       VideoCustomAction(
-          '稍后再看', 'pause', Icon(MdiIcons.clockTimeEightOutline, size: 16),
+          'Watch Later', 'pause', Icon(MdiIcons.clockTimeEightOutline, size: 16),
           () async {
         var res = await UserHttp.toViewLater(bvid: videoItem.bvid as String);
         SmartDialog.showToast(res['msg']);
@@ -37,12 +37,12 @@ class VideoCustomActions {
         });
       }),
       VideoCustomAction(
-          '不感兴趣', 'dislike', Icon(MdiIcons.thumbDownOutline, size: 16),
+          'Not Interested', 'dislike', Icon(MdiIcons.thumbDownOutline, size: 16),
           () async {
         String? accessKey = GStorage.localCache
             .get(LocalCacheKey.accessKey, defaultValue: {})['value'];
         if (accessKey == null || accessKey == "") {
-          SmartDialog.showToast("请退出账号后重新登录");
+          SmartDialog.showToast("Please log out and log in again");
           return;
         }
         if (videoItem is RecVideoItemAppModel) {
@@ -68,7 +68,7 @@ class VideoCustomActions {
                     const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
               ),
               onPressed: () async {
-                SmartDialog.showLoading(msg: '正在提交');
+                SmartDialog.showLoading(msg: 'Submitting');
                 var res = await VideoHttp.feedDislike(
                   reasonId: r?.id,
                   // feedbackId: f?.id,
@@ -89,14 +89,14 @@ class VideoCustomActions {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: const Text('请选择'),
+                title: const Text('Please Select'),
                 content: SingleChildScrollView(
                   child: Column(
                     children: [
                       if (v.dislikeReasons != null)
                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 8.0),
-                          child: Text('我不想看'),
+                          child: Text("Don't want to see this"),
                         ),
                       if (v.dislikeReasons != null)
                         Wrap(
@@ -123,7 +123,7 @@ class VideoCustomActions {
                       const Divider(),
                       ElevatedButton(
                         onPressed: () async {
-                          SmartDialog.showLoading(msg: '正在提交');
+                          SmartDialog.showLoading(msg: 'Submitting');
                           var res = await VideoHttp.feedDislikeCancel(
                             // reasonId: r?.id,
                             // feedbackId: f?.id,
@@ -132,10 +132,10 @@ class VideoCustomActions {
                           );
                           SmartDialog.dismiss();
                           SmartDialog.showToast(
-                              res['status'] ? "成功" : res['msg']);
+                              res['status'] ? "Success" : res['msg']);
                           Get.back();
                         },
-                        child: const Text("撤销"),
+                        child: const Text("Cancel"),
                       ),
                     ],
                   ),
@@ -148,7 +148,7 @@ class VideoCustomActions {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: const Text('点踩该视频？'),
+                title: const Text('Dislike this video？'),
                 content: SingleChildScrollView(
                   child: Column(
                     children: [

@@ -62,17 +62,17 @@ class _AboutPageState extends State<AboutPage> {
                 style: Theme.of(context).textTheme.titleMedium,
                 semanticsLabel: 'PiliPalaX 与你一起，发现不一样的世界'),
             Text(
-              '使用Flutter开发的B站第三方客户端⁺',
+              '3rd Party BiliBili Client Developed with Flutter⁺',
               textAlign: TextAlign.left,
               style: TextStyle(
                   color: Theme.of(context).colorScheme.outline, height: 3),
-              semanticsLabel: '使用Flutter开发的B站第三方客户端（带无障碍适配）',
+              semanticsLabel: '3rd Party BiliBili Client Developed with Flutter（带无障碍适配）',
             ),
           ]),
           Obx(
             () => ListTile(
               onTap: () => _aboutController.tapOnVersion(),
-              title: const Text('当前版本'),
+              title: const Text('Version'),
               leading: Icon(MdiIcons.sourceCommitLocal),
               trailing: Text(_aboutController.currentVersion.value,
                   style: subTitleStyle),
@@ -81,14 +81,14 @@ class _AboutPageState extends State<AboutPage> {
           Obx(
             () => ListTile(
               onTap: () => _aboutController.onUpdate(),
-              title: const Text('最新版本'),
+              title: const Text('Check for Updates'),
               leading: Icon(MdiIcons.newBox),
               trailing: Text(
                 _aboutController.isLoading.value
-                    ? '正在获取'
+                    ? 'Loading'
                     : _aboutController.isUpdate.value
-                        ? '有新版本  ❤️${_aboutController.remoteVersion.value}'
-                        : '当前已是最新版',
+                        ? 'New Version Available  ❤️${_aboutController.remoteVersion.value}'
+                        : 'Using Latest Version',
                 style: subTitleStyle,
               ),
             ),
@@ -109,16 +109,16 @@ class _AboutPageState extends State<AboutPage> {
           ListTile(
             onTap: () => _aboutController.githubUrl(),
             leading: Icon(MdiIcons.github),
-            title: const Text('开源仓库⭐'),
+            title: const Text('Github Repo⭐'),
             trailing: Text(
-              'Github.com/orz12/PiliPalaX',
+              'Github.com/Yonokid/PiliPalaX',
               style: subTitleStyle,
             ),
           ),
           ListTile(
             onTap: () => _aboutController.qqGroup(),
             leading: Icon(MdiIcons.qqchat),
-            title: const Text('QQ群'),
+            title: const Text('QQ (CN Only)'),
             trailing: Text(
               '392176105',
               style: subTitleStyle,
@@ -127,13 +127,13 @@ class _AboutPageState extends State<AboutPage> {
           ListTile(
             onTap: () => _aboutController.tgChannel(),
             leading: Icon(MdiIcons.sendCircle),
-            title: const Text('TG群'),
+            title: const Text('Telegram (CN Only)'),
             trailing: Icon(Icons.arrow_forward_ios, size: 16, color: outline),
           ),
           ListTile(
             onTap: () => _aboutController.feedback(context),
             leading: Icon(MdiIcons.chatAlert),
-            title: const Text('问题反馈'),
+            title: const Text('Feedback'),
             trailing: Icon(
               Icons.arrow_forward_ios,
               size: 16,
@@ -149,7 +149,7 @@ class _AboutPageState extends State<AboutPage> {
           ListTile(
             onTap: () => _aboutController.logs(),
             leading: const Icon(Icons.bug_report),
-            title: const Text('错误日志'),
+            title: const Text('Report Bug'),
             trailing: Icon(Icons.arrow_forward_ios, size: 16, color: outline),
           ),
           ListTile(
@@ -158,11 +158,11 @@ class _AboutPageState extends State<AboutPage> {
               getCacheSize();
             },
             leading: const Icon(Icons.delete),
-            title: const Text('清除缓存'),
-            trailing: Text('图片及网络缓存 $cacheSize', style: subTitleStyle),
+            title: const Text('Clear Cache'),
+            trailing: Text('Image & Network Cache $cacheSize', style: subTitleStyle),
           ),
           ListTile(
-              title: const Text('导入/导出设置'),
+              title: const Text('Import/Export Settings'),
               dense: false,
               leading: const Icon(Icons.import_export),
               onTap: () async {
@@ -170,19 +170,19 @@ class _AboutPageState extends State<AboutPage> {
                   context: context,
                   builder: (context) {
                     return SimpleDialog(
-                      title: const Text('导入/导出设置'),
+                      title: const Text('Import/Export Settings'),
                       children: [
                         ListTile(
-                          title: const Text('导出设置至剪贴板'),
+                          title: const Text('Export Settings to Clipboard'),
                           onTap: () async {
                             Get.back();
                             String data = await GStorage.exportAllSettings();
                             Clipboard.setData(ClipboardData(text: data));
-                            SmartDialog.showToast('已复制到剪贴板');
+                            SmartDialog.showToast('Copied to clipboard');
                           },
                         ),
                         ListTile(
-                          title: const Text('从剪贴板导入设置'),
+                          title: const Text('Import settings from clipboard'),
                           onTap: () async {
                             Get.back();
                             ClipboardData? data =
@@ -190,7 +190,7 @@ class _AboutPageState extends State<AboutPage> {
                             if (data == null ||
                                 data.text == null ||
                                 data.text!.isEmpty) {
-                              SmartDialog.showToast('剪贴板无数据');
+                              SmartDialog.showToast('No data in clipboard');
                               return;
                             }
                             if (!context.mounted) return;
@@ -198,14 +198,14 @@ class _AboutPageState extends State<AboutPage> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: const Text('是否导入如下设置？'),
+                                  title: const Text('Do you want to import the following settings?'),
                                   content: Text(data.text!),
                                   actions: [
                                     TextButton(
                                       onPressed: () {
                                         Get.back();
                                       },
-                                      child: const Text('取消'),
+                                      child: const Text('Cancel'),
                                     ),
                                     TextButton(
                                       onPressed: () async {
@@ -213,12 +213,12 @@ class _AboutPageState extends State<AboutPage> {
                                         try {
                                           await GStorage.importAllSettings(
                                               data.text!);
-                                          SmartDialog.showToast('导入成功');
+                                          SmartDialog.showToast('Imported.');
                                         } catch (e) {
-                                          SmartDialog.showToast('导入失败：$e');
+                                          SmartDialog.showToast('Import Failed：$e');
                                         }
                                       },
-                                      child: const Text('确定'),
+                                      child: const Text('Confirm'),
                                     ),
                                   ],
                                 );
@@ -232,30 +232,30 @@ class _AboutPageState extends State<AboutPage> {
                 );
               }),
           ListTile(
-            title: const Text('重置所有设置'),
+            title: const Text('Reset to Default Settings'),
             leading: const Icon(Icons.settings_backup_restore),
             onTap: () async {
               await showDialog(
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: const Text('重置所有设置'),
-                    content: const Text('是否重置所有设置？'),
+                    title: const Text('Reset All Settings'),
+                    content: const Text('Are you sure?'),
                     actions: [
                       TextButton(
                         onPressed: () {
                           Get.back();
                         },
-                        child: const Text('取消'),
+                        child: const Text('Cancel'),
                       ),
                       TextButton(
                         onPressed: () {
                           Get.back();
                           GStorage.setting.clear();
                           GStorage.video.clear();
-                          SmartDialog.showToast('重置成功');
+                          SmartDialog.showToast('Reset Success.');
                         },
-                        child: const Text('重置可导出的设置'),
+                        child: const Text('Reset Exportable Settings'),
                       ),
                       TextButton(
                         onPressed: () {
@@ -266,9 +266,9 @@ class _AboutPageState extends State<AboutPage> {
                           GStorage.video.clear();
                           GStorage.historyWord.clear();
                           GStorage.onlineCache.clear();
-                          SmartDialog.showToast('重置成功');
+                          SmartDialog.showToast('Reset Success.');
                         },
-                        child: const Text('重置所有数据（含登录信息）'),
+                        child: const Text('Reset all data (including login information)'),
                       ),
                     ],
                   );

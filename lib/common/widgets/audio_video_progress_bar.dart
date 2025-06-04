@@ -1103,10 +1103,10 @@ class _RenderProgressBar extends RenderBox {
 
     // description
     config.textDirection = TextDirection.ltr;
-    config.label = '进度条'; //'Progress bar';
+    config.label = 'Progress Bar'; //'Progress bar';
     config.value = '${(_thumbValue * 100).round()}%，'
-        '已播放${Utils.durationReadFormat(Utils.timeFormat(progress.inSeconds))}，'
-        '共${Utils.durationReadFormat(Utils.timeFormat(total.inSeconds))}';
+        'Time: ${Utils.durationReadFormat(Utils.timeFormat(progress.inSeconds))}，'
+        'Total: ${Utils.durationReadFormat(Utils.timeFormat(total.inSeconds))}';
 
     // increase action
     config.onIncrease = increaseAction;

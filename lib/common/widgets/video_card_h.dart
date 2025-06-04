@@ -60,7 +60,7 @@ class VideoCardH extends StatelessWidget {
             onLongPress: longPress,
             onTap: () async {
               if (type == 'ketang') {
-                SmartDialog.showToast('课堂视频暂不支持播放');
+                SmartDialog.showToast('Classroom videos are not supported yet');
                 return;
               }
               try {

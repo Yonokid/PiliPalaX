@@ -12,13 +12,13 @@ enum DynamicsType {
 
 extension BusinessTypeExtension on DynamicsType {
   String get values => ['all', 'video', 'pgc', 'article', 'up'][index];
-  String get labels => ['全部', '投稿', '番剧', '专栏', 'Up'][index];
+  String get labels => ['All', '投稿', '番剧', '专栏', 'Up'][index];
 }
 
 List tabsConfig = [
   {
     'value': DynamicsType.all,
-    'label': '全部',
+    'label': 'All',
     'enabled': true,
     'ctr': Get.put<DynamicsTabController>(DynamicsTabController(), tag: 'all'),
     'page': const DynamicsTabPage(dynamicsType: 'all'),

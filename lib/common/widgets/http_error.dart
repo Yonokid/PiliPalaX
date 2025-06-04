@@ -24,7 +24,7 @@ class HttpError extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             Text(
-              errMsg ?? '请求异常',
+              errMsg ?? 'Request Exception',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleSmall,
             ),
@@ -39,7 +39,7 @@ class HttpError extends StatelessWidget {
                 }),
               ),
               child: Text(
-                btnText ?? '点击重试',
+                btnText ?? 'Retry',
                 style: TextStyle(color: Theme.of(context).colorScheme.primary),
               ),
             ),

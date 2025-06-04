@@ -19,7 +19,7 @@ class NoData extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              '没有数据',
+              'No Data',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleSmall,
             ),

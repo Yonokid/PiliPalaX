@@ -51,7 +51,7 @@ class OverlayPop extends StatelessWidget {
                       borderRadius:
                           const BorderRadius.all(Radius.circular(20))),
                   child: IconButton(
-                    tooltip: '关闭',
+                    tooltip: 'Closed',
                     style: ButtonStyle(
                       padding: WidgetStateProperty.all(EdgeInsets.zero),
                     ),
@@ -115,7 +115,7 @@ class OverlayPop extends StatelessWidget {
                   SizedBox(
                     width: 30,
                     child: IconButton(
-                      tooltip: '稍后再看',
+                      tooltip: 'Watch Later',
                       icon: Icon(MdiIcons.clockTimeEightOutline, size: 20),
                       onPressed: () async {
                         var res = await UserHttp.toViewLater(
@@ -128,7 +128,7 @@ class OverlayPop extends StatelessWidget {
                 SizedBox(
                     width: 30,
                     child: IconButton(
-                      tooltip: '保存封面图',
+                      tooltip: 'Save Thumbnail',
                       onPressed: () async {
                         await DownloadUtils.downloadImg(
                           context,

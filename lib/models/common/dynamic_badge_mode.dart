@@ -1,7 +1,7 @@
 enum DynamicBadgeMode { hidden, point, number }
 
 extension DynamicBadgeModeDesc on DynamicBadgeMode {
-  String get description => ['隐藏', '红点', '数字'][index];
+  String get description => ['Hide', 'Red Dot', 'Number'][index];
 }
 
 extension DynamicBadgeModeCode on DynamicBadgeMode {

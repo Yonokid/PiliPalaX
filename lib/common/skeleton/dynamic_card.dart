@@ -106,10 +106,10 @@ class DynamicCardSkeleton extends StatelessWidget {
                     ),
                     label: Text(
                       i == 0
-                          ? '转发'
+                          ? 'Repost'
                           : i == 1
-                              ? '评论'
-                              : '点赞',
+                              ? 'Comment'
+                              : 'Like',
                     ),
                   )
               ],

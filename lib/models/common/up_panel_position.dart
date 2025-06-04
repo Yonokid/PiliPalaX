@@ -7,7 +7,7 @@ enum UpPanelPosition {
 
 extension UpPanelPositionDesc on UpPanelPosition {
   String get values => ['left_fixed', 'right_fixed', 'left_drawer', 'right_drawer'][index];
-  String get labels => ['左侧常驻','右侧常驻','左侧抽屉','右侧抽屉'][index];
+  String get labels => ['Left (Fixed)','Right (Fixed)','Left (Drawer)','Right (Drawer)'][index];
 }
 
 extension UpPanelPositionCode on UpPanelPosition {

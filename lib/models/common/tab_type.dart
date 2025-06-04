@@ -9,7 +9,7 @@ import 'package:PiliPalaX/pages/rcmd/index.dart';
 enum TabType { live, rcmd, hot, rank, bangumi }
 
 extension TabTypeDesc on TabType {
-  String get description => ['直播', '推荐', '热门', '分区', '番剧'][index];
+  String get description => ['Live', 'Recommended', 'Hot', 'Rank', 'Bangumi'][index];
   String get id => ['live', 'rcmd', 'hot', 'rank', 'bangumi'][index];
 }
 
@@ -19,7 +19,7 @@ List tabsConfig = [
       Icons.live_tv_outlined,
       size: 15,
     ),
-    'label': '直播',
+    'label': 'Live',
     'type': TabType.live,
     'ctr': Get.find<LiveController>,
     'page': const LivePage(),
@@ -29,7 +29,7 @@ List tabsConfig = [
       Icons.thumb_up_off_alt_outlined,
       size: 15,
     ),
-    'label': '推荐',
+    'label': 'Recommended',
     'type': TabType.rcmd,
     'ctr': Get.find<RcmdController>,
     'page': const RcmdPage(),
@@ -39,7 +39,7 @@ List tabsConfig = [
       Icons.whatshot_outlined,
       size: 15,
     ),
-    'label': '热门',
+    'label': 'Hot',
     'type': TabType.hot,
     'ctr': Get.find<HotController>,
     'page': const HotPage(),
@@ -49,7 +49,7 @@ List tabsConfig = [
       Icons.category_outlined,
       size: 15,
     ),
-    'label': '分区',
+    'label': 'Rank',
     'type': TabType.rank,
     'ctr': Get.find<RankController>,
     'page': const RankPage(),
@@ -59,7 +59,7 @@ List tabsConfig = [
       Icons.play_circle_outlined,
       size: 15,
     ),
-    'label': '番剧',
+    'label': 'Bangumi',
     'type': TabType.bangumi,
     'ctr': Get.find<BangumiController>,
     'page': const BangumiPage(),

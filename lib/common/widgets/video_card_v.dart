@@ -42,7 +42,7 @@ class VideoCardV extends StatelessWidget {
     switch (goto) {
       case 'bangumi':
         if (videoItem.bangumiBadge == '电影') {
-          SmartDialog.showToast('暂不支持电影观看');
+          SmartDialog.showToast('Movie viewing is not supported yet');
           return;
         }
         int epId = videoItem.param;
