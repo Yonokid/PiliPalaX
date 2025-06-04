@@ -66,25 +66,23 @@ android {
     }
 
     signingConfigs {
-		// 添加签名配置
-		/*
-		release {
-			// 配置密钥库文件的位置、别名、密码等信息
-			storeFile _storeFile
-			storePassword _storePassword
-			keyAlias _keyAlias
-			keyPassword _keyPassword
-			v1SigningEnabled true
-			v2SigningEnabled true
-		}
-		*/
-	}
+        // 添加签名配置
+        release {
+            // 配置密钥库文件的位置、别名、密码等信息
+            storeFile _storeFile
+            storePassword _storePassword
+            keyAlias _keyAlias
+            keyPassword _keyPassword
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
 
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            // signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
         }
         debug {
             //applicationId "com.orz12.PiliPalaX.debug"
