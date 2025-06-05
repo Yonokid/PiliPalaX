@@ -143,7 +143,7 @@ class ProfilePanel extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'Fans',
+                                'Followers',
                                 style: TextStyle(
                                   fontSize: Theme.of(
                                     context,
@@ -170,7 +170,7 @@ class ProfilePanel extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'Liked',
+                                'Likes',
                                 style: TextStyle(
                                   fontSize: Theme.of(
                                     context,

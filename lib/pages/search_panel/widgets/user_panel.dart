@@ -8,62 +8,62 @@ import '../../../utils/grid.dart';
 
 Widget searchUserPanel(BuildContext context, ctr, list) {
   TextStyle style = TextStyle(
-      fontSize: Theme.of(context).textTheme.labelSmall!.fontSize,
-      color: Theme.of(context).colorScheme.outline);
+    fontSize: Theme.of(context).textTheme.labelSmall!.fontSize,
+    color: Theme.of(context).colorScheme.outline,
+  );
 
-  return CustomScrollView(controller: ctr.scrollController, slivers: [
-    SliverGrid(
+  return CustomScrollView(
+    controller: ctr.scrollController,
+    slivers: [
+      SliverGrid(
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            mainAxisSpacing: StyleString.cardSpace,
-            crossAxisSpacing: StyleString.safeSpace,
-            maxCrossAxisExtent: Grid.maxRowWidth * 2,
-            mainAxisExtent: 56),
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            var i = list![index];
-            String heroTag = Utils.makeHeroTag(i!.mid);
-            return InkWell(
-              onTap: () => Get.toNamed('/member?mid=${i.mid}',
-                  arguments: {'heroTag': heroTag, 'face': i.upic}),
-              child: Row(
-                children: [
-                  const SizedBox(width: 15),
-                  Hero(
-                    tag: heroTag,
-                    child: NetworkImgLayer(
-                      width: 42,
-                      height: 42,
-                      src: i.upic,
-                      type: 'avatar',
-                    ),
+          mainAxisSpacing: StyleString.cardSpace,
+          crossAxisSpacing: StyleString.safeSpace,
+          maxCrossAxisExtent: Grid.maxRowWidth * 2,
+          mainAxisExtent: 56,
+        ),
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+          var i = list![index];
+          String heroTag = Utils.makeHeroTag(i!.mid);
+          return InkWell(
+            onTap: () => Get.toNamed(
+              '/member?mid=${i.mid}',
+              arguments: {'heroTag': heroTag, 'face': i.upic},
+            ),
+            child: Row(
+              children: [
+                const SizedBox(width: 15),
+                Hero(
+                  tag: heroTag,
+                  child: NetworkImgLayer(
+                    width: 42,
+                    height: 42,
+                    src: i.upic,
+                    type: 'avatar',
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                      child: Column(
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Row(
                         children: [
-                          Text(
-                            i!.uname,
-                            style: const TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
+                          Text(i!.uname, style: const TextStyle(fontSize: 14)),
                           const SizedBox(width: 6),
                           Image.asset(
                             'assets/images/lv/lv${i!.level}.png',
                             height: 11,
-                            semanticLabel: '等级${i.level}',
+                            semanticLabel: 'Level ${i.level}',
                           ),
                         ],
                       ),
                       Row(
                         children: [
-                          Text('粉丝：${i.fans} ', style: style),
-                          Text(' 视频：${i.videos}', style: style)
+                          Text('Followers: ${i.fans} ', style: style),
+                          Text(' Videos: ${i.videos}', style: style),
                         ],
                       ),
                       if (i.officialVerify['desc'] != '')
@@ -74,12 +74,13 @@ Widget searchUserPanel(BuildContext context, ctr, list) {
                           maxLines: 1,
                         ),
                     ],
-                  )),
-                ],
-              ),
-            );
-          },
-          childCount: list!.length,
-        ))
-  ]);
+                  ),
+                ),
+              ],
+            ),
+          );
+        }, childCount: list!.length),
+      ),
+    ],
+  );
 }

@@ -83,8 +83,11 @@ class _BangumiPanelState extends State<BangumiPanel> {
   void scrollToIndex() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // 在回调函数中获取更新后的状态
-      listViewScrollCtr.animateTo(currentIndex * 150,
-          duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+      listViewScrollCtr.animateTo(
+        currentIndex * 150,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
     });
   }
 
@@ -117,16 +120,16 @@ class _BangumiPanelState extends State<BangumiPanel> {
                   ),
                   onPressed: () {
                     ListSheet(
-                            episodes: widget.pages,
-                            bvid: widget.pages[currentIndex].bvid!,
-                            aid: widget.pages[currentIndex].aid!,
-                            currentCid: cid,
-                            changeFucCall: widget.changeFuc,
-                            context: context)
-                        .buildShowBottomSheet();
+                      episodes: widget.pages,
+                      bvid: widget.pages[currentIndex].bvid!,
+                      aid: widget.pages[currentIndex].aid!,
+                      currentCid: cid,
+                      changeFucCall: widget.changeFuc,
+                      context: context,
+                    ).buildShowBottomSheet();
                   },
                   child: Text(
-                    '全${widget.pages.length}话',
+                    '${widget.pages.length} Episodes',
                     style: const TextStyle(fontSize: 13),
                   ),
                 ),
@@ -169,7 +172,9 @@ class _BangumiPanelState extends State<BangumiPanel> {
                     //changeFucCall(widget.pages[i], i),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 10),
+                        vertical: 8,
+                        horizontal: 10,
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -182,23 +187,26 @@ class _BangumiPanelState extends State<BangumiPanel> {
                                   height: 12,
                                   semanticLabel: "正在播放：",
                                 ),
-                                const SizedBox(width: 6)
+                                const SizedBox(width: 6),
                               ],
                               Expanded(
-                                  child: Text(
-                                widget.pages[i].title ?? '第${i + 1}话',
-                                maxLines: (widget.pages[i].longTitle != null &&
-                                        widget.pages[i].longTitle != '')
-                                    ? 1
-                                    : 2,
-                                style: TextStyle(
+                                child: Text(
+                                  widget.pages[i].title ?? 'Episode ${i + 1}',
+                                  maxLines:
+                                      (widget.pages[i].longTitle != null &&
+                                          widget.pages[i].longTitle != '')
+                                      ? 1
+                                      : 2,
+                                  style: TextStyle(
                                     fontSize: 13,
                                     color: i == currentIndex
                                         ? Theme.of(context).colorScheme.primary
-                                        : Theme.of(context)
-                                            .colorScheme
-                                            .onSurface),
-                              )),
+                                        : Theme.of(
+                                            context,
+                                          ).colorScheme.onSurface,
+                                  ),
+                                ),
+                              ),
                               const SizedBox(width: 2),
                               if (widget.pages[i].badge != null) ...[
                                 const Spacer(),
@@ -214,12 +222,13 @@ class _BangumiPanelState extends State<BangumiPanel> {
                                     widget.pages[i].badge!,
                                     style: TextStyle(
                                       fontSize: 11,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
                                     ),
                                   ),
                                 ],
-                              ]
+                              ],
                             ],
                           ),
                           if (widget.pages[i].longTitle != null &&
@@ -229,15 +238,14 @@ class _BangumiPanelState extends State<BangumiPanel> {
                               widget.pages[i].longTitle!,
                               maxLines: 1,
                               style: TextStyle(
-                                  fontSize: 13,
-                                  color: i == currentIndex
-                                      ? Theme.of(context).colorScheme.primary
-                                      : Theme.of(context)
-                                          .colorScheme
-                                          .onSurface),
+                                fontSize: 13,
+                                color: i == currentIndex
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Theme.of(context).colorScheme.onSurface,
+                              ),
                               overflow: TextOverflow.ellipsis,
-                            )
-                          ]
+                            ),
+                          ],
                         ],
                       ),
                     ),
@@ -246,7 +254,7 @@ class _BangumiPanelState extends State<BangumiPanel> {
               );
             },
           ),
-        )
+        ),
       ],
     );
   }

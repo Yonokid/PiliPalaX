@@ -9,11 +9,7 @@ import '../../../common/constants.dart';
 import '../../../utils/grid.dart';
 
 class SearchVideoPanel extends StatelessWidget {
-  SearchVideoPanel({
-    required this.ctr,
-    required this.list,
-    super.key,
-  });
+  SearchVideoPanel({required this.ctr, required this.list, super.key});
 
   final SearchPanelController ctr;
   final List list;
@@ -29,7 +25,10 @@ class SearchVideoPanel extends StatelessWidget {
           width: context.width,
           height: 34,
           padding: const EdgeInsets.only(
-              left: StyleString.safeSpace, top: 0, right: 12),
+            left: StyleString.safeSpace,
+            top: 0,
+            right: 12,
+          ),
           child: Row(
             children: [
               Expanded(
@@ -47,14 +46,16 @@ class SearchVideoPanel extends StatelessWidget {
                             callFn: (bool selected) async {
                               print('selected: $selected');
                               controller.selectedType.value = i['type'];
-                              ctr.order.value =
-                                  i['type'].toString().split('.').last;
+                              ctr.order.value = i['type']
+                                  .toString()
+                                  .split('.')
+                                  .last;
                               SmartDialog.showLoading(msg: 'loading');
                               await ctr.onRefresh();
                               SmartDialog.dismiss();
                             },
                           ),
-                        ]
+                        ],
                       ],
                     ),
                   ),
@@ -66,7 +67,7 @@ class SearchVideoPanel extends StatelessWidget {
                 width: 32,
                 height: 32,
                 child: IconButton(
-                  tooltip: '筛选',
+                  tooltip: 'Filter',
                   style: ButtonStyle(
                     padding: WidgetStateProperty.all(EdgeInsets.zero),
                   ),
@@ -82,29 +83,34 @@ class SearchVideoPanel extends StatelessWidget {
           ),
         ),
         Expanded(
-            child: CustomScrollView(
-          cacheExtent: 3500,
-          controller: ctr.scrollController,
-          slivers: [
-            SliverPadding(
+          child: CustomScrollView(
+            cacheExtent: 3500,
+            controller: ctr.scrollController,
+            slivers: [
+              SliverPadding(
                 padding: const EdgeInsets.all(StyleString.safeSpace),
                 sliver: SliverGrid(
                   gridDelegate: SliverGridDelegateWithExtentAndRatio(
-                      mainAxisSpacing: StyleString.safeSpace,
-                      crossAxisSpacing: StyleString.safeSpace,
-                      maxCrossAxisExtent: Grid.maxRowWidth * 2,
-                      childAspectRatio: StyleString.aspectRatio * 2.4,
-                      mainAxisExtent: 0),
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      return VideoCardH(
-                          videoItem: list[index], showPubdate: true);
-                    },
-                    childCount: list.length,
+                    mainAxisSpacing: StyleString.safeSpace,
+                    crossAxisSpacing: StyleString.safeSpace,
+                    maxCrossAxisExtent: Grid.maxRowWidth * 2,
+                    childAspectRatio: StyleString.aspectRatio * 2.4,
+                    mainAxisExtent: 0,
                   ),
-                )),
-          ],
-        )),
+                  delegate: SliverChildBuilderDelegate((
+                    BuildContext context,
+                    int index,
+                  ) {
+                    return VideoCardH(
+                      videoItem: list[index],
+                      showPubdate: true,
+                    );
+                  }, childCount: list.length),
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -131,14 +137,12 @@ class CustomFilterChip extends StatelessWidget {
       child: FilterChip(
         padding: const EdgeInsets.only(left: 8, right: 8),
         labelPadding: EdgeInsets.zero,
-        label: Text(
-          label!,
-          style: const TextStyle(fontSize: 13),
-        ),
+        label: Text(label!, style: const TextStyle(fontSize: 13)),
         labelStyle: TextStyle(
-            color: type == selectedType
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.outline),
+          color: type == selectedType
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.outline,
+        ),
         selected: type == selectedType,
         showCheckmark: false,
         shape: ContinuousRectangleBorder(
@@ -159,63 +163,67 @@ class VideoPanelController extends GetxController {
   RxList<Map> filterList = [{}].obs;
   Rx<ArchiveFilterType> selectedType = ArchiveFilterType.values.first.obs;
   List<Map<String, dynamic>> timeFiltersList = [
-    {'label': '全部时长', 'value': 0},
-    {'label': '0-10分钟', 'value': 1},
-    {'label': '10-30分钟', 'value': 2},
-    {'label': '30-60分钟', 'value': 3},
-    {'label': '60分钟+', 'value': 4},
+    {'label': 'Duration', 'value': 0},
+    {'label': '0-10mins', 'value': 1},
+    {'label': '10-30mins', 'value': 2},
+    {'label': '30-60mins', 'value': 3},
+    {'label': '60min+', 'value': 4},
   ];
   RxInt currentTimeFilterval = 0.obs;
 
   @override
   void onInit() {
     List<Map<String, dynamic>> list = ArchiveFilterType.values
-        .map((type) => {
-              'label': type.description,
-              'type': type,
-            })
+        .map((type) => {'label': type.description, 'type': type})
         .toList();
     filterList.value = list;
     super.onInit();
   }
 
   onShowFilterDialog(
-      BuildContext context, SearchPanelController searchPanelCtr) {
+    BuildContext context,
+    SearchPanelController searchPanelCtr,
+  ) {
     showDialog(
       context: context,
       builder: (context) {
         TextStyle textStyle = Theme.of(context).textTheme.titleMedium!;
         return AlertDialog(
-          title: const Text('时长筛选'),
+          title: const Text('Duration Filter'),
           contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 20),
-          content: StatefulBuilder(builder: (context, StateSetter setState) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                for (var i in timeFiltersList) ...[
-                  RadioListTile(
-                    value: i['value'],
-                    autofocus: true,
-                    title: Text(i['label'], style: textStyle),
-                    groupValue: currentTimeFilterval.value,
-                    onChanged: (value) async {
-                      currentTimeFilterval.value = value!;
-                      setState(() {});
-                      SmartDialog.dismiss();
-                      SmartDialog.showToast("「${i['label']}」的筛选结果");
-                      SearchPanelController ctr =
-                          Get.find<SearchPanelController>(
-                              tag: 'video${searchPanelCtr.keyword!}');
-                      ctr.duration.value = i['value'];
-                      SmartDialog.showLoading(msg: 'loading');
-                      await ctr.onRefresh();
-                      SmartDialog.dismiss();
-                    },
-                  ),
+          content: StatefulBuilder(
+            builder: (context, StateSetter setState) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (var i in timeFiltersList) ...[
+                    RadioListTile(
+                      value: i['value'],
+                      autofocus: true,
+                      title: Text(i['label'], style: textStyle),
+                      groupValue: currentTimeFilterval.value,
+                      onChanged: (value) async {
+                        currentTimeFilterval.value = value!;
+                        setState(() {});
+                        SmartDialog.dismiss();
+                        SmartDialog.showToast(
+                          "Filter results by 「${i['label']}」",
+                        );
+                        SearchPanelController ctr =
+                            Get.find<SearchPanelController>(
+                              tag: 'video${searchPanelCtr.keyword!}',
+                            );
+                        ctr.duration.value = i['value'];
+                        SmartDialog.showLoading(msg: 'loading');
+                        await ctr.onRefresh();
+                        SmartDialog.dismiss();
+                      },
+                    ),
+                  ],
                 ],
-              ],
-            );
-          }),
+              );
+            },
+          ),
         );
       },
     );

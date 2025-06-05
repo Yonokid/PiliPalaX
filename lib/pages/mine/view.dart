@@ -41,12 +41,12 @@ class _MinePageState extends State<MinePage> {
   Widget build(BuildContext context) {
     // 宽度以最长的行为准，便于两端对齐
     return IntrinsicWidth(
-        child: Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const SizedBox(height: 8),
-        Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 8),
+          Row(
             // mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -67,8 +67,10 @@ class _MinePageState extends State<MinePage> {
                 ),
                 onTap: () {
                   FlexSchemeVariant _dynamicSchemeVariant =
-                      FlexSchemeVariant.values[GStorage.setting
-                          .get(SettingBoxKey.schemeVariant, defaultValue: 10)];
+                      FlexSchemeVariant.values[GStorage.setting.get(
+                        SettingBoxKey.schemeVariant,
+                        defaultValue: 10,
+                      )];
 
                   showMenu<FlexSchemeVariant>(
                     context: context,
@@ -93,20 +95,17 @@ class _MinePageState extends State<MinePage> {
                   ).then((selectedItem) {
                     if (selectedItem != null) {
                       _dynamicSchemeVariant = selectedItem;
-                      GStorage.setting
-                          .put(SettingBoxKey.schemeVariant, selectedItem.index);
+                      GStorage.setting.put(
+                        SettingBoxKey.schemeVariant,
+                        selectedItem.index,
+                      );
                       (context as Element).markNeedsBuild();
                       Get.forceAppUpdate();
                     }
                   });
                 },
               ),
-              const Expanded(
-                flex: 255,
-                child: SizedBox(
-                  width: 10,
-                ),
-              ),
+              const Expanded(flex: 255, child: SizedBox(width: 10)),
               IconButton(
                 iconSize: 40.0,
                 padding: const EdgeInsets.all(8),
@@ -115,7 +114,8 @@ class _MinePageState extends State<MinePage> {
                   tapTargetSize:
                       MaterialTapTargetSize.shrinkWrap, // the '2023' part
                 ),
-                tooltip: "${MineController.anonymity ? 'Quit' : 'Enter'} Incognito Mode",
+                tooltip:
+                    "${MineController.anonymity ? 'Quit' : 'Enter'} Incognito Mode",
                 onPressed: () {
                   MineController.onChangeAnonymity(context);
                   setState(() {});
@@ -146,8 +146,8 @@ class _MinePageState extends State<MinePage> {
                   mineController.themeType.value == ThemeType.system
                       ? MdiIcons.themeLightDark
                       : mineController.themeType.value == ThemeType.light
-                          ? MdiIcons.weatherSunny
-                          : MdiIcons.weatherNight,
+                      ? MdiIcons.weatherSunny
+                      : MdiIcons.weatherNight,
                   size: 24,
                 ),
               ),
@@ -164,70 +164,71 @@ class _MinePageState extends State<MinePage> {
                   Get.back(),
                   Get.toNamed('/setting', preventDuplicates: false),
                 },
-                icon: Icon(
-                  MdiIcons.cogs,
-                  size: 24,
-                ),
+                icon: Icon(MdiIcons.cogs, size: 24),
               ),
               const SizedBox(width: 10),
-            ]),
-        const SizedBox(height: 10),
-        FutureBuilder(
-          future: _futureBuilderFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.data == null || !snapshot.data['status']) {
+            ],
+          ),
+          const SizedBox(height: 10),
+          FutureBuilder(
+            future: _futureBuilderFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.data == null || !snapshot.data['status']) {
+                  return userInfoBuild(mineController, context);
+                }
+                return Obx(() => userInfoBuild(mineController, context));
+              } else {
                 return userInfoBuild(mineController, context);
               }
-              return Obx(() => userInfoBuild(mineController, context));
-            } else {
-              return userInfoBuild(mineController, context);
-            }
-          },
-        ),
-      ],
-    ));
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   Widget userInfoBuild(_mineController, context) {
     LevelInfo? levelInfo = _mineController.userInfo.value.levelInfo;
     TextStyle style = TextStyle(
-        fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
-        color: Theme.of(context).colorScheme.primary,
-        fontWeight: FontWeight.bold);
+      fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
+      color: Theme.of(context).colorScheme.primary,
+      fontWeight: FontWeight.bold,
+    );
     return Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // const SizedBox(width: 20),
-              GestureDetector(
-                onTap: () => _mineController.onLogin(),
-                child: ClipOval(
-                  child: Container(
-                    width: 55,
-                    height: 55,
-                    color: Theme.of(context).colorScheme.onInverseSurface,
-                    child: Center(
-                      child: _mineController.userInfo.value.face != null
-                          ? NetworkImgLayer(
-                              src: _mineController.userInfo.value.face,
-                              semanticsLabel: 'Avatar',
-                              width: 55,
-                              height: 55)
-                          : Image.asset(
-                              'assets/images/noface.jpeg',
-                              semanticLabel: "Default Avatar",
-                            ),
-                    ),
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // const SizedBox(width: 20),
+            GestureDetector(
+              onTap: () => _mineController.onLogin(),
+              child: ClipOval(
+                child: Container(
+                  width: 55,
+                  height: 55,
+                  color: Theme.of(context).colorScheme.onInverseSurface,
+                  child: Center(
+                    child: _mineController.userInfo.value.face != null
+                        ? NetworkImgLayer(
+                            src: _mineController.userInfo.value.face,
+                            semanticsLabel: 'Avatar',
+                            width: 55,
+                            height: 55,
+                          )
+                        : Image.asset(
+                            'assets/images/noface.jpeg',
+                            semanticLabel: "Default Avatar",
+                          ),
                   ),
                 ),
               ),
-              const SizedBox(width: 13),
-              IntrinsicWidth(
-                  child: Column(
+            ),
+            const SizedBox(width: 13),
+            IntrinsicWidth(
+              child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,67 +250,82 @@ class _MinePageState extends State<MinePage> {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Text.rich(TextSpan(children: [
+                  Text.rich(
                     TextSpan(
-                        text: 'Coin',
-                        style: TextStyle(
-                            fontSize: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall!
-                                    .fontSize! -
+                      children: [
+                        TextSpan(
+                          text: 'Coin',
+                          style: TextStyle(
+                            fontSize:
+                                Theme.of(
+                                  context,
+                                ).textTheme.labelSmall!.fontSize! -
                                 2,
-                            color: Theme.of(context).colorScheme.outline)),
-                    const WidgetSpan(
-                        alignment: PlaceholderAlignment.baseline,
-                        baseline: TextBaseline.alphabetic,
-                        child: SizedBox(width: 1.5)),
-                    TextSpan(
-                        text: (_mineController.userInfo.value.money ?? '-')
-                            .toString(),
-                        style: TextStyle(
-                            fontSize: Theme.of(context)
-                                .textTheme
-                                .labelSmall!
-                                .fontSize,
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
+                        ),
+                        const WidgetSpan(
+                          alignment: PlaceholderAlignment.baseline,
+                          baseline: TextBaseline.alphabetic,
+                          child: SizedBox(width: 1.5),
+                        ),
+                        TextSpan(
+                          text: (_mineController.userInfo.value.money ?? '-')
+                              .toString(),
+                          style: TextStyle(
+                            fontSize: Theme.of(
+                              context,
+                            ).textTheme.labelSmall!.fontSize,
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.primary)),
-                    const WidgetSpan(
-                        alignment: PlaceholderAlignment.baseline,
-                        baseline: TextBaseline.alphabetic,
-                        child: SizedBox(width: 5)),
-                    TextSpan(
-                        text: "XP",
-                        style: TextStyle(
-                            fontSize: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall!
-                                    .fontSize! -
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                        const WidgetSpan(
+                          alignment: PlaceholderAlignment.baseline,
+                          baseline: TextBaseline.alphabetic,
+                          child: SizedBox(width: 5),
+                        ),
+                        TextSpan(
+                          text: "XP",
+                          style: TextStyle(
+                            fontSize:
+                                Theme.of(
+                                  context,
+                                ).textTheme.labelSmall!.fontSize! -
                                 2,
-                            color: Theme.of(context).colorScheme.outline)),
-                    const WidgetSpan(
-                        alignment: PlaceholderAlignment.baseline,
-                        baseline: TextBaseline.alphabetic,
-                        child: SizedBox(width: 1.5)),
-                    TextSpan(
-                        text: "${levelInfo?.currentExp ?? '-'}",
-                        semanticsLabel: "Current ${levelInfo?.currentExp ?? '-'}",
-                        style: TextStyle(
-                            fontSize: Theme.of(context)
-                                .textTheme
-                                .labelSmall!
-                                .fontSize,
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
+                        ),
+                        const WidgetSpan(
+                          alignment: PlaceholderAlignment.baseline,
+                          baseline: TextBaseline.alphabetic,
+                          child: SizedBox(width: 1.5),
+                        ),
+                        TextSpan(
+                          text: "${levelInfo?.currentExp ?? '-'}",
+                          semanticsLabel:
+                              "Current ${levelInfo?.currentExp ?? '-'}",
+                          style: TextStyle(
+                            fontSize: Theme.of(
+                              context,
+                            ).textTheme.labelSmall!.fontSize,
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.primary)),
-                    TextSpan(
-                        text: "/${levelInfo?.nextExp ?? '-'}",
-                        semanticsLabel: "Next ${levelInfo?.nextExp ?? '-'}",
-                        style: TextStyle(
-                            fontSize: Theme.of(context)
-                                .textTheme
-                                .labelSmall!
-                                .fontSize!,
-                            color: Theme.of(context).colorScheme.outline)),
-                  ])),
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                        TextSpan(
+                          text: "/${levelInfo?.nextExp ?? '-'}",
+                          semanticsLabel: "Next ${levelInfo?.nextExp ?? '-'}",
+                          style: TextStyle(
+                            fontSize: Theme.of(
+                              context,
+                            ).textTheme.labelSmall!.fontSize!,
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   // const SizedBox(height: 4),
                   // Text.rich(TextSpan(children: [
                   // ])),
@@ -326,118 +342,132 @@ class _MinePageState extends State<MinePage> {
                       value: levelInfo != null
                           ? (levelInfo.currentExp! / levelInfo.nextExp!)
                           : 0,
-                      backgroundColor:
-                          Theme.of(context).colorScheme.inversePrimary,
+                      backgroundColor: Theme.of(
+                        context,
+                      ).colorScheme.inversePrimary,
                       valueColor: AlwaysStoppedAnimation<Color>(
-                          Theme.of(context).colorScheme.primary),
+                        Theme.of(context).colorScheme.primary,
+                      ),
                     ),
                   ),
                 ],
-              )),
-              // const SizedBox(width: 20),
+              ),
+            ),
+            // const SizedBox(width: 20),
+          ],
+        ),
+        const SizedBox(height: 10),
+        SizedBox(
+          width: 240,
+          height: 100,
+          child: GridView.count(
+            padding: EdgeInsets.zero,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 3,
+            children: [
+              InkWell(
+                onTap: () => _mineController.pushDynamic(),
+                borderRadius: StyleString.mdRadius,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 400),
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                            return ScaleTransition(
+                              scale: animation,
+                              child: child,
+                            );
+                          },
+                      child: Text(
+                        (_mineController.userStat.value.dynamicCount ?? '-')
+                            .toString(),
+                        key: ValueKey<String>(
+                          _mineController.userStat.value.dynamicCount
+                              .toString(),
+                        ),
+                        style: style,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Trending',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () => _mineController.pushFollow(),
+                borderRadius: StyleString.mdRadius,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 400),
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                            return ScaleTransition(
+                              scale: animation,
+                              child: child,
+                            );
+                          },
+                      child: Text(
+                        (_mineController.userStat.value.following ?? '-')
+                            .toString(),
+                        key: ValueKey<String>(
+                          _mineController.userStat.value.following.toString(),
+                        ),
+                        style: style,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Following',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () => _mineController.pushFans(),
+                borderRadius: StyleString.mdRadius,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 400),
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                            return ScaleTransition(
+                              scale: animation,
+                              child: child,
+                            );
+                          },
+                      child: Text(
+                        (_mineController.userStat.value.follower ?? '-')
+                            .toString(),
+                        key: ValueKey<String>(
+                          _mineController.userStat.value.follower.toString(),
+                        ),
+                        style: style,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Followers',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
-          const SizedBox(height: 10),
-          SizedBox(
-              width: 240,
-              height: 100,
-              child: GridView.count(
-                padding: EdgeInsets.zero,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 3,
-                children: [
-                  InkWell(
-                    onTap: () => _mineController.pushDynamic(),
-                    borderRadius: StyleString.mdRadius,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 400),
-                          transitionBuilder:
-                              (Widget child, Animation<double> animation) {
-                            return ScaleTransition(
-                                scale: animation, child: child);
-                          },
-                          child: Text(
-                              (_mineController.userStat.value.dynamicCount ??
-                                      '-')
-                                  .toString(),
-                              key: ValueKey<String>(_mineController
-                                  .userStat.value.dynamicCount
-                                  .toString()),
-                              style: style),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Trending',
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => _mineController.pushFollow(),
-                    borderRadius: StyleString.mdRadius,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 400),
-                          transitionBuilder:
-                              (Widget child, Animation<double> animation) {
-                            return ScaleTransition(
-                                scale: animation, child: child);
-                          },
-                          child: Text(
-                              (_mineController.userStat.value.following ?? '-')
-                                  .toString(),
-                              key: ValueKey<String>(_mineController
-                                  .userStat.value.following
-                                  .toString()),
-                              style: style),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Following',
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => _mineController.pushFans(),
-                    borderRadius: StyleString.mdRadius,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 400),
-                          transitionBuilder:
-                              (Widget child, Animation<double> animation) {
-                            return ScaleTransition(
-                                scale: animation, child: child);
-                          },
-                          child: Text(
-                              (_mineController.userStat.value.follower ?? '-')
-                                  .toString(),
-                              key: ValueKey<String>(_mineController
-                                  .userStat.value.follower
-                                  .toString()),
-                              style: style),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Fans',
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              )),
-        ]);
+        ),
+      ],
+    );
   }
 }
 
@@ -446,12 +476,7 @@ class ActionItem extends StatelessWidget {
   final Function? onTap;
   final String? text;
 
-  const ActionItem({
-    super.key,
-    this.icon,
-    this.onTap,
-    this.text,
-  });
+  const ActionItem({super.key, this.icon, this.onTap, this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -463,10 +488,7 @@ class ActionItem extends StatelessWidget {
         children: [
           Icon(icon!.icon!),
           const SizedBox(height: 8),
-          Text(
-            text!,
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
+          Text(text!, style: Theme.of(context).textTheme.labelMedium),
         ],
       ),
     );

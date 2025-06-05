@@ -27,8 +27,10 @@ class _MemberArchivePageState extends State<MemberArchivePage> {
     super.initState();
     mid = widget.mid;
     final String heroTag = Utils.makeHeroTag(mid);
-    _memberArchivesController =
-        Get.put(MemberArchiveController(mid: mid), tag: heroTag);
+    _memberArchivesController = Get.put(
+      MemberArchiveController(mid: mid),
+      tag: heroTag,
+    );
     _futureBuilderFuture = _memberArchivesController.getMemberArchive('init');
   }
 
@@ -44,9 +46,12 @@ class _MemberArchivePageState extends State<MemberArchivePage> {
                     200)) {
           // 触发分页加载
           EasyThrottle.throttle(
-              'member_archives', const Duration(milliseconds: 500), () {
-            _memberArchivesController.onLoad();
-          });
+            'member_archives',
+            const Duration(milliseconds: 500),
+            () {
+              _memberArchivesController.onLoad();
+            },
+          );
         }
         return true;
       },
@@ -59,26 +64,30 @@ class _MemberArchivePageState extends State<MemberArchivePage> {
           physics: const ClampingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(
-              child: Row(children: [
-                TextButton.icon(
-                  icon: const Icon(Icons.play_circle_outline, size: 20),
-                  onPressed: _memberArchivesController.episodicButton,
-                  label: Text(_memberArchivesController.episodicButtonText),
-                ),
-                const Spacer(),
-                Obx(
-                  () => TextButton.icon(
-                    icon: const Icon(Icons.sort, size: 20),
-                    onPressed: _memberArchivesController.toggleSort,
-                    label:
-                        Text(_memberArchivesController.currentOrder['label']!),
+              child: Row(
+                children: [
+                  TextButton.icon(
+                    icon: const Icon(Icons.play_circle_outline, size: 20),
+                    onPressed: _memberArchivesController.episodicButton,
+                    label: Text(_memberArchivesController.episodicButtonText),
                   ),
-                ),
-              ]),
+                  const Spacer(),
+                  Obx(
+                    () => TextButton.icon(
+                      icon: const Icon(Icons.sort, size: 20),
+                      onPressed: _memberArchivesController.toggleSort,
+                      label: Text(
+                        _memberArchivesController.currentOrder['label']!,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             SliverPadding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: StyleString.safeSpace),
+              padding: const EdgeInsets.symmetric(
+                horizontal: StyleString.safeSpace,
+              ),
               sliver: FutureBuilder(
                 future: _futureBuilderFuture,
                 builder: (BuildContext context, snapshot) {
@@ -87,41 +96,44 @@ class _MemberArchivePageState extends State<MemberArchivePage> {
                   }
                   if (snapshot.data == null) {
                     return HttpError(
-                        errMsg: "投稿页出现错误",
-                        fn: _memberArchivesController.onRefresh);
+                      errMsg: "Error on submission",
+                      fn: _memberArchivesController.onRefresh,
+                    );
                   }
                   Map data = snapshot.data as Map;
                   List<VListItemModel> list =
                       _memberArchivesController.archivesList;
                   if (!data['status']) {
                     return HttpError(
-                        errMsg: snapshot.data['msg'],
-                        fn: _memberArchivesController.onRefresh);
+                      errMsg: snapshot.data['msg'],
+                      fn: _memberArchivesController.onRefresh,
+                    );
                   }
                   return Obx(() {
                     if (list.isEmpty) return const SliverToBoxAdapter();
                     return SliverGrid(
                       gridDelegate: SliverGridDelegateWithExtentAndRatio(
-                          mainAxisSpacing: StyleString.safeSpace,
-                          crossAxisSpacing: StyleString.safeSpace,
-                          maxCrossAxisExtent: Grid.maxRowWidth * 2,
-                          childAspectRatio: StyleString.aspectRatio * 2.4,
-                          mainAxisExtent: 0),
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, index) {
-                          return VideoCardH(
-                            videoItem: list[index],
-                            showOwner: false,
-                            showPubdate: true,
-                          );
-                        },
-                        childCount: list.length,
+                        mainAxisSpacing: StyleString.safeSpace,
+                        crossAxisSpacing: StyleString.safeSpace,
+                        maxCrossAxisExtent: Grid.maxRowWidth * 2,
+                        childAspectRatio: StyleString.aspectRatio * 2.4,
+                        mainAxisExtent: 0,
                       ),
+                      delegate: SliverChildBuilderDelegate((
+                        BuildContext context,
+                        index,
+                      ) {
+                        return VideoCardH(
+                          videoItem: list[index],
+                          showOwner: false,
+                          showPubdate: true,
+                        );
+                      }, childCount: list.length),
                     );
                   });
                 },
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -70,11 +70,10 @@ class ReplyItem extends StatelessWidget {
               indent: 55,
               endIndent: 15,
               height: 0.3,
-              color: Theme.of(context)
-                  .colorScheme
-                  .onInverseSurface
-                  .withOpacity(0.5),
-            )
+              color: Theme.of(
+                context,
+              ).colorScheme.onInverseSurface.withOpacity(0.5),
+            ),
           ],
         ),
       ),
@@ -86,74 +85,79 @@ class ReplyItem extends StatelessWidget {
       Hero(
         tag: heroTag,
         child: NetworkImgLayer(
-            src: replyItem!.member!.avatar,
-            width: 34,
-            height: 34,
-            type: 'avatar'),
-      )
+          src: replyItem!.member!.avatar,
+          width: 34,
+          height: 34,
+          type: 'avatar',
+        ),
+      ),
     ];
     if (replyItem!.member!.vip!['vipStatus'] > 0) {
-      stackChildren.add(Positioned(
-        bottom: 0,
-        right: 0,
-        child: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Theme.of(context).colorScheme.surface),
-            //color: Theme.of(context).colorScheme.surface,
-          ),
-          child: Image.asset(
-            'assets/images/big-vip.png',
-            height: 12,
-            semanticLabel: "大会员",
+      stackChildren.add(
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: Theme.of(context).colorScheme.surface),
+              //color: Theme.of(context).colorScheme.surface,
+            ),
+            child: Image.asset(
+              'assets/images/big-vip.png',
+              height: 12,
+              semanticLabel: "Member",
+            ),
           ),
         ),
-      ));
+      );
     }
     if (replyItem!.member!.officialVerify != null &&
         replyItem!.member!.officialVerify!['type'] == 0) {
-      stackChildren.add(Positioned(
-        right: stackChildren.length == 1 ? 0 : null,
-        left: stackChildren.length == 2 ? 0 : null,
-        bottom: 0,
-        child: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Theme.of(context).colorScheme.surface,
-          ),
-          child: const Icon(
-            Icons.offline_bolt,
-            color: Colors.yellow,
-            size: 14,
-            semanticLabel: "认证个人",
+      stackChildren.add(
+        Positioned(
+          right: stackChildren.length == 1 ? 0 : null,
+          left: stackChildren.length == 2 ? 0 : null,
+          bottom: 0,
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Theme.of(context).colorScheme.surface,
+            ),
+            child: const Icon(
+              Icons.offline_bolt,
+              color: Colors.yellow,
+              size: 14,
+              semanticLabel: "认证个人",
+            ),
           ),
         ),
-      ));
+      );
     }
     if (replyItem!.member!.officialVerify != null &&
         replyItem!.member!.officialVerify!['type'] == 1) {
-      stackChildren.add(Positioned(
-        right: stackChildren.length == 1 ? 0 : null,
-        left: stackChildren.length == 2 ? 0 : null,
-        bottom: 0,
-        child: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Theme.of(context).colorScheme.surface,
-          ),
-          child: const Icon(
-            Icons.offline_bolt,
-            color: Colors.lightBlueAccent,
-            size: 14,
-            semanticLabel: "认证机构",
+      stackChildren.add(
+        Positioned(
+          right: stackChildren.length == 1 ? 0 : null,
+          left: stackChildren.length == 2 ? 0 : null,
+          bottom: 0,
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Theme.of(context).colorScheme.surface,
+            ),
+            child: const Icon(
+              Icons.offline_bolt,
+              color: Colors.lightBlueAccent,
+              size: 14,
+              semanticLabel: "认证机构",
+            ),
           ),
         ),
-      ));
+      );
     }
 
-    return Stack(
-      children: stackChildren,
-    );
+    return Stack(children: stackChildren);
     // return Stack(
     //   children: [
     //     Hero(
@@ -237,10 +241,13 @@ class ReplyItem extends StatelessWidget {
           behavior: HitTestBehavior.opaque,
           onTap: () {
             feedBack();
-            Get.toNamed('/member?mid=${replyItem!.mid}', arguments: {
-              'face': replyItem!.member!.avatar!,
-              'heroTag': heroTag
-            });
+            Get.toNamed(
+              '/member?mid=${replyItem!.mid}',
+              arguments: {
+                'face': replyItem!.member!.avatar!,
+                'heroTag': heroTag,
+              },
+            );
           },
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -256,7 +263,8 @@ class ReplyItem extends StatelessWidget {
                       Text(
                         replyItem!.member!.uname!,
                         style: TextStyle(
-                          color: (replyItem!.member!.vip!['vipStatus'] > 0 &&
+                          color:
+                              (replyItem!.member!.vip!['vipStatus'] > 0 &&
                                   replyItem!.member!.vip!['vipType'] == 2)
                               ? const Color.fromARGB(255, 251, 100, 163)
                               : Theme.of(context).colorScheme.outline,
@@ -284,8 +292,9 @@ class ReplyItem extends StatelessWidget {
                       Text(
                         Utils.dateFormat(replyItem!.ctime),
                         style: TextStyle(
-                          fontSize:
-                              Theme.of(context).textTheme.labelSmall!.fontSize,
+                          fontSize: Theme.of(
+                            context,
+                          ).textTheme.labelSmall!.fontSize,
                           color: Theme.of(context).colorScheme.outline,
                         ),
                       ),
@@ -294,14 +303,14 @@ class ReplyItem extends StatelessWidget {
                         Text(
                           ' • ${replyItem!.replyControl!.location!}',
                           style: TextStyle(
-                              fontSize: Theme.of(context)
-                                  .textTheme
-                                  .labelSmall!
-                                  .fontSize,
-                              color: Theme.of(context).colorScheme.outline),
+                            fontSize: Theme.of(
+                              context,
+                            ).textTheme.labelSmall!.fontSize,
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
                         ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ],
@@ -311,35 +320,38 @@ class ReplyItem extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(top: 10, left: 45, right: 6, bottom: 4),
           child: Semantics(
-              label: replyItem?.content?.message ?? "",
-              // excludeSemantics: true,
-              child: Text.rich(
-                style: TextStyle(
-                    height: 1.75,
-                    fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize),
-                maxLines:
-                    replyItem!.content!.isText! && replyLevel == '1' ? 6 : 999,
-                overflow: TextOverflow.ellipsis,
-                TextSpan(
-                  children: [
-                    if (replyItem!.isTop!) ...[
-                      const WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: PBadge(
-                          text: 'TOP',
-                          size: 'small',
-                          stack: 'normal',
-                          type: 'line',
-                          fs: 9,
-                          semanticsLabel: '置顶',
-                        ),
+            label: replyItem?.content?.message ?? "",
+            // excludeSemantics: true,
+            child: Text.rich(
+              style: TextStyle(
+                height: 1.75,
+                fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+              ),
+              maxLines: replyItem!.content!.isText! && replyLevel == '1'
+                  ? 6
+                  : 999,
+              overflow: TextOverflow.ellipsis,
+              TextSpan(
+                children: [
+                  if (replyItem!.isTop!) ...[
+                    const WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: PBadge(
+                        text: 'TOP',
+                        size: 'small',
+                        stack: 'normal',
+                        type: 'line',
+                        fs: 9,
+                        semanticsLabel: '置顶',
                       ),
-                      const TextSpan(text: ' '),
-                    ],
-                    buildContent(context, replyItem!, replyReply, null),
+                    ),
+                    const TextSpan(text: ' '),
                   ],
-                ),
-              )),
+                  buildContent(context, replyItem!, replyReply, null),
+                ],
+              ),
+            ),
+          ),
         ),
         // 操作区域
         buttonAction(context, replyItem!.replyControl),
@@ -386,31 +398,36 @@ class ReplyItem extends StatelessWidget {
                     replyItem: replyItem,
                   );
                 },
-              ).then((value) => {
-                    // 完成评论，数据添加
-                    if (value != null &&
-                        value['data'] != null &&
-                        addReply != null)
-                      {
-                        addReply?.call(value['data'])
-                        // replyControl.replies.add(value['data']),
-                      }
-                  });
+              ).then(
+                (value) => {
+                  // 完成评论，数据添加
+                  if (value != null &&
+                      value['data'] != null &&
+                      addReply != null)
+                    {
+                      addReply?.call(value['data']),
+                      // replyControl.replies.add(value['data']),
+                    },
+                },
+              );
             },
-            child: Row(children: [
-              Icon(Icons.reply,
+            child: Row(
+              children: [
+                Icon(
+                  Icons.reply,
                   size: 18,
-                  color:
-                      Theme.of(context).colorScheme.outline.withOpacity(0.8)),
-              const SizedBox(width: 3),
-              Text(
-                '回复',
-                style: TextStyle(
-                  fontSize: Theme.of(context).textTheme.labelMedium!.fontSize,
-                  color: Theme.of(context).colorScheme.outline,
+                  color: Theme.of(context).colorScheme.outline.withOpacity(0.8),
                 ),
-              ),
-            ]),
+                const SizedBox(width: 3),
+                Text(
+                  '回复',
+                  style: TextStyle(
+                    fontSize: Theme.of(context).textTheme.labelMedium!.fontSize,
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         const SizedBox(width: 2),
@@ -418,8 +435,9 @@ class ReplyItem extends StatelessWidget {
           Text(
             'up主觉得很赞',
             style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: Theme.of(context).textTheme.labelMedium!.fontSize),
+              color: Theme.of(context).colorScheme.primary,
+              fontSize: Theme.of(context).textTheme.labelMedium!.fontSize,
+            ),
           ),
           const SizedBox(width: 2),
         ],
@@ -428,12 +446,13 @@ class ReplyItem extends StatelessWidget {
           Text(
             '热评',
             style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: Theme.of(context).textTheme.labelMedium!.fontSize),
+              color: Theme.of(context).colorScheme.primary,
+              fontSize: Theme.of(context).textTheme.labelMedium!.fontSize,
+            ),
           ),
         const Spacer(),
         ZanButton(replyItem: replyItem, replyType: replyType),
-        const SizedBox(width: 5)
+        const SizedBox(width: 5),
       ],
     );
   }
@@ -457,7 +476,8 @@ class ReplyItemRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int extraRow = replyControl?.isShow == true ||
+    final int extraRow =
+        replyControl?.isShow == true ||
             (replyControl?.entryText != null && replies!.isEmpty)
         ? 1
         : 0;
@@ -496,75 +516,77 @@ class ReplyItemRow extends StatelessWidget {
                       i == 0 && (extraRow == 1 || replies!.length > 1) ? 4 : 6,
                     ),
                     child: Semantics(
-                        label:
-                            '${replies![i].member!.uname} ${replies![i].content!.message}',
-                        excludeSemantics: true,
-                        child: Text.rich(
-                          style: TextStyle(
-                              fontSize: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .fontSize,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurface
-                                  .withOpacity(0.85),
-                              height: 1.6),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '${replies![i].member!.uname}',
-                                style: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .withOpacity(0.85),
-                                ),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    feedBack();
-                                    final String heroTag = Utils.makeHeroTag(
-                                        replies![i].member!.mid);
-                                    Get.toNamed(
-                                        '/member?mid=${replies![i].member!.mid}',
-                                        arguments: {
-                                          'face': replies![i].member!.avatar,
-                                          'heroTag': heroTag
-                                        });
-                                  },
+                      label:
+                          '${replies![i].member!.uname} ${replies![i].content!.message}',
+                      excludeSemantics: true,
+                      child: Text.rich(
+                        style: TextStyle(
+                          fontSize: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium!.fontSize,
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withOpacity(0.85),
+                          height: 1.6,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '${replies![i].member!.uname}',
+                              style: TextStyle(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.primary.withOpacity(0.85),
                               ),
-                              if (replies![i].isUp!) ...[
-                                const TextSpan(text: ' '),
-                                const WidgetSpan(
-                                  alignment: PlaceholderAlignment.middle,
-                                  child: PBadge(
-                                    text: 'UP',
-                                    size: 'small',
-                                    stack: 'normal',
-                                    fs: 9,
-                                  ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  feedBack();
+                                  final String heroTag = Utils.makeHeroTag(
+                                    replies![i].member!.mid,
+                                  );
+                                  Get.toNamed(
+                                    '/member?mid=${replies![i].member!.mid}',
+                                    arguments: {
+                                      'face': replies![i].member!.avatar,
+                                      'heroTag': heroTag,
+                                    },
+                                  );
+                                },
+                            ),
+                            if (replies![i].isUp!) ...[
+                              const TextSpan(text: ' '),
+                              const WidgetSpan(
+                                alignment: PlaceholderAlignment.middle,
+                                child: PBadge(
+                                  text: 'UP',
+                                  size: 'small',
+                                  stack: 'normal',
+                                  fs: 9,
                                 ),
-                                const TextSpan(text: ' '),
-                              ],
-                              TextSpan(
-                                  text: replies![i].root == replies![i].parent
-                                      ? ': '
-                                      : replies![i].isUp!
-                                          ? ''
-                                          : ' '),
-                              buildContent(
-                                context,
-                                replies![i],
-                                replyReply,
-                                replyItem,
                               ),
+                              const TextSpan(text: ' '),
                             ],
-                          ),
-                        )),
+                            TextSpan(
+                              text: replies![i].root == replies![i].parent
+                                  ? ': '
+                                  : replies![i].isUp!
+                                  ? ''
+                                  : ' ',
+                            ),
+                            buildContent(
+                              context,
+                              replies![i],
+                              replyReply,
+                              replyItem,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                )
+                ),
               ],
             if (extraRow == 1)
               InkWell(
@@ -576,32 +598,33 @@ class ReplyItemRow extends StatelessWidget {
                   child: Text.rich(
                     TextSpan(
                       style: TextStyle(
-                        fontSize:
-                            Theme.of(context).textTheme.labelMedium!.fontSize,
+                        fontSize: Theme.of(
+                          context,
+                        ).textTheme.labelMedium!.fontSize,
                       ),
                       children: [
                         if (replyControl!.upReply!)
                           TextSpan(
-                              text: 'up主等人 ',
-                              style: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurface
-                                      .withOpacity(0.85))),
+                            text: 'up主等人 ',
+                            style: TextStyle(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurface.withOpacity(0.85),
+                            ),
+                          ),
                         TextSpan(
                           text: replyControl!.entryText!,
                           style: TextStyle(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(0.85),
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.primary.withOpacity(0.85),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
                 ),
-              )
+              ),
           ],
         ),
       ),
@@ -610,7 +633,11 @@ class ReplyItemRow extends StatelessWidget {
 }
 
 InlineSpan buildContent(
-    BuildContext context, replyItem, replyReply, fReplyItem) {
+  BuildContext context,
+  replyItem,
+  replyReply,
+  fReplyItem,
+) {
   final String routePath = Get.currentRoute;
   bool isVideoPage = routePath.startsWith('/video');
 
@@ -622,30 +649,31 @@ InlineSpan buildContent(
 
   // 投票
   if (content.vote.isNotEmpty) {
-    content.message.splitMapJoin(RegExp(r"\{vote:\d+?\}"),
-        onMatch: (Match match) {
-      // String matchStr = match[0]!;
-      spanChildren.add(
-        TextSpan(
-          text: '投票: ${content.vote['title']}',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.primary,
+    content.message.splitMapJoin(
+      RegExp(r"\{vote:\d+?\}"),
+      onMatch: (Match match) {
+        // String matchStr = match[0]!;
+        spanChildren.add(
+          TextSpan(
+            text: '投票: ${content.vote['title']}',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => Get.toNamed(
+                '/webview',
+                parameters: {
+                  'url': content.vote['url'],
+                  'type': 'vote',
+                  'pageTitle': content.vote['title'],
+                },
+              ),
           ),
-          recognizer: TapGestureRecognizer()
-            ..onTap = () => Get.toNamed(
-                  '/webview',
-                  parameters: {
-                    'url': content.vote['url'],
-                    'type': 'vote',
-                    'pageTitle': content.vote['title'],
-                  },
-                ),
-        ),
-      );
-      return '';
-    }, onNonMatch: (String str) {
-      return str;
-    });
+        );
+        return '';
+      },
+      onNonMatch: (String str) {
+        return str;
+      },
+    );
     content.message = content.message.replaceAll(RegExp(r"\{vote:\d+?\}"), "");
   }
   content.message = content.message
@@ -663,7 +691,9 @@ InlineSpan buildContent(
   ];
   List<String> jumpUrlKeysList = content.jumpUrl.keys.map<String>((String e) {
     return e.replaceAllMapped(
-        RegExp(r'[?+*]'), (match) => '\\${match.group(0)}');
+      RegExp(r'[?+*]'),
+      (match) => '\\${match.group(0)}',
+    );
   }).toList();
   specialTokens.sort((a, b) => b.length.compareTo(a.length));
   String patternStr = specialTokens.map(RegExp.escape).join('|');
@@ -677,9 +707,7 @@ InlineSpan buildContent(
   final RegExp pattern = RegExp(patternStr);
   List<String> matchedStrs = [];
   void addPlainTextSpan(str) {
-    spanChildren.add(TextSpan(
-      text: str,
-    ));
+    spanChildren.add(TextSpan(text: str));
     // TextSpan(
     //
     //     text: str,
@@ -696,16 +724,19 @@ InlineSpan buildContent(
       if (content.emote.containsKey(matchStr)) {
         // 处理表情
         final int size = content.emote[matchStr]['meta']['size'];
-        spanChildren.add(WidgetSpan(
-          child: ExcludeSemantics(
+        spanChildren.add(
+          WidgetSpan(
+            child: ExcludeSemantics(
               child: NetworkImgLayer(
-            src: content.emote[matchStr]['url'],
-            type: 'emote',
-            width: size * 20,
-            height: size * 20,
-            semanticsLabel: matchStr,
-          )),
-        ));
+                src: content.emote[matchStr]['url'],
+                type: 'emote',
+                width: size * 20,
+                height: size * 20,
+                semanticsLabel: matchStr,
+              ),
+            ),
+          ),
+        );
       } else if (matchStr.startsWith("@") &&
           content.atNameToMid.containsKey(matchStr.substring(1))) {
         // 处理@用户
@@ -714,9 +745,7 @@ InlineSpan buildContent(
         spanChildren.add(
           TextSpan(
             text: matchStr,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-            ),
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 final String heroTag = Utils.makeHeroTag(userId);
@@ -727,16 +756,15 @@ InlineSpan buildContent(
               },
           ),
         );
-      } else if (RegExp(r'^\b(?:\d+[:：])?[0-5]?[0-9][:：][0-5]?[0-9]\b$')
-          .hasMatch(matchStr)) {
+      } else if (RegExp(
+        r'^\b(?:\d+[:：])?[0-5]?[0-9][:：][0-5]?[0-9]\b$',
+      ).hasMatch(matchStr)) {
         matchStr = matchStr.replaceAll('：', ':');
         spanChildren.add(
           TextSpan(
             text: ' $matchStr ',
             style: isVideoPage
-                ? TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                  )
+                ? TextStyle(color: Theme.of(context).colorScheme.primary)
                 : null,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
@@ -745,10 +773,11 @@ InlineSpan buildContent(
                   try {
                     SmartDialog.showToast('跳转至：$matchStr');
                     Get.find<VideoDetailController>(
-                            tag: Get.arguments['heroTag'])
-                        .plPlayerController!
-                        .seekTo(Duration(seconds: Utils.duration(matchStr)),
-                            type: 'slider');
+                      tag: Get.arguments['heroTag'],
+                    ).plPlayerController!.seekTo(
+                      Duration(seconds: Utils.duration(matchStr)),
+                      type: 'slider',
+                    );
                   } catch (e) {
                     SmartDialog.showToast('跳转失败: $e');
                   }
@@ -758,8 +787,9 @@ InlineSpan buildContent(
         );
       } else {
         String appUrlSchema = '';
-        final bool enableWordRe = setting.get(SettingBoxKey.enableWordRe,
-            defaultValue: false) as bool;
+        final bool enableWordRe =
+            setting.get(SettingBoxKey.enableWordRe, defaultValue: false)
+                as bool;
         if (content.jumpUrl[matchStr] != null &&
             !matchedStrs.contains(matchStr)) {
           appUrlSchema = content.jumpUrl[matchStr]['app_url_schema'];
@@ -767,111 +797,108 @@ InlineSpan buildContent(
             addPlainTextSpan(matchStr);
             return "";
           }
-          spanChildren.addAll(
-            [
-              if (content.jumpUrl[matchStr]?['prefix_icon'] != null) ...[
-                WidgetSpan(
-                  child: Image.network(
-                    content.jumpUrl[matchStr]['prefix_icon'],
-                    height: 19,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                )
-              ],
-              TextSpan(
-                text: content.jumpUrl[matchStr]['title'],
-                style: TextStyle(
+          spanChildren.addAll([
+            if (content.jumpUrl[matchStr]?['prefix_icon'] != null) ...[
+              WidgetSpan(
+                child: Image.network(
+                  content.jumpUrl[matchStr]['prefix_icon'],
+                  height: 19,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () async {
-                    final String title = content.jumpUrl[matchStr]['title'];
-                    if (appUrlSchema == '') {
-                      if (matchStr.startsWith('BV')) {
-                        UrlUtils.matchUrlPush(
-                          matchStr,
-                          title,
-                          '',
-                        );
-                      } else if (RegExp(r'^[Cc][Vv][0-9]+$')
-                          .hasMatch(matchStr)) {
-                        Get.toNamed('/htmlRender', parameters: {
+              ),
+            ],
+            TextSpan(
+              text: content.jumpUrl[matchStr]['title'],
+              style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () async {
+                  final String title = content.jumpUrl[matchStr]['title'];
+                  if (appUrlSchema == '') {
+                    if (matchStr.startsWith('BV')) {
+                      UrlUtils.matchUrlPush(matchStr, title, '');
+                    } else if (RegExp(r'^[Cc][Vv][0-9]+$').hasMatch(matchStr)) {
+                      Get.toNamed(
+                        '/htmlRender',
+                        parameters: {
                           'url': 'https://www.bilibili.com/read/$matchStr',
                           'title': title,
                           'id': matchStr.substring(2),
-                          'dynamicType': 'read'
-                        });
-                      } else {
-                        final String redirectUrl =
-                            await UrlUtils.parseRedirectUrl(matchStr);
-                        // if (redirectUrl == matchStr) {
-                        //   Clipboard.setData(ClipboardData(text: matchStr));
-                        //   SmartDialog.showToast('地址可能有误');
-                        //   return;
-                        // }
-                        Uri uri = Uri.parse(redirectUrl);
-                        PiliScheme.routePush(uri);
-                        // final String pathSegment = Uri.parse(redirectUrl).path;
-                        // final String lastPathSegment =
-                        //     pathSegment.split('/').last;
-                        // if (lastPathSegment.startsWith('BV')) {
-                        //   UrlUtils.matchUrlPush(
-                        //     lastPathSegment,
-                        //     title,
-                        //     redirectUrl,
-                        //   );
-                        // } else {
-                        //   Get.toNamed(
-                        //     '/webview',
-                        //     parameters: {
-                        //       'url': redirectUrl,
-                        //       'type': 'url',
-                        //       'pageTitle': title
-                        //     },
-                        //   );
-                        // }
-                      }
+                          'dynamicType': 'read',
+                        },
+                      );
                     } else {
-                      if (appUrlSchema.startsWith('bilibili://search')) {
-                        Get.toNamed('/searchResult',
-                            parameters: {'keyword': title});
-                      } else if (matchStr.startsWith('https://b23.tv')) {
-                        final String redirectUrl =
-                            await UrlUtils.parseRedirectUrl(matchStr);
-                        final String pathSegment = Uri.parse(redirectUrl).path;
-                        final String lastPathSegment =
-                            pathSegment.split('/').last;
-                        if (lastPathSegment.startsWith('BV')) {
-                          UrlUtils.matchUrlPush(
-                            lastPathSegment,
-                            title,
-                            redirectUrl,
-                          );
-                        } else {
-                          Get.toNamed(
-                            '/webview',
-                            parameters: {
-                              'url': redirectUrl,
-                              'type': 'url',
-                              'pageTitle': title
-                            },
-                          );
-                        }
+                      final String redirectUrl =
+                          await UrlUtils.parseRedirectUrl(matchStr);
+                      // if (redirectUrl == matchStr) {
+                      //   Clipboard.setData(ClipboardData(text: matchStr));
+                      //   SmartDialog.showToast('地址可能有误');
+                      //   return;
+                      // }
+                      Uri uri = Uri.parse(redirectUrl);
+                      PiliScheme.routePush(uri);
+                      // final String pathSegment = Uri.parse(redirectUrl).path;
+                      // final String lastPathSegment =
+                      //     pathSegment.split('/').last;
+                      // if (lastPathSegment.startsWith('BV')) {
+                      //   UrlUtils.matchUrlPush(
+                      //     lastPathSegment,
+                      //     title,
+                      //     redirectUrl,
+                      //   );
+                      // } else {
+                      //   Get.toNamed(
+                      //     '/webview',
+                      //     parameters: {
+                      //       'url': redirectUrl,
+                      //       'type': 'url',
+                      //       'pageTitle': title
+                      //     },
+                      //   );
+                      // }
+                    }
+                  } else {
+                    if (appUrlSchema.startsWith('bilibili://search')) {
+                      Get.toNamed(
+                        '/searchResult',
+                        parameters: {'keyword': title},
+                      );
+                    } else if (matchStr.startsWith('https://b23.tv')) {
+                      final String redirectUrl =
+                          await UrlUtils.parseRedirectUrl(matchStr);
+                      final String pathSegment = Uri.parse(redirectUrl).path;
+                      final String lastPathSegment = pathSegment
+                          .split('/')
+                          .last;
+                      if (lastPathSegment.startsWith('BV')) {
+                        UrlUtils.matchUrlPush(
+                          lastPathSegment,
+                          title,
+                          redirectUrl,
+                        );
                       } else {
                         Get.toNamed(
                           '/webview',
                           parameters: {
-                            'url': matchStr,
+                            'url': redirectUrl,
                             'type': 'url',
-                            'pageTitle': title
+                            'pageTitle': title,
                           },
                         );
                       }
+                    } else {
+                      Get.toNamed(
+                        '/webview',
+                        parameters: {
+                          'url': matchStr,
+                          'type': 'url',
+                          'pageTitle': title,
+                        },
+                      );
                     }
-                  },
-              )
-            ],
-          );
+                  }
+                },
+            ),
+          ]);
           // 只显示一次
           matchedStrs.add(matchStr);
         } else if (matchStr.length > 1 &&
@@ -880,13 +907,13 @@ InlineSpan buildContent(
           spanChildren.add(
             TextSpan(
               text: matchStr,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-              ),
+              style: TextStyle(color: Theme.of(context).colorScheme.primary),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  final String topic =
-                      matchStr.substring(1, matchStr.length - 1);
+                  final String topic = matchStr.substring(
+                    1,
+                    matchStr.length - 1,
+                  );
                   Get.toNamed('/searchResult', parameters: {'keyword': topic});
                 },
             ),
@@ -911,36 +938,32 @@ InlineSpan buildContent(
     if (unmatchedItems.isNotEmpty) {
       for (int i = 0; i < unmatchedItems.length; i++) {
         String patternStr = unmatchedItems[i];
-        spanChildren.addAll(
-          [
-            if (content.jumpUrl[patternStr]?['prefix_icon'] != null) ...[
-              WidgetSpan(
-                child: Image.network(
-                  content.jumpUrl[patternStr]['prefix_icon'],
-                  height: 19,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              )
-            ],
-            TextSpan(
-              text: content.jumpUrl[patternStr]['title'],
-              style: TextStyle(
+        spanChildren.addAll([
+          if (content.jumpUrl[patternStr]?['prefix_icon'] != null) ...[
+            WidgetSpan(
+              child: Image.network(
+                content.jumpUrl[patternStr]['prefix_icon'],
+                height: 19,
                 color: Theme.of(context).colorScheme.primary,
               ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  Get.toNamed(
-                    '/webview',
-                    parameters: {
-                      'url': patternStr,
-                      'type': 'url',
-                      'pageTitle': content.jumpUrl[patternStr]['title']
-                    },
-                  );
-                },
-            )
+            ),
           ],
-        );
+          TextSpan(
+            text: content.jumpUrl[patternStr]['title'],
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                Get.toNamed(
+                  '/webview',
+                  parameters: {
+                    'url': patternStr,
+                    'type': 'url',
+                    'pageTitle': content.jumpUrl[patternStr]['title'],
+                  },
+                );
+              },
+          ),
+        ]);
       }
     }
   }
@@ -960,11 +983,12 @@ InlineSpan buildContent(
               // double width = (box.maxWidth / 2).truncateToDouble();
               double height = 100;
               try {
-                height = ((box.maxWidth /
-                        2 *
-                        pictureItem['img_height'] /
-                        pictureItem['img_width']))
-                    .truncateToDouble();
+                height =
+                    ((box.maxWidth /
+                            2 *
+                            pictureItem['img_height'] /
+                            pictureItem['img_width']))
+                        .truncateToDouble();
               } catch (_) {}
 
               return GestureDetector(
@@ -993,11 +1017,7 @@ InlineSpan buildContent(
                         ),
                       ),
                       height > Get.size.height * 0.9
-                          ? const PBadge(
-                              text: '长图',
-                              right: 8,
-                              bottom: 8,
-                            )
+                          ? const PBadge(text: '长图', right: 8, bottom: 8)
                           : const SizedBox(),
                     ],
                   ),
@@ -1028,7 +1048,8 @@ InlineSpan buildContent(
                   src: content.pictures[i]['img_src'],
                   width: box.maxWidth,
                   height: box.maxWidth,
-                  origAspectRatio: content.pictures[i]['img_width'] /
+                  origAspectRatio:
+                      content.pictures[i]['img_width'] /
                       content.pictures[i]['img_height'],
                   semanticsLabel: '图片${i + 1}，共$len张',
                 ),
@@ -1040,33 +1061,35 @@ InlineSpan buildContent(
       spanChildren.add(
         WidgetSpan(
           child: Semantics(
-              explicitChildNodes: true,
-              container: true,
-              child: LayoutBuilder(
-                builder: (context, BoxConstraints box) {
-                  double maxWidth = box.maxWidth;
-                  double crossCount = len < 3 ? 2 : 3;
-                  double height = maxWidth /
-                          crossCount *
-                          (len % crossCount == 0
-                              ? len ~/ crossCount
-                              : len ~/ crossCount + 1) +
-                      6;
-                  return Container(
-                    padding: const EdgeInsets.only(top: 6),
-                    height: height,
-                    child: GridView.count(
-                      padding: EdgeInsets.zero,
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: crossCount.toInt(),
-                      mainAxisSpacing: 4.0,
-                      crossAxisSpacing: 4.0,
-                      childAspectRatio: 1,
-                      children: list,
-                    ),
-                  );
-                },
-              )),
+            explicitChildNodes: true,
+            container: true,
+            child: LayoutBuilder(
+              builder: (context, BoxConstraints box) {
+                double maxWidth = box.maxWidth;
+                double crossCount = len < 3 ? 2 : 3;
+                double height =
+                    maxWidth /
+                        crossCount *
+                        (len % crossCount == 0
+                            ? len ~/ crossCount
+                            : len ~/ crossCount + 1) +
+                    6;
+                return Container(
+                  padding: const EdgeInsets.only(top: 6),
+                  height: height,
+                  child: GridView.count(
+                    padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: crossCount.toInt(),
+                    mainAxisSpacing: 4.0,
+                    crossAxisSpacing: 4.0,
+                    childAspectRatio: 1,
+                    children: list,
+                  ),
+                );
+              },
+            ),
+          ),
         ),
       );
     }
@@ -1077,18 +1100,16 @@ InlineSpan buildContent(
     spanChildren.add(
       TextSpan(
         text: ' 笔记',
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.primary,
-        ),
+        style: TextStyle(color: Theme.of(context).colorScheme.primary),
         recognizer: TapGestureRecognizer()
           ..onTap = () => Get.toNamed(
-                '/webview',
-                parameters: {
-                  'url': content.richText['note']['click_url'],
-                  'type': 'note',
-                  'pageTitle': '笔记预览'
-                },
-              ),
+            '/webview',
+            parameters: {
+              'url': content.richText['note']['click_url'],
+              'type': 'note',
+              'pageTitle': '笔记预览',
+            },
+          ),
       ),
     );
   }
@@ -1133,8 +1154,9 @@ class MorePanel extends StatelessWidget {
           builder: (context) {
             return AlertDialog(
               title: const Text('删除评论（测试）'),
-              content:
-                  Text('确定尝试删除这条评论吗？\n\n$message\n\n注：只能删除自己的评论，或自己管理的评论区下的评论'),
+              content: Text(
+                '确定尝试删除这条评论吗？\n\n$message\n\n注：只能删除自己的评论，或自己管理的评论区下的评论',
+              ),
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
@@ -1157,7 +1179,10 @@ class MorePanel extends StatelessWidget {
         }
         SmartDialog.showLoading(msg: '删除中...');
         var result = await VideoHttp.replyDel(
-            type: item.type!, oid: item.oid!, rpid: item.rpid!);
+          type: item.type!,
+          oid: item.oid!,
+          rpid: item.rpid!,
+        );
         SmartDialog.dismiss();
         if (result['status']) {
           SmartDialog.showToast('删除成功，请刷新');
@@ -1175,11 +1200,12 @@ class MorePanel extends StatelessWidget {
     Color errorColor = Theme.of(context).colorScheme.error;
     return Container(
       padding: EdgeInsets.only(
-          bottom: MediaQueryData.fromView(
-                      WidgetsBinding.instance.platformDispatcher.views.single)
-                  .padding
-                  .bottom +
-              20),
+        bottom:
+            MediaQueryData.fromView(
+              WidgetsBinding.instance.platformDispatcher.views.single,
+            ).padding.bottom +
+            20,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -1197,8 +1223,9 @@ class MorePanel extends StatelessWidget {
                   width: 32,
                   height: 3,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.outline,
-                      borderRadius: const BorderRadius.all(Radius.circular(3))),
+                    color: Theme.of(context).colorScheme.outline,
+                    borderRadius: const BorderRadius.all(Radius.circular(3)),
+                  ),
                 ),
               ),
             ),
@@ -1209,11 +1236,12 @@ class MorePanel extends StatelessWidget {
               onTap: () async => await menuActionHandler('delete'),
               minLeadingWidth: 0,
               leading: Icon(Icons.delete_outlined, color: errorColor, size: 19),
-              title: Text('删除',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall!
-                      .copyWith(color: errorColor)),
+              title: Text(
+                '删除',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleSmall!.copyWith(color: errorColor),
+              ),
             ),
           ListTile(
             onTap: () async => await menuActionHandler('copyAll'),

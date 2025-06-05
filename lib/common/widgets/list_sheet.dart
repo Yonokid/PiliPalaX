@@ -28,15 +28,16 @@ class ListSheet {
 
   void buildShowBottomSheet() {
     MyDialog.showCorner(
-        context,
-        ListSheetContent(
-          episodes: episodes,
-          bvid: bvid,
-          aid: aid,
-          currentCid: currentCid,
-          changeFucCall: changeFucCall,
-          // onClose: SmartDialog.dismiss,
-        ));
+      context,
+      ListSheetContent(
+        episodes: episodes,
+        bvid: bvid,
+        aid: aid,
+        currentCid: currentCid,
+        changeFucCall: changeFucCall,
+        // onClose: SmartDialog.dismiss,
+      ),
+    );
   }
 }
 
@@ -66,7 +67,7 @@ class _ListSheetContentState extends State<ListSheetContent> {
   final ItemScrollController itemScrollController = ItemScrollController();
   late final int currentIndex =
       widget.episodes!.indexWhere((dynamic e) => e.cid == widget.currentCid) ??
-          0;
+      0;
   bool reverse = false;
 
   @override
@@ -77,16 +78,13 @@ class _ListSheetContentState extends State<ListSheetContent> {
     });
   }
 
-  Widget buildEpisodeListItem(
-    dynamic episode,
-    int index,
-    bool isCurrentIndex,
-  ) {
+  Widget buildEpisodeListItem(dynamic episode, int index, bool isCurrentIndex) {
     Color primary = Theme.of(context).colorScheme.primary;
     late String title;
     if (episode.runtimeType.toString() == "EpisodeItem") {
       if (episode.longTitle != null && episode.longTitle != "") {
-        title = "Episode ${(episode.title ?? '${index + 1}')} Chapter  ${episode.longTitle!}";
+        title =
+            "Episode ${(episode.title ?? '${index + 1}')}: ${episode.longTitle!}";
       } else {
         title = episode.title!;
       }
@@ -132,23 +130,24 @@ class _ListSheetContentState extends State<ListSheetContent> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
-              child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 14,
-              color: isCurrentIndex
-                  ? primary
-                  : Theme.of(context).colorScheme.onSurface,
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 14,
+                color: isCurrentIndex
+                    ? primary
+                    : Theme.of(context).colorScheme.onSurface,
+              ),
+              semanticsLabel: isCurrentIndex ? "正在播放：$title" : title,
             ),
-            semanticsLabel: isCurrentIndex ? "正在播放：$title" : title,
-          )),
+          ),
           if (episode.badge != null) ...[
             const SizedBox(width: 10),
             if (episode.badge == '会员')
               Image.asset(
                 'assets/images/big-vip.png',
                 height: 20,
-                semanticLabel: "大会员",
+                semanticLabel: "Member",
               ),
             if (episode.badge != '会员') Text(episode.badge),
             const SizedBox(width: 10),
@@ -160,7 +159,7 @@ class _ListSheetContentState extends State<ListSheetContent> {
               '${index + 1}/${widget.episodes!.length}',
               style: const TextStyle(fontSize: 13),
             ),
-          ]
+          ],
         ],
       ),
     );
@@ -186,7 +185,7 @@ class _ListSheetContentState extends State<ListSheetContent> {
             child: Row(
               children: [
                 Text(
-                  '合集（${widget.episodes!.length}）',
+                  'Episodes（${widget.episodes!.length}）',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 IconButton(
@@ -212,9 +211,9 @@ class _ListSheetContentState extends State<ListSheetContent> {
                 const Spacer(),
                 IconButton(
                   tooltip: '反序',
-                  icon: Icon(!reverse
-                      ? MdiIcons.sortAscending
-                      : MdiIcons.sortDescending),
+                  icon: Icon(
+                    !reverse ? MdiIcons.sortAscending : MdiIcons.sortDescending,
+                  ),
                   onPressed: () {
                     setState(() {
                       reverse = !reverse;
@@ -240,7 +239,8 @@ class _ListSheetContentState extends State<ListSheetContent> {
             child: Material(
               child: ScrollablePositionedList.separated(
                 padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).padding.bottom + 20),
+                  bottom: MediaQuery.of(context).padding.bottom + 20,
+                ),
                 reverse: reverse,
                 itemCount: widget.episodes!.length,
                 itemBuilder: (BuildContext context, int index) {

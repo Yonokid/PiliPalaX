@@ -8,7 +8,6 @@ import 'package:PiliPalaX/http/member.dart';
 import 'package:PiliPalaX/models/member/tags.dart';
 import 'package:PiliPalaX/utils/feed_back.dart';
 
-
 class GroupPanel extends StatefulWidget {
   final int? mid;
   const GroupPanel({super.key, this.mid});
@@ -31,14 +30,17 @@ class _GroupPanelState extends State<GroupPanel> {
   void onSave() async {
     feedBack();
     // 是否有选中的 有选中的带id，没选使用默认0
-    final bool anyHasChecked =
-        tagsList.any((MemberTagItemModel e) => e.checked == true);
+    final bool anyHasChecked = tagsList.any(
+      (MemberTagItemModel e) => e.checked == true,
+    );
     late String tagids;
     if (anyHasChecked) {
-      final List<MemberTagItemModel> checkedList =
-          tagsList.where((MemberTagItemModel e) => e.checked == true).toList();
-      final List<int> tagidList =
-          checkedList.map<int>((e) => e.tagid!).toList();
+      final List<MemberTagItemModel> checkedList = tagsList
+          .where((MemberTagItemModel e) => e.checked == true)
+          .toList();
+      final List<int> tagidList = checkedList
+          .map<int>((e) => e.tagid!)
+          .toList();
       tagids = tagidList.join(',');
     } else {
       tagids = '0';
@@ -63,11 +65,14 @@ class _GroupPanelState extends State<GroupPanel> {
             centerTitle: false,
             elevation: 0,
             leading: IconButton(
-                tooltip: '关闭',
-                onPressed: () => Get.back(),
-                icon: const Icon(Icons.close_outlined)),
-            title:
-                Text('设置关注分组', style: Theme.of(context).textTheme.titleMedium),
+              tooltip: '关闭',
+              onPressed: () => Get.back(),
+              icon: const Icon(Icons.close_outlined),
+            ),
+            title: Text(
+              '设置关注分组',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
           ),
           Expanded(
             child: Material(
@@ -85,8 +90,9 @@ class _GroupPanelState extends State<GroupPanel> {
                             onTap: () {
                               data['data'][index].checked =
                                   !data['data'][index].checked;
-                              showDefault =
-                                  !data['data'].any((e) => e.checked == true);
+                              showDefault = !data['data'].any(
+                                (e) => e.checked == true,
+                              );
                               setState(() {});
                             },
                             dense: true,
@@ -102,8 +108,9 @@ class _GroupPanelState extends State<GroupPanel> {
                                 value: data['data'][index].checked,
                                 onChanged: (bool? checkValue) {
                                   data['data'][index].checked = checkValue;
-                                  showDefault = !data['data']
-                                      .any((e) => e.checked == true);
+                                  showDefault = !data['data'].any(
+                                    (e) => e.checked == true,
+                                  );
                                   setState(() {});
                                 },
                               ),
@@ -144,10 +151,11 @@ class _GroupPanelState extends State<GroupPanel> {
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.only(left: 30, right: 30),
                     foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                    backgroundColor:
-                        Theme.of(context).colorScheme.primary, // 设置按钮背景色
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.primary, // 设置按钮背景色
                   ),
-                  child: Text(showDefault ? '保存至默认分组' : '保存'),
+                  child: Text(showDefault ? 'Save to default Group' : 'Saved'),
                 ),
               ],
             ),

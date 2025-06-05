@@ -9,7 +9,9 @@ import '../../../utils/grid.dart';
 Widget searchLivePanel(BuildContext context, ctr, list) {
   return Padding(
     padding: const EdgeInsets.only(
-        left: StyleString.safeSpace, right: StyleString.safeSpace),
+      left: StyleString.safeSpace,
+      right: StyleString.safeSpace,
+    ),
     child: GridView.builder(
       primary: false,
       controller: ctr!.scrollController,
@@ -41,8 +43,10 @@ class LiveItem extends StatelessWidget {
       margin: EdgeInsets.zero,
       child: InkWell(
         onTap: () async {
-          Get.toNamed('/liveRoom?roomid=${liveItem.roomid}',
-              arguments: {'liveItem': liveItem, 'heroTag': heroTag});
+          Get.toNamed(
+            '/liveRoom?roomid=${liveItem.roomid}',
+            arguments: {'liveItem': liveItem, 'heroTag': heroTag},
+          );
         },
         child: Column(
           children: [
@@ -55,39 +59,41 @@ class LiveItem extends StatelessWidget {
               ),
               child: AspectRatio(
                 aspectRatio: StyleString.aspectRatio,
-                child: LayoutBuilder(builder: (context, boxConstraints) {
-                  double maxWidth = boxConstraints.maxWidth;
-                  double maxHeight = boxConstraints.maxHeight;
-                  return Stack(
-                    children: [
-                      Hero(
-                        tag: heroTag,
-                        child: NetworkImgLayer(
-                          src: liveItem.cover,
-                          type: 'emote',
-                          width: maxWidth,
-                          height: maxHeight,
-                        ),
-                      ),
-                      Positioned(
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        child: AnimatedOpacity(
-                          opacity: 1,
-                          duration: const Duration(milliseconds: 200),
-                          child: LiveStat(
-                            online: liveItem.online,
-                            cateName: liveItem.cateName,
+                child: LayoutBuilder(
+                  builder: (context, boxConstraints) {
+                    double maxWidth = boxConstraints.maxWidth;
+                    double maxHeight = boxConstraints.maxHeight;
+                    return Stack(
+                      children: [
+                        Hero(
+                          tag: heroTag,
+                          child: NetworkImgLayer(
+                            src: liveItem.cover,
+                            type: 'emote',
+                            width: maxWidth,
+                            height: maxHeight,
                           ),
                         ),
-                      ),
-                    ],
-                  );
-                }),
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          child: AnimatedOpacity(
+                            opacity: 1,
+                            duration: const Duration(milliseconds: 200),
+                            child: LiveStat(
+                              online: liveItem.online,
+                              cateName: liveItem.cateName,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
-            LiveContent(liveItem: liveItem)
+            LiveContent(liveItem: liveItem),
           ],
         ),
       ),
@@ -121,7 +127,7 @@ class LiveContent extends StatelessWidget {
                             : Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
-                  ]
+                  ],
                 ],
               ),
             ),
@@ -158,10 +164,7 @@ class LiveStat extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: <Color>[
-            Colors.transparent,
-            Colors.black54,
-          ],
+          colors: <Color>[Colors.transparent, Colors.black54],
           tileMode: TileMode.mirror,
         ),
       ),
@@ -173,9 +176,9 @@ class LiveStat extends StatelessWidget {
             style: const TextStyle(fontSize: 11, color: Colors.white),
           ),
           Text(
-            '围观:${online.toString()}',
+            'Watch: ${online.toString()}',
             style: const TextStyle(fontSize: 11, color: Colors.white),
-          )
+          ),
         ],
       ),
     );

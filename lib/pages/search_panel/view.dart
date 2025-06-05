@@ -19,8 +19,12 @@ class SearchPanel extends StatefulWidget {
   final String? keyword;
   final SearchType? searchType;
   final String? tag;
-  const SearchPanel(
-      {required this.keyword, required this.searchType, this.tag, super.key});
+  const SearchPanel({
+    required this.keyword,
+    required this.searchType,
+    this.tag,
+    super.key,
+  });
 
   @override
   State<SearchPanel> createState() => _SearchPanelState();
@@ -111,8 +115,8 @@ class _SearchPanelState extends State<SearchPanel>
                       errMsg: data['msg'],
                       fn: () {
                         setState(() {
-                          _futureBuilderFuture =
-                              _searchPanelController.onSearch();
+                          _futureBuilderFuture = _searchPanelController
+                              .onSearch();
                         });
                       },
                     ),
@@ -124,7 +128,7 @@ class _SearchPanelState extends State<SearchPanel>
                 physics: const NeverScrollableScrollPhysics(),
                 slivers: [
                   HttpError(
-                    errMsg: '没有相关数据',
+                    errMsg: 'Nothing Found',
                     fn: () {
                       setState(() {
                         _searchPanelController.onSearch();
@@ -137,33 +141,33 @@ class _SearchPanelState extends State<SearchPanel>
           } else {
             // 骨架屏
             return CustomScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                slivers: [
-                  SliverGrid(
-                      gridDelegate: SliverGridDelegateWithExtentAndRatio(
-                          mainAxisSpacing: StyleString.safeSpace,
-                          crossAxisSpacing: StyleString.safeSpace,
-                          maxCrossAxisExtent: Grid.maxRowWidth * 2,
-                          childAspectRatio: StyleString.aspectRatio * 2.4,
-                          mainAxisExtent: 0),
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          switch (widget.searchType) {
-                            case SearchType.video:
-                              return const VideoCardHSkeleton();
-                            case SearchType.media_bangumi:
-                              return const MediaBangumiSkeleton();
-                            case SearchType.bili_user:
-                              return const VideoCardHSkeleton();
-                            case SearchType.live_room:
-                              return const VideoCardHSkeleton();
-                            default:
-                              return const VideoCardHSkeleton();
-                          }
-                        },
-                        childCount: 15,
-                      ))
-                ]);
+              physics: const AlwaysScrollableScrollPhysics(),
+              slivers: [
+                SliverGrid(
+                  gridDelegate: SliverGridDelegateWithExtentAndRatio(
+                    mainAxisSpacing: StyleString.safeSpace,
+                    crossAxisSpacing: StyleString.safeSpace,
+                    maxCrossAxisExtent: Grid.maxRowWidth * 2,
+                    childAspectRatio: StyleString.aspectRatio * 2.4,
+                    mainAxisExtent: 0,
+                  ),
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    switch (widget.searchType) {
+                      case SearchType.video:
+                        return const VideoCardHSkeleton();
+                      case SearchType.media_bangumi:
+                        return const MediaBangumiSkeleton();
+                      case SearchType.bili_user:
+                        return const VideoCardHSkeleton();
+                      case SearchType.live_room:
+                        return const VideoCardHSkeleton();
+                      default:
+                        return const VideoCardHSkeleton();
+                    }
+                  }, childCount: 15),
+                ),
+              ],
+            );
           }
         },
       ),

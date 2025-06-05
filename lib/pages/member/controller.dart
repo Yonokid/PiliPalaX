@@ -34,7 +34,7 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
   RxList<VListItemModel>? archiveList = <VListItemModel>[].obs;
   dynamic userInfo;
   RxInt attribute = (-1).obs;
-  RxString attributeText = '关注'.obs;
+  RxString attributeText = 'Follow'.obs;
   RxList<MemberCoinsDataModel> recentCoinsList = <MemberCoinsDataModel>[].obs;
   // String? wwebid;
   late TabController tabController;
@@ -101,7 +101,7 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
 
   Future delayedUpdateRelation() async {
     await Future.delayed(const Duration(milliseconds: 1000), () async {
-      SmartDialog.showToast('更新状态');
+      SmartDialog.showToast('Updating Status');
       // await relationSearch();
       await getInfo();
       // memberInfo.update((val) {});
@@ -126,7 +126,7 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('操作'),
+          title: const Text('Confirmation'),
           actions: [
             if (memberInfo.value.card!.isFollow!) ...[
               TextButton(
@@ -142,7 +142,11 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
                   Get.back();
                   await delayedUpdateRelation();
                 },
-                child: Text(specialFollowed ? '移除特别关注' : '加入特别关注'),
+                child: Text(
+                  specialFollowed
+                      ? 'Remove Special Follow'
+                      : 'Add Special Follow',
+                ),
               ),
               TextButton(
                 onPressed: () async {
@@ -150,7 +154,7 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
                   await MyDialog.show(context, GroupPanel(mid: mid));
                   await delayedUpdateRelation();
                 },
-                child: const Text('设置分组'),
+                child: const Text('Set up Group'),
               ),
             ],
             TextButton(
@@ -160,7 +164,9 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
                   act: memberInfo.value.card!.isFollow! ? 2 : 1,
                   reSrc: 11,
                 );
-                SmartDialog.showToast(res['status'] ? "操作成功" : res['msg']);
+                SmartDialog.showToast(
+                  res['status'] ? "Operation Success" : res['msg'],
+                );
                 if (res['status']) {
                   memberInfo.value.card!.isFollow =
                       !memberInfo.value.card!.isFollow!;
@@ -168,12 +174,14 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
                 Get.back();
                 await delayedUpdateRelation();
               },
-              child: Text(memberInfo.value.card!.isFollow! ? '取消关注' : '关注'),
+              child: Text(
+                memberInfo.value.card!.isFollow! ? 'Unfollow' : 'Follow',
+              ),
             ),
             TextButton(
               onPressed: () => Get.back(),
               child: Text(
-                '取消',
+                'Cancel',
                 style: TextStyle(color: Theme.of(context).colorScheme.outline),
               ),
             ),
@@ -218,8 +226,12 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('提示'),
-          content: Text(attribute.value != 128 ? '确定拉黑UP主?' : '从黑名单移除UP主'),
+          title: const Text('Hint'),
+          content: Text(
+            attribute.value != 128
+                ? 'Are you sure you want to block UPs?'
+                : 'Remove block from UP',
+          ),
           actions: [
             TextButton(
               onPressed: () => Get.back(),

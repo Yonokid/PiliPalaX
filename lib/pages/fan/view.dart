@@ -55,8 +55,8 @@ class _FansPageState extends State<FansPage> {
         titleSpacing: 0,
         title: Text(
           _fansController.isOwner.value
-              ? 'My Fans'
-              : '${_fansController.name} Fans',
+              ? 'My Followers'
+              : '${_fansController.name} Followers',
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
