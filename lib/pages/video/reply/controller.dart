@@ -11,11 +11,7 @@ import 'package:PiliPalaX/utils/feed_back.dart';
 import 'package:PiliPalaX/utils/storage.dart';
 
 class VideoReplyController extends GetxController {
-  VideoReplyController(
-    this.aid,
-    this.rpid,
-    this.replyLevel,
-  );
+  VideoReplyController(this.aid, this.rpid, this.replyLevel);
   final ScrollController scrollController = ScrollController();
   // 视频aid 请求时使用的oid
   int? aid;
@@ -59,7 +55,7 @@ class VideoReplyController extends GetxController {
       nextOffset = '';
       noMore.value = '';
     }
-    if (noMore.value == '没有更多了') return;
+    if (noMore.value == 'Nothing Here') return;
     isLoadingMore = true;
     final res = await ReplyHttp.replyList(
       oid: aid!,
@@ -76,18 +72,23 @@ class VideoReplyController extends GetxController {
 
         /// 第一页回复数小于20
         if (res['data'].cursor.isEnd == true) {
-          noMore.value = '没有更多了';
+          noMore.value = 'Nothing Here';
         }
-
       } else {
         // 未登录状态replies可能返回null
-        noMore.value = nextOffset == "" && type == 'init' ? '还没有评论' : '没有更多了';
+        noMore.value = nextOffset == "" && type == 'init'
+            ? '还没有评论'
+            : 'Nothing Here';
       }
       if (type == 'init') {
         // 添加置顶回复
         if (res['data'].upper.top != null) {
-          final bool flag = res['data'].topReplies.any((ReplyItemModel reply) =>
-              reply.rpid == res['data'].upper.top.rpid) as bool;
+          final bool flag =
+              res['data'].topReplies.any(
+                    (ReplyItemModel reply) =>
+                        reply.rpid == res['data'].upper.top.rpid,
+                  )
+                  as bool;
           if (!flag) {
             replies.insert(0, res['data'].upper.top);
           }

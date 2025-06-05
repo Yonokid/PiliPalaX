@@ -47,12 +47,12 @@ class VideoReplyReplyController extends GetxController {
       if (replies.isNotEmpty) {
         noMore.value = '加载中...';
         if (replies.length == res['data'].page.count) {
-          noMore.value = '没有更多了';
+          noMore.value = 'Nothing Here';
         }
         currentPage++;
       } else {
         // 未登录状态replies可能返回null
-        noMore.value = currentPage == 0 ? '还没有评论' : '没有更多了';
+        noMore.value = currentPage == 0 ? '还没有评论' : 'Nothing Here';
       }
       if (type == 'init') {
         replyList.value = replies;

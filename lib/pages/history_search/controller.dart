@@ -43,7 +43,7 @@ class HistorySearchController extends GetxController {
 
   // 搜索视频
   Future searchHistories({type = 'init'}) async {
-    if (type == 'onLoad' && loadingText.value == '没有更多了') {
+    if (type == 'onLoad' && loadingText.value == 'Nothing Here') {
       return;
     }
     var res = await UserHttp.searchHistory(
@@ -59,8 +59,8 @@ class HistorySearchController extends GetxController {
       historyList.refresh();
       // count = res['data'].page['total'];
       // if (historyList.length == count) {
-      if (!res['data'].hasMore){
-        loadingText.value = '没有更多了';
+      if (!res['data'].hasMore) {
+        loadingText.value = 'Nothing Here';
       }
     }
     loadingStatus.value = 'finish';

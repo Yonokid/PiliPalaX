@@ -39,12 +39,12 @@ class Utils {
     if (number is String) {
       return number;
     }
-    if (number >= 100000000) {
-      return '${(number / 100000000).toStringAsFixed(1)}亿';
+    if (number >= 1000000) {
+      return '${(number / 1000000).toStringAsFixed(1)}M';
     } else if (number >= 100000) {
-      return '${(number ~/ 10000).toString()}万';
+      return '${(number ~/ 1000).toString()}K';
     } else if (number > 10000) {
-      return '${(number / 10000).toStringAsFixed(1)}万';
+      return '${(number / 1000).toStringAsFixed(1)}K';
     } else {
       return number.toString();
     }
@@ -88,17 +88,18 @@ class Utils {
     if (videoItem.title is String) {
       semanticsLabel += videoItem.title;
     } else {
-      semanticsLabel +=
-          videoItem.title.map((e) => e['text'] as String).join('');
+      semanticsLabel += videoItem.title
+          .map((e) => e['text'] as String)
+          .join('');
     }
 
     if (!emptyStatCheck(videoItem.stat.view)) {
       semanticsLabel += ',${Utils.numFormat(videoItem.stat.view)}';
       semanticsLabel +=
           (videoItem.runtimeType.toString() == "RecVideoItemAppModel" &&
-                  videoItem.goto == 'picture')
-              ? '浏览'
-              : '播放';
+              videoItem.goto == 'picture')
+          ? '浏览'
+          : '播放';
     }
     if (!emptyStatCheck(videoItem.stat.danmu)) {
       semanticsLabel += ',${Utils.numFormat(videoItem.stat.danmu)}弹幕';
@@ -151,21 +152,22 @@ class Utils {
 
   // 完全相对时间显示
   static String formatTimestampToRelativeTime(timeStamp) {
-    var difference = DateTime.now()
-        .difference(DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000));
+    var difference = DateTime.now().difference(
+      DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000),
+    );
 
     if (difference.inDays > 365) {
-      return '${difference.inDays ~/ 365}年前';
+      return '${difference.inDays ~/ 365} Years Ago';
     } else if (difference.inDays > 30) {
-      return '${difference.inDays ~/ 30}个月前';
+      return '${difference.inDays ~/ 30} Months Ago';
     } else if (difference.inDays > 0) {
-      return '${difference.inDays}天前';
+      return '${difference.inDays} Days Ago';
     } else if (difference.inHours > 0) {
-      return '${difference.inHours}小时前';
+      return '${difference.inHours} Hours Ago';
     } else if (difference.inMinutes > 0) {
-      return '${difference.inMinutes}分钟前';
+      return '${difference.inMinutes} Minutes Ago';
     } else {
-      return '刚刚';
+      return 'Just Now';
     }
   }
 
@@ -179,13 +181,16 @@ class Utils {
     // 对比
     int distance = (time - timeStamp).toInt();
     // 当前年日期
-    String currentYearStr = 'MM月DD日 hh:mm';
-    String lastYearStr = 'YY年MM月DD日 hh:mm';
+    String currentYearStr = 'MM/DD hh:mm';
+    String lastYearStr = 'YY/MM/DD hh:mm';
     if (formatType == 'detail') {
       currentYearStr = 'MM-DD hh:mm';
       lastYearStr = 'YY-MM-DD hh:mm';
       return CustomStamp_str(
-          timestamp: timeStamp, date: lastYearStr, toInt: false);
+        timestamp: timeStamp,
+        date: lastYearStr,
+        toInt: false,
+      );
     } else if (formatType == 'day') {
       if (distance <= 43200) {
         return CustomStamp_str(
@@ -201,18 +206,24 @@ class Utils {
       );
     }
     if (distance <= 60) {
-      return '刚刚';
+      return 'Just Now';
     } else if (distance <= 3600) {
-      return '${(distance / 60).floor()}分钟前';
+      return '${(distance / 60).floor()} Minutes Ago';
     } else if (distance <= 43200) {
-      return '${(distance / 60 / 60).floor()}小时前';
+      return '${(distance / 60 / 60).floor()} Hours Ago';
     } else if (DateTime.fromMillisecondsSinceEpoch(time * 1000).year ==
         DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000).year) {
       return CustomStamp_str(
-          timestamp: timeStamp, date: currentYearStr, toInt: false);
+        timestamp: timeStamp,
+        date: currentYearStr,
+        toInt: false,
+      );
     } else {
       return CustomStamp_str(
-          timestamp: timeStamp, date: lastYearStr, toInt: false);
+        timestamp: timeStamp,
+        date: lastYearStr,
+        toInt: false,
+      );
     }
   }
 
@@ -223,8 +234,9 @@ class Utils {
     bool toInt = true, // 去除0开头
   }) {
     timestamp ??= (DateTime.now().millisecondsSinceEpoch / 1000).round();
-    String timeStr =
-        (DateTime.fromMillisecondsSinceEpoch(timestamp * 1000)).toString();
+    String timeStr = (DateTime.fromMillisecondsSinceEpoch(
+      timestamp * 1000,
+    )).toString();
 
     dynamic dateArr = timeStr.split(' ')[0];
     dynamic timeArr = timeStr.split(' ')[1];
@@ -370,8 +382,10 @@ class Utils {
     } else if (Platform.isIOS) {
       remoteVersion = remoteVersion.replaceAll('-beta', '');
     }
-    bool isUpdate =
-        Utils.needUpdate("${currentInfo.version}+$buildNumber", remoteVersion);
+    bool isUpdate = Utils.needUpdate(
+      "${currentInfo.version}+$buildNumber",
+      remoteVersion,
+    );
     if (isUpdate) {
       SmartDialog.show(
         useSystem: true,
@@ -387,25 +401,25 @@ class Utils {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      data.tagName!,
-                      style: const TextStyle(fontSize: 20),
-                    ),
+                    Text(data.tagName!, style: const TextStyle(fontSize: 20)),
                     const SizedBox(height: 8),
                     Text(data.body!),
                     TextButton(
-                        onPressed: () {
-                          launchUrl(
-                            Uri.parse(
-                                "https://github.com/orz12/pilipala/commits/main/"),
-                            mode: LaunchMode.externalApplication,
-                          );
-                        },
-                        child: Text(
-                          "点此查看完整更新（即commit）内容",
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary),
-                        )),
+                      onPressed: () {
+                        launchUrl(
+                          Uri.parse(
+                            "https://github.com/orz12/pilipala/commits/main/",
+                          ),
+                          mode: LaunchMode.externalApplication,
+                        );
+                      },
+                      child: Text(
+                        "点此查看完整更新（即commit）内容",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -418,16 +432,18 @@ class Utils {
                 },
                 child: Text(
                   '不再提醒',
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.outline),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
                 ),
               ),
               TextButton(
                 onPressed: () => SmartDialog.dismiss(),
                 child: Text(
                   '取消',
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.outline),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
                 ),
               ),
               TextButton(
@@ -459,10 +475,7 @@ class Utils {
           }
         }
         // 应用外下载
-        launchUrl(
-          Uri.parse(downloadUrl),
-          mode: LaunchMode.externalApplication,
-        );
+        launchUrl(Uri.parse(downloadUrl), mode: LaunchMode.externalApplication);
       }
     }
   }
@@ -497,7 +510,10 @@ class Utils {
   // }
 
   static String appSign(
-      Map<String, dynamic> params, String appkey, String appsec) {
+    Map<String, dynamic> params,
+    String appkey,
+    String appsec,
+  ) {
     params['appkey'] = appkey;
     var searchParams = Uri(queryParameters: params).query;
     var sortedParams = searchParams.split('&')..sort();
@@ -511,8 +527,10 @@ class Utils {
   }
 
   static List<int> generateRandomBytes(int minLength, int maxLength) {
-    return List<int>.generate(random.nextInt(maxLength - minLength + 1),
-        (_) => random.nextInt(0x60) + 0x20);
+    return List<int>.generate(
+      random.nextInt(maxLength - minLength + 1),
+      (_) => random.nextInt(0x60) + 0x20,
+    );
   }
 
   static String base64EncodeRandomString(int minLength, int maxLength) {

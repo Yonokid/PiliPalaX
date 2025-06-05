@@ -65,7 +65,7 @@ class HtmlRenderController extends GetxController {
       nextOffset = "";
       noMore.value = "";
     }
-    if (noMore.value == '没有更多了') return;
+    if (noMore.value == 'Nothing Here') return;
     var res = await ReplyHttp.replyList(
       oid: oid.value,
       nextOffset: nextOffset,
@@ -79,18 +79,19 @@ class HtmlRenderController extends GetxController {
       if (replies.isNotEmpty) {
         noMore.value = '加载中...';
         if (res['data'].cursor.isEnd == true) {
-          noMore.value = '没有更多了';
+          noMore.value = 'Nothing Here';
         }
       } else {
-        noMore.value =
-            nextOffset == "" && reqType == 'init' ? '还没有评论' : '没有更多了';
+        noMore.value = nextOffset == "" && reqType == 'init'
+            ? '还没有评论'
+            : '没有更多了';
       }
       if (reqType == 'init') {
         // 添加置顶回复
         if (res['data'].upper.top != null) {
-          bool flag = res['data']
-              .topReplies
-              .any((reply) => reply.rpid == res['data'].upper.top.rpid);
+          bool flag = res['data'].topReplies.any(
+            (reply) => reply.rpid == res['data'].upper.top.rpid,
+          );
           if (!flag) {
             replies.insert(0, res['data'].upper.top);
           }

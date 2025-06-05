@@ -38,7 +38,7 @@ class DynamicsTabController extends GetxController {
     isLoadingMore.value = false;
     if (res['status']) {
       if (type == 'onLoad' && res['data'].items.isEmpty) {
-        SmartDialog.showToast('没有更多了');
+        SmartDialog.showToast('Nothing Here');
         return;
       }
       if (type == 'onLoad') {

@@ -30,19 +30,16 @@ class SubDetailController extends GetxController {
 
   Future<dynamic> queryUserSubFolderDetail({type = 'init'}) async {
     if (type == 'onLoad' && subList.length >= mediaCount) {
-      loadingText.value = '没有更多了';
+      loadingText.value = 'Nothing Here';
       return;
     }
     isLoadingMore = true;
-    late Map<String,dynamic> res;
+    late Map<String, dynamic> res;
     if (item.type! == 11) {
-      res = await UserHttp.favResourceList(
-        id: id,
-        ps: 20,
-        pn: currentPage,
-      );
+      res = await UserHttp.favResourceList(id: id, ps: 20, pn: currentPage);
     } else {
-      res = await UserHttp.favSeasonList(// item.type! == 21
+      res = await UserHttp.favSeasonList(
+        // item.type! == 21
         id: id,
         ps: 20,
         pn: currentPage,
@@ -60,7 +57,7 @@ class SubDetailController extends GetxController {
         subList.addAll(res['data'].medias);
       }
       if (subList.length >= mediaCount) {
-        loadingText.value = '没有更多了';
+        loadingText.value = 'Nothing Here';
       }
     }
     currentPage += 1;

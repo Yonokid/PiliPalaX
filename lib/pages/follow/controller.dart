@@ -40,7 +40,7 @@ class FollowController extends GetxController with GetTickerProviderStateMixin {
       pn = 1;
       loadingText.value == '加载中...';
     }
-    if (loadingText.value == '没有更多了') {
+    if (loadingText.value == 'Nothing Here') {
       return;
     }
     var res = await FollowHttp.followings(
@@ -57,7 +57,7 @@ class FollowController extends GetxController with GetTickerProviderStateMixin {
         followList.addAll(res['data'].list);
       }
       if ((pn == 1 && total < ps) || res['data'].list.isEmpty) {
-        loadingText.value = '没有更多了';
+        loadingText.value = 'Nothing Here';
       }
       pn += 1;
     } else {

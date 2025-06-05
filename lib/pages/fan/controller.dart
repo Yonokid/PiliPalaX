@@ -33,7 +33,7 @@ class FansController extends GetxController {
       pn = 1;
       loadingText.value == '加载中...';
     }
-    if (loadingText.value == '没有更多了') {
+    if (loadingText.value == 'Nothing Here') {
       return;
     }
     var res = await FanHttp.fans(
@@ -51,7 +51,7 @@ class FansController extends GetxController {
       }
       print('fansList: ${fansList.length}, total: $total');
       if ((pn == 1 && total < ps) || res['data'].list.isEmpty) {
-        loadingText.value = '没有更多了';
+        loadingText.value = 'Nothing Here';
       }
       pn += 1;
       if (total > ps && pn == 2) {

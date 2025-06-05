@@ -30,7 +30,7 @@ class FavDetailController extends GetxController {
 
   Future<dynamic> queryUserFavFolderDetail({type = 'init'}) async {
     if (type == 'onLoad' && favList.length >= mediaCount) {
-      loadingText.value = '没有更多了';
+      loadingText.value = 'Nothing Here';
       return;
     }
     isLoadingMore = true;
@@ -48,7 +48,7 @@ class FavDetailController extends GetxController {
         favList.addAll(res['data'].medias);
       }
       if (favList.length >= mediaCount) {
-        loadingText.value = '没有更多了';
+        loadingText.value = 'Nothing Here';
       }
     }
     currentPage += 1;
@@ -58,7 +58,10 @@ class FavDetailController extends GetxController {
 
   onCancelFav(int id) async {
     var result = await VideoHttp.favVideo(
-        aid: id, addIds: '', delIds: mediaId.toString());
+      aid: id,
+      addIds: '',
+      delIds: mediaId.toString(),
+    );
     if (result['status']) {
       List dataList = favList;
       for (var i in dataList) {

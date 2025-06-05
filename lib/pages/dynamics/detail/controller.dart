@@ -33,11 +33,14 @@ class DynamicDetailController extends GetxController {
     item = Get.arguments['item'];
     floor = Get.arguments['floor'];
     if (floor == 1) {
-      acount.value =
-          int.parse(item!.modules!.moduleStat!.comment!.count ?? '0');
+      acount.value = int.parse(
+        item!.modules!.moduleStat!.comment!.count ?? '0',
+      );
     }
-    int defaultReplySortIndex =
-        setting.get(SettingBoxKey.replySortType, defaultValue: 0);
+    int defaultReplySortIndex = setting.get(
+      SettingBoxKey.replySortType,
+      defaultValue: 0,
+    );
     if (defaultReplySortIndex == 2) {
       setting.put(SettingBoxKey.replySortType, 0);
       defaultReplySortIndex = 0;
@@ -53,7 +56,7 @@ class DynamicDetailController extends GetxController {
       noMore.value = "";
     }
     if (isLoadingMore) return;
-    if (noMore.value == '没有更多了') return;
+    if (noMore.value == 'Nothing Here') return;
     isLoadingMore = true;
     var res = await ReplyHttp.replyList(
       oid: oid!,
@@ -69,18 +72,19 @@ class DynamicDetailController extends GetxController {
       if (replies.isNotEmpty) {
         noMore.value = '加载中...';
         if (res['data'].cursor.isEnd == true) {
-          noMore.value = '没有更多了';
+          noMore.value = 'Nothing Here';
         }
       } else {
-        noMore.value =
-            nextOffset == "" && reqType == 'init' ? '还没有评论' : '没有更多了';
+        noMore.value = nextOffset == "" && reqType == 'init'
+            ? '还没有评论'
+            : 'Nothing Here';
       }
       if (reqType == 'init') {
         // 添加置顶回复
         if (res['data'].upper.top != null) {
-          bool flag = res['data']
-              .topReplies
-              .any((reply) => reply.rpid == res['data'].upper.top.rpid);
+          bool flag = res['data'].topReplies.any(
+            (reply) => reply.rpid == res['data'].upper.top.rpid,
+          );
           if (!flag) {
             replies.insert(0, res['data'].upper.top);
           }

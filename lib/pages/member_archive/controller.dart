@@ -9,13 +9,13 @@ class MemberArchiveController extends GetxController {
   final int mid;
   int pn = 1;
   int count = 0;
-  String episodicButtonText = "播放全部";
+  String episodicButtonText = "Play All";
   String episodicButtonUri = "";
   RxMap<String, String> currentOrder = <String, String>{}.obs;
   List<Map<String, String>> orderList = [
-    {'type': 'pubdate', 'label': '最新发布'},
-    {'type': 'click', 'label': '最多播放'},
-    {'type': 'stow', 'label': '最多收藏'},
+    {'type': 'pubdate', 'label': 'Latest'},
+    {'type': 'click', 'label': 'Most Viewed'},
+    {'type': 'stow', 'label': 'Most Favorited'},
   ];
   RxList<VListItemModel> archivesList = <VListItemModel>[].obs;
 

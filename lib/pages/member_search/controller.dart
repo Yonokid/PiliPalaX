@@ -55,7 +55,7 @@ class MemberSearchController extends GetxController {
 
   // 搜索视频
   Future searchArchives({type = 'init'}) async {
-    if (type == 'onLoad' && loadingText.value == '没有更多了') {
+    if (type == 'onLoad' && loadingText.value == 'Nothing Here') {
       return;
     }
     var res = await MemberHttp.memberArchive(
@@ -72,7 +72,7 @@ class MemberSearchController extends GetxController {
       }
       archiveCount = res['data'].page['count'];
       if (archiveList.length == archiveCount) {
-        loadingText.value = '没有更多了';
+        loadingText.value = 'Nothing Here';
       }
       archivePn += 1;
       hasRequest = true;
