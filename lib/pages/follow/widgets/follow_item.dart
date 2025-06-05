@@ -20,8 +20,10 @@ class FollowItem extends StatelessWidget {
     return ListTile(
       onTap: () {
         feedBack();
-        Get.toNamed('/member?mid=${item.mid}',
-            arguments: {'face': item.face, 'heroTag': heroTag});
+        Get.toNamed(
+          '/member?mid=${item.mid}',
+          arguments: {'face': item.face, 'heroTag': heroTag},
+        );
       },
       leading: Hero(
         tag: heroTag,
@@ -38,11 +40,7 @@ class FollowItem extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         style: const TextStyle(fontSize: 14),
       ),
-      subtitle: Text(
-        item.sign!,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      ),
+      subtitle: Text(item.sign!, maxLines: 1, overflow: TextOverflow.ellipsis),
       dense: true,
       trailing: ctr != null && ctr!.isOwner.value
           ? SizedBox(
@@ -54,13 +52,11 @@ class FollowItem extends StatelessWidget {
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   foregroundColor: Theme.of(context).colorScheme.outline,
-                  backgroundColor:
-                      Theme.of(context).colorScheme.onInverseSurface, // 设置按钮背景色
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.onInverseSurface, // 设置按钮背景色
                 ),
-                child: const Text(
-                  '已关注',
-                  style: TextStyle(fontSize: 12),
-                ),
+                child: const Text('Followed', style: TextStyle(fontSize: 12)),
               ),
             )
           : const SizedBox(),

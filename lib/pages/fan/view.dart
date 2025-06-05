@@ -29,16 +29,14 @@ class _FansPageState extends State<FansPage> {
     mid = Get.parameters['mid']!;
     _fansController = Get.put(FansController(), tag: mid);
     _futureBuilderFuture = _fansController.queryFans('init');
-    scrollController.addListener(
-      () async {
-        if (scrollController.position.pixels >=
-            scrollController.position.maxScrollExtent - 200) {
-          EasyThrottle.throttle('follow', const Duration(seconds: 1), () {
-            _fansController.queryFans('onLoad');
-          });
-        }
-      },
-    );
+    scrollController.addListener(() async {
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent - 200) {
+        EasyThrottle.throttle('follow', const Duration(seconds: 1), () {
+          _fansController.queryFans('onLoad');
+        });
+      }
+    });
   }
 
   @override
@@ -56,7 +54,9 @@ class _FansPageState extends State<FansPage> {
         centerTitle: false,
         titleSpacing: 0,
         title: Text(
-          _fansController.isOwner.value ? '我的粉丝' : '${_fansController.name}的粉丝',
+          _fansController.isOwner.value
+              ? 'My Fans'
+              : '${_fansController.name} Fans',
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
@@ -65,56 +65,56 @@ class _FansPageState extends State<FansPage> {
         edgeOffset: 10.0,
         onRefresh: () async => await _fansController.queryFans('init'),
         child: CustomScrollView(
-            cacheExtent: 3500,
-            physics: const AlwaysScrollableScrollPhysics(),
-            controller: scrollController,
-            slivers: [
-              FutureBuilder(
-                future: _futureBuilderFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done &&
-                      snapshot.data != null) {
-                    var data = snapshot.data;
-                    if (data['status']) {
-                      return Obx(() {
-                        List<FansItemModel> list = _fansController.fansList;
-                        return list.isNotEmpty
-                            ? SliverGrid(
-                                gridDelegate:
-                                    SliverGridDelegateWithMaxCrossAxisExtent(
-                                        mainAxisSpacing: StyleString.cardSpace,
-                                        crossAxisSpacing: StyleString.safeSpace,
-                                        maxCrossAxisExtent:
-                                            Grid.maxRowWidth * 2,
-                                        mainAxisExtent: 56),
-                                delegate: SliverChildBuilderDelegate(
-                                  (BuildContext context, int index) {
-                                    return fanItem(item: list[index]);
-                                  },
-                                  childCount: list.length,
-                                ))
-                            : const NoData();
-                      });
-                    } else {
-                      return HttpError(
-                        errMsg: data['msg'],
-                        fn: () => _fansController.queryFans('init'),
-                      );
-                    }
+          cacheExtent: 3500,
+          physics: const AlwaysScrollableScrollPhysics(),
+          controller: scrollController,
+          slivers: [
+            FutureBuilder(
+              future: _futureBuilderFuture,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.data != null) {
+                  var data = snapshot.data;
+                  if (data['status']) {
+                    return Obx(() {
+                      List<FansItemModel> list = _fansController.fansList;
+                      return list.isNotEmpty
+                          ? SliverGrid(
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                    mainAxisSpacing: StyleString.cardSpace,
+                                    crossAxisSpacing: StyleString.safeSpace,
+                                    maxCrossAxisExtent: Grid.maxRowWidth * 2,
+                                    mainAxisExtent: 56,
+                                  ),
+                              delegate: SliverChildBuilderDelegate((
+                                BuildContext context,
+                                int index,
+                              ) {
+                                return fanItem(item: list[index]);
+                              }, childCount: list.length),
+                            )
+                          : const NoData();
+                    });
                   } else {
-                    // 骨架屏
-                    return const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 200,
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      ),
+                    return HttpError(
+                      errMsg: data['msg'],
+                      fn: () => _fansController.queryFans('init'),
                     );
                   }
-                },
-              ),
-            ]),
+                } else {
+                  // 骨架屏
+                  return const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 200,
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                  );
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

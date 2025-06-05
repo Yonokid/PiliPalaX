@@ -132,7 +132,9 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
               TextButton(
                 onPressed: () async {
                   final res = await MemberHttp.addUsers(
-                      mid, specialFollowed ? '0' : '-10');
+                    mid,
+                    specialFollowed ? '0' : '-10',
+                  );
                   SmartDialog.showToast(res['msg']);
                   if (res['status']) {
                     specialFollowed = !specialFollowed;
@@ -186,23 +188,23 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
     attribute.value = memberInfo.value.card!.relationStatus!;
     switch (attribute.value) {
       case 2:
-        attributeText.value = '已关注';
+        attributeText.value = 'Following';
         break;
       case 3:
-        attributeText.value = '被关注';
+        attributeText.value = 'Follows you';
         break;
       case 4:
-        attributeText.value = '已互粉';
+        attributeText.value = 'Mutuals';
         break;
       case 5:
-        attributeText.value = '已特关';
+        attributeText.value = 'Special Follow';
         break;
       case 128:
-        attributeText.value = '已拉黑';
+        attributeText.value = 'Blocked';
         break;
       case -999:
       default:
-        attributeText.value = '关注';
+        attributeText.value = 'Follow';
     }
   }
 
@@ -236,14 +238,16 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
                 );
                 if (res['status']) {
                   attribute.value = attribute.value != 128 ? 128 : 0;
-                  attributeText.value = attribute.value == 128 ? '已拉黑' : '关注';
+                  attributeText.value = attribute.value == 128
+                      ? 'Blocked'
+                      : 'Follow';
                   memberInfo.value.card!.isFollow = false;
                   relationSearch();
                   memberInfo.update((val) {});
                 }
               },
-              child: const Text('确认'),
-            )
+              child: const Text('Default'),
+            ),
           ],
         );
       },
@@ -251,7 +255,9 @@ class MemberController extends GetxController with GetTickerProviderStateMixin {
   }
 
   void shareUser() {
-    Share.share('${memberInfo.value.card!.name} - https://space.bilibili.com/$mid');
+    Share.share(
+      '${memberInfo.value.card!.name} - https://space.bilibili.com/$mid',
+    );
   }
 
   // 请求投币视频

@@ -29,8 +29,9 @@ class ProfilePanel extends StatelessWidget {
                     width: 90,
                     height: 90,
                     type: 'avatar',
-                    src:
-                        !loadingStatus ? memberInfo.card!.face : ctr.face.value,
+                    src: !loadingStatus
+                        ? memberInfo.card!.face
+                        : ctr.face.value,
                   ),
                   if (!loadingStatus &&
                       memberInfo.liveRoom != null &&
@@ -55,27 +56,27 @@ class ProfilePanel extends StatelessWidget {
                           padding: const EdgeInsets.fromLTRB(6, 2, 6, 2),
                           decoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.primary,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: Row(children: [
-                            Image.asset(
-                              'assets/images/live.gif',
-                              height: 10,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
                             ),
-                            Text(
-                              ' 直播中',
-                              style: TextStyle(
+                          ),
+                          child: Row(
+                            children: [
+                              Image.asset('assets/images/live.gif', height: 10),
+                              Text(
+                                ' 直播中',
+                                style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: Theme.of(context)
-                                      .textTheme
-                                      .labelSmall!
-                                      .fontSize),
-                            )
-                          ]),
+                                  fontSize: Theme.of(
+                                    context,
+                                  ).textTheme.labelSmall!.fontSize,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    )
+                    ),
                 ],
               ),
             ),
@@ -85,8 +86,11 @@ class ProfilePanel extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 10, left: 10, right: 10),
+                    padding: const EdgeInsets.only(
+                      top: 10,
+                      left: 10,
+                      right: 10,
+                    ),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -94,7 +98,8 @@ class ProfilePanel extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             Get.toNamed(
-                                '/follow?mid=${memberInfo.card!.mid}&name=${memberInfo.card!.name}');
+                              '/follow?mid=${memberInfo.card!.mid}&name=${memberInfo.card!.name}',
+                            );
                           },
                           child: Column(
                             children: [
@@ -103,70 +108,78 @@ class ProfilePanel extends StatelessWidget {
                                     ? memberInfo.card!.attention.toString()
                                     : '-',
                                 style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               Text(
-                                '关注',
+                                'Following',
                                 style: TextStyle(
-                                    fontSize: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium!
-                                        .fontSize),
-                              )
+                                  fontSize: Theme.of(
+                                    context,
+                                  ).textTheme.labelMedium!.fontSize,
+                                ),
+                              ),
                             ],
                           ),
                         ),
                         InkWell(
                           onTap: () {
                             Get.toNamed(
-                                '/fan?mid=${memberInfo.card!.mid}&name=${memberInfo.card!.name}');
+                              '/fan?mid=${memberInfo.card!.mid}&name=${memberInfo.card!.name}',
+                            );
                           },
                           child: Column(
                             children: [
                               Text(
-                                  !loadingStatus
-                                      ? memberInfo.card!.fans != null
+                                !loadingStatus
+                                    ? memberInfo.card!.fans != null
                                           ? Utils.numFormat(
                                               memberInfo.card!.fans,
                                             )
                                           : '-'
-                                      : '-',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold)),
+                                    : '-',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                               Text(
-                                '粉丝',
+                                'Fans',
                                 style: TextStyle(
-                                    fontSize: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium!
-                                        .fontSize),
-                              )
+                                  fontSize: Theme.of(
+                                    context,
+                                  ).textTheme.labelMedium!.fontSize,
+                                ),
+                              ),
                             ],
                           ),
                         ),
                         InkWell(
-                            onTap: null,
-                            child: Column(
-                              children: [
-                                Text(
-                                    !loadingStatus
-                                        ? memberInfo.card!.likes != null
-                                            ? Utils.numFormat(
-                                                memberInfo.card!.likes)
-                                            : '-'
-                                        : '-',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold)),
-                                Text(
-                                  '获赞',
-                                  style: TextStyle(
-                                      fontSize: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium!
-                                          .fontSize),
-                                )
-                              ],
-                            )),
+                          onTap: null,
+                          child: Column(
+                            children: [
+                              Text(
+                                !loadingStatus
+                                    ? memberInfo.card!.likes != null
+                                          ? Utils.numFormat(
+                                              memberInfo.card!.likes,
+                                            )
+                                          : '-'
+                                    : '-',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'Liked',
+                                style: TextStyle(
+                                  fontSize: Theme.of(
+                                    context,
+                                  ).textTheme.labelMedium!.fontSize,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -182,17 +195,15 @@ class ProfilePanel extends StatelessWidget {
                                 foregroundColor: ctr.attribute.value == -1
                                     ? Colors.transparent
                                     : ctr.attribute.value != 0
-                                        ? Theme.of(context).colorScheme.outline
-                                        : Theme.of(context)
-                                            .colorScheme
-                                            .onPrimary,
+                                    ? Theme.of(context).colorScheme.outline
+                                    : Theme.of(context).colorScheme.onPrimary,
                                 backgroundColor: ctr.attribute.value != 0
-                                    ? Theme.of(context)
-                                        .colorScheme
-                                        .onInverseSurface
-                                    : Theme.of(context)
-                                        .colorScheme
-                                        .primary, // 设置按钮背景色
+                                    ? Theme.of(
+                                        context,
+                                      ).colorScheme.onInverseSurface
+                                    : Theme.of(
+                                        context,
+                                      ).colorScheme.primary, // 设置按钮背景色
                               ),
                               child: Obx(() => Text(ctr.attributeText.value)),
                             ),
@@ -213,44 +224,49 @@ class ProfilePanel extends StatelessWidget {
                               );
                             },
                             style: TextButton.styleFrom(
-                              backgroundColor: Theme.of(context)
-                                  .colorScheme
-                                  .onInverseSurface,
+                              backgroundColor: Theme.of(
+                                context,
+                              ).colorScheme.onInverseSurface,
                             ),
-                            child: const Text('发消息'),
+                            child: const Text('Message'),
                           ),
-                        )
+                        ),
                       ],
-                    )
+                    ),
                   ],
                   if (ctr.ownerMid == ctr.mid && ctr.ownerMid != -1) ...[
                     TextButton(
                       onPressed: () {
-                        Get.toNamed('/webview', parameters: {
-                          'url': 'https://account.bilibili.com/account/home',
-                          'pageTitle': '个人中心（建议浏览器打开）',
-                          'type': 'url'
-                        });
+                        Get.toNamed(
+                          '/webview',
+                          parameters: {
+                            'url': 'https://account.bilibili.com/account/home',
+                            'pageTitle': '个人中心（建议浏览器打开）',
+                            'type': 'url',
+                          },
+                        );
                       },
                       style: TextButton.styleFrom(
-                        foregroundColor:
-                            Theme.of(context).colorScheme.onPrimary,
+                        foregroundColor: Theme.of(
+                          context,
+                        ).colorScheme.onPrimary,
                         backgroundColor: Theme.of(context).colorScheme.primary,
                       ),
-                      child: const Text(' 个人中心(web) '),
-                    )
+                      child: const Text(' My Profile (web) '),
+                    ),
                   ],
                   if (ctr.ownerMid == -1) ...[
                     TextButton(
                       onPressed: () {},
                       style: TextButton.styleFrom(
                         foregroundColor: Theme.of(context).colorScheme.outline,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.onInverseSurface,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.onInverseSurface,
                       ),
-                      child: const Text(' 未登录 '),
-                    )
-                  ]
+                      child: const Text(' Not Logged In '),
+                    ),
+                  ],
                 ],
               ),
             ),

@@ -72,7 +72,8 @@ class _MemberPageState extends State<MemberPage>
           IconButton(
             tooltip: '搜索',
             onPressed: () => Get.toNamed(
-                '/memberSearch?mid=$mid&uname=${_memberController.memberInfo.value.card!.name!}'),
+              '/memberSearch?mid=$mid&uname=${_memberController.memberInfo.value.card!.name!}',
+            ),
             icon: const Icon(Icons.search_outlined),
           ),
           PopupMenuButton(
@@ -86,12 +87,14 @@ class _MemberPageState extends State<MemberPage>
                     children: [
                       const Icon(Icons.block, size: 19),
                       const SizedBox(width: 10),
-                      Text(_memberController.attribute.value != 128
-                          ? '加入黑名单'
-                          : '移除黑名单'),
+                      Text(
+                        _memberController.attribute.value != 128
+                            ? '加入黑名单'
+                            : '移除黑名单',
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
               PopupMenuItem(
                 onTap: () => _memberController.shareUser(),
@@ -100,9 +103,11 @@ class _MemberPageState extends State<MemberPage>
                   children: [
                     const Icon(Icons.share_outlined, size: 19),
                     const SizedBox(width: 10),
-                    Text(_memberController.ownerMid != _memberController.mid
-                        ? '分享UP主'
-                        : '分享我的主页'),
+                    Text(
+                      _memberController.ownerMid != _memberController.mid
+                          ? '分享UP主'
+                          : '分享我的主页',
+                    ),
                   ],
                 ),
               ),
@@ -113,11 +118,14 @@ class _MemberPageState extends State<MemberPage>
                   );
                   SmartDialog.showToast('已复制${_memberController.mid}至剪贴板');
                 },
-                child: Row(mainAxisSize: MainAxisSize.min, children: [
-                  const Icon(Icons.copy, size: 19),
-                  const SizedBox(width: 10),
-                  Text('复制UID：${_memberController.mid}')
-                ]),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.copy, size: 19),
+                    const SizedBox(width: 10),
+                    Text('复制UID：${_memberController.mid}'),
+                  ],
+                ),
               ),
             ],
           ),
@@ -127,9 +135,7 @@ class _MemberPageState extends State<MemberPage>
         floatHeaderSlivers: false,
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            SliverToBoxAdapter(
-              child: profileWidget(isHorizontal),
-            ),
+            SliverToBoxAdapter(child: profileWidget(isHorizontal)),
             SliverPersistentHeader(
               delegate: _MySliverPersistentHeaderDelegate(
                 child: ColoredBox(
@@ -139,9 +145,9 @@ class _MemberPageState extends State<MemberPage>
                     tabAlignment: TabAlignment.center,
                     isScrollable: true,
                     tabs: const [
-                      Tab(text: '动态'),
-                      Tab(text: '投稿'),
-                      Tab(text: '合集/列表'),
+                      Tab(text: 'Posts'),
+                      Tab(text: 'Videos'),
+                      Tab(text: 'Playlists'),
                       // Tab(text: '图文'),
                       // Tab(text: '收藏'),
                       // Tab(text: '投币'),
@@ -186,8 +192,9 @@ class _MemberPageState extends State<MemberPage>
             if (data['status']) {
               return Obx(
                 () => Stack(
-                    alignment: AlignmentDirectional.center,
-                    children: [profilePanelAndDetailInfo(isHorizontal, false)]),
+                  alignment: AlignmentDirectional.center,
+                  children: [profilePanelAndDetailInfo(isHorizontal, false)],
+                ),
               );
             } else {
               return profilePanelAndDetailInfo(isHorizontal, true);
@@ -207,8 +214,11 @@ class _MemberPageState extends State<MemberPage>
       return Row(
         children: [
           Expanded(
-              child: ProfilePanel(
-                  ctr: _memberController, loadingStatus: loadingStatus)),
+            child: ProfilePanel(
+              ctr: _memberController,
+              loadingStatus: loadingStatus,
+            ),
+          ),
           const SizedBox(width: 20),
           Expanded(child: profileDetailInfo()),
         ],
@@ -231,62 +241,92 @@ class _MemberPageState extends State<MemberPage>
         Row(
           children: [
             Flexible(
-                child: Text(
-              _memberController.memberInfo.value.card?.name ?? '',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(fontWeight: FontWeight.bold, height: 2),
-            )),
+              child: Text(
+                _memberController.memberInfo.value.card?.name ?? '',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontWeight: FontWeight.bold,
+                  height: 2,
+                ),
+              ),
+            ),
             const SizedBox(width: 4),
             if (_memberController.memberInfo.value.card?.level != null)
               Image.asset(
                 'assets/images/lv/lv${_memberController.memberInfo.value.card!.level}.png',
                 height: 11,
-                semanticLabel: '等级${_memberController.memberInfo.value.card!.level}',
+                semanticLabel:
+                    '等级${_memberController.memberInfo.value.card!.level}',
               ),
             const SizedBox(width: 6),
             if (_memberController.memberInfo.value.card?.vip?.status == 1) ...[
               if (_memberController
-                      .memberInfo.value.card!.vip?.label?['image'] !=
+                      .memberInfo
+                      .value
+                      .card!
+                      .vip
+                      ?.label?['image'] !=
                   '')
                 Image.network(
-                  _memberController
-                      .memberInfo.value.card!.vip!.label!['image'],
+                  _memberController.memberInfo.value.card!.vip!.label!['image'],
                   height: 20,
-                  semanticLabel:
-                      _memberController.memberInfo.value.card!.vip!.label!['text'],
+                  semanticLabel: _memberController
+                      .memberInfo
+                      .value
+                      .card!
+                      .vip!
+                      .label!['text'],
                 )
-              else if (_memberController.memberInfo.value.card!.vip
+              else if (_memberController
+                      .memberInfo
+                      .value
+                      .card!
+                      .vip
                       ?.label?['img_label_uri_hans_static'] !=
                   '')
                 Image.network(
-                  _memberController.memberInfo.value.card!.vip!
+                  _memberController
+                      .memberInfo
+                      .value
+                      .card!
+                      .vip!
                       .label!['img_label_uri_hans_static'],
                   height: 20,
-                  semanticLabel:
-                      _memberController.memberInfo.value.card!.vip!.label!['text'],
+                  semanticLabel: _memberController
+                      .memberInfo
+                      .value
+                      .card!
+                      .vip!
+                      .label!['text'],
                 ),
             ],
           ],
         ),
         if (_memberController.memberInfo.value.card?.officialVerify != null &&
-            _memberController.memberInfo.value.card?.officialVerify!['title'] != '') ...[
+            _memberController.memberInfo.value.card?.officialVerify!['title'] !=
+                '') ...[
           // const SizedBox(height: 2),
           Text.rich(
             maxLines: 2,
             TextSpan(
-              text: _memberController.memberInfo.value.card!.officialVerify!['role'] == 1
+              text:
+                  _memberController
+                          .memberInfo
+                          .value
+                          .card!
+                          .officialVerify!['role'] ==
+                      1
                   ? '个人认证：'
                   : '机构认证：',
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-              ),
+              style: TextStyle(color: Theme.of(context).primaryColor),
               children: [
                 TextSpan(
-                  text: _memberController.memberInfo.value.card!.officialVerify!['title'],
+                  text: _memberController
+                      .memberInfo
+                      .value
+                      .card!
+                      .officialVerify!['title'],
                 ),
               ],
             ),
@@ -294,9 +334,7 @@ class _MemberPageState extends State<MemberPage>
           ),
         ],
         const SizedBox(height: 6),
-        SelectableText(
-          _memberController.memberInfo.value.card?.sign ?? '',
-        ),
+        SelectableText(_memberController.memberInfo.value.card?.sign ?? ''),
       ],
     );
   }
@@ -311,7 +349,10 @@ class _MySliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     //创建child子组件
     //shrinkOffset：child偏移值minExtent~maxExtent
     //overlapsContent：SliverPersistentHeader覆盖其他子组件返回true，否则返回false

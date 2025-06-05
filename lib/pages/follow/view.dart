@@ -34,15 +34,15 @@ class _FollowPageState extends State<FollowPage> {
         centerTitle: false,
         title: Text(
           _followController.isOwner.value
-              ? '我的关注'
-              : '${_followController.name}的关注',
+              ? 'Following'
+              : '${_followController.name} Following',
           style: Theme.of(context).textTheme.titleMedium,
         ),
         actions: [
           IconButton(
             onPressed: () => Get.toNamed('/followSearch?mid=$mid'),
             icon: const Icon(Icons.search_outlined),
-            tooltip: '搜索'
+            tooltip: '搜索',
           ),
           PopupMenuButton(
             icon: const Icon(Icons.more_vert),
@@ -57,7 +57,7 @@ class _FollowPageState extends State<FollowPage> {
                     Text('黑名单管理'),
                   ],
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(width: 6),
@@ -75,27 +75,30 @@ class _FollowPageState extends State<FollowPage> {
                       return Column(
                         children: [
                           TabBar(
-                              controller: _followController.tabController,
-                              isScrollable: true,
-                              tabAlignment: TabAlignment.start,
-                              tabs: [
-                                for (var i in data['data']) ...[
-                                  Tab(text: i.name),
-                                ]
-                              ]),
+                            controller: _followController.tabController,
+                            isScrollable: true,
+                            tabAlignment: TabAlignment.start,
+                            tabs: [
+                              for (var i in data['data']) ...[
+                                Tab(text: i.name),
+                              ],
+                            ],
+                          ),
                           Expanded(
                             child: TabBarView(
                               physics: const CustomTabBarViewScrollPhysics(),
                               controller: _followController.tabController,
                               children: [
-                                for (var i = 0;
-                                    i < _followController.tabController.length;
-                                    i++) ...[
+                                for (
+                                  var i = 0;
+                                  i < _followController.tabController.length;
+                                  i++
+                                ) ...[
                                   OwnerFollowList(
                                     ctr: _followController,
                                     tagItem: _followController.followTags[i],
-                                  )
-                                ]
+                                  ),
+                                ],
                               ],
                             ),
                           ),
@@ -123,7 +126,8 @@ class _FakeAPI {
   // Searches the options, but injects a fake "network" delay.
   static Future<Iterable<String>> search(String query) async {
     await Future<void>.delayed(
-        const Duration(seconds: 1)); // Fake 1 second delay.
+      const Duration(seconds: 1),
+    ); // Fake 1 second delay.
     if (query == '') {
       return const Iterable<String>.empty();
     }
